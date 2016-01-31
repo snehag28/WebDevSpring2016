@@ -56,23 +56,81 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1>Forms</h1>
+            <h1>Forms : Registration Form</h1>
             <div>
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation"><a href="forms.html" aria-controls="forms" role="tab">Forms</a></li>
                     <li role="presentation" class="active"><a href="#forms-fields" aria-controls="forms" role="tab" data-toggle="tab">Fields</a></li>
-
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="forms">
+                    <div role="tabpanel" class="tab-pane" id="forms">
 
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="form-fields">
-
+                    <div role="tabpanel" class="tab-pane active" id="form-fields">
+                        <br>
+                        <form>
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input type="text" class="form-control" id="firstname" placeholder="First Name">
+                                <a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="dateofbirth">Date of Birth</label>
+                                <input type="date" class="form-control" id="dateofbirth">
+                            </div>
+                            <label>Gender</label>
+                            <select class="form-control">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <br>
+                            <label>Roles</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="admin">Admin
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="Student">Student
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="User">User
+                                </label>
+                            </div>
+                            <br>
+                            <label>License Agreement</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="yes" value="yes" checked>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="no" value="no">
+                                    No
+                                </label>
+                            </div>
+                            <hr>
+                            <label>Add New Field</label>
+                            <select class="form-control">
+                                <option value="singleLineText">Single Line Text</option>
+                                <option value="dropdown">Dropdown</option>
+                                <option value="radioButtons">Radio Buttons</option>
+                                <option value="checkBox">Check Box</option>
+                            </select>
+                        </form>
                     </div>
 
                 </div>
