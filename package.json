@@ -9,14 +9,14 @@
     "openshift"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name": "Sneha Gaikwad",
+    "email": "snehag28@ccs.neu.edu",
+    "url": "http://webdev2016-gaikwadsneha.rhcloud.com/"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "http://webdev2016-gaikwadsneha.rhcloud.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "url": "https://github.com/snehag28/WebDevSpring2016"
   },
   "engines": {
     "node": ">= 0.6.0",
