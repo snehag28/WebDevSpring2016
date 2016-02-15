@@ -1,3 +1,10 @@
-/**
- * Created by snehagaikwad on 2/13/16.
- */
+'use strict';
+(function (){
+    angular
+        .module("FormBuilderApp", ["ngRoute"])
+        .controller("HeaderController",HeaderController);
+
+    function HeaderController(){
+        console.log("Hello from header controller!");
+    }
+})();
