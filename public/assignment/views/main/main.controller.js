@@ -1,7 +1,7 @@
 'use strict';
 (function (){
     angular
-        .module("FormBuilderApp",["ngRoute"])
+        .module("FormBuilderApp")
         .controller("MainController", MainController);
 
     function MainController() {
