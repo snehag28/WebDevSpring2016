@@ -16,11 +16,11 @@
             })
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
-                //controller: "ProfileController"
+                controller: "ProfileController"
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
-                //controller: "LoginController"
+                controller: "LoginController"
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
@@ -28,7 +28,7 @@
             })
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
-                //controller: "FormController"
+                controller: "FormController"
             })
             .when("/fields", {
                 templateUrl: "views/forms/fields.view.html",

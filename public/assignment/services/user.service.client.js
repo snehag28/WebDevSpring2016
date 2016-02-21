@@ -51,6 +51,8 @@
             if (typeof callback === "function") {
                 callback(userObj);
             }
+
+            return userObj;
         }
 
         function findAllUsers(callback) {

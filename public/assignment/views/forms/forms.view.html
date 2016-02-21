@@ -25,33 +25,22 @@
                             </tr>
                             </thead>
                             <tr>
-                                <td><input type="text" class="form-control" id="username" placeholder="name"></td>
+                                <td><input ng-models="form.title" type="text" class="form-control" id="title" placeholder="name"></td>
                                 <td>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-plus"></span></a>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a ng-click="addForm()" class="btn btn-small"><span class="glyphicon glyphicon-plus"></span></a>
+                                    <a ng-click="updateForm()" class="btn btn-small"><span class="glyphicon glyphicon-ok"></span></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><a href="fields.view.html">Registration Form</a></td>
+                            <tbody>
+                            <tr ng-repeat="form in forms"
+                                ng-class="{'success' : $index == selectedFormIndex}">
+                                <td>{{form.title}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a ng-click="deleteForm($index)" class="btn btn-small"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a ng-click="selectForm($index)" class="btn btn-small"><span class="glyphicon glyphicon-pencil"></span></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><a href="fields.view.html">Contact List</a></td>
-                                <td>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="fields.view.html">To-Do List</a></td>
-                                <td>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <a href="#" class="btn btn-small"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </td>
-                            </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="form-fields">
