@@ -30,7 +30,7 @@
         ];
 
         var service = {
-            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
+            findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -39,19 +39,19 @@
 
         return service;
 
-        function findUserByUsernameAndPassword(username, password, callback) {
+        function findUserByCredentials(username, password, callback) {
             var userObj = null;
+            console.log("in findUserByCrendentials");
             //Iterates over the array of current users looking for user object whose username and password match the parameters
-            for (var user in users) {
-                if (user.username == username && user.password == password) {
-                    userObj = user;
+            for (var index in users) {
+                if (users[index].username == username && users[index].password == password) {
+                    userObj = users[index];
                 }
             }
             //Calls back with user found or null otherwise
             if (typeof callback === "function") {
                 callback(userObj);
             }
-
             return userObj;
         }
 
@@ -79,6 +79,7 @@
             if (typeof callback === "function") {
                 callback(newUser);
             }
+            return newUser;
         }
 
         function deleteUserById(userId, callback) {

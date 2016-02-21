@@ -5,14 +5,15 @@
         .module("FormBuilderApp")
         .controller("RegisterController",RegisterController);
 
-    function RegisterController($scope,$location,UserService){
+    function RegisterController($scope,$location,$rootScope,UserService){
         console.log("Hello from register controller!");
         $scope.$location = $location;
 
         $scope.register = register;
+        return register;
 
         function register(newUser){
-            UserService.createUser(newUser);
+            $rootScope = UserService.createUser(newUser);
         }
     }
 })();

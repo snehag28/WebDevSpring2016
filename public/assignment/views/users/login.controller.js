@@ -8,8 +8,11 @@
     function LoginController($scope,$location,$rootScope,UserService){
         console.log("Hello from login controller!");
 
+        $scope.login = login;
+        return login;
+
         function login(user){
-            var userObj = UserService.findUserByUsernameAndPassword(user.username,user.password);
+            var userObj = UserService.findUserByCredentials(user.username,user.password);
             if(userObj != null){
                 $rootScope = userObj;
                 $scope.$location = $location;

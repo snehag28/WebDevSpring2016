@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("MainController", MainController);
 
-    function MainController() {
-        console.log("Hello from MainController!");
+    function MainController($scope,$location) {
+        $scope.$location = $location;
     }
 })();
