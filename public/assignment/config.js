@@ -34,6 +34,10 @@
                 templateUrl: "views/forms/fields.view.html",
                 //controller: "FieldController"
             })
+            .when("/logout", {
+                templateUrl: "views/home/home.view.html",
+                controller: "HomeController"
+            })
             .otherwise({
                 redirectTo: "/home"
             });

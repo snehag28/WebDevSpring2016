@@ -12,11 +12,21 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/register">Register</a></li>
-                <li><a href="#/login">Login</a></li>
-                <li><a href="#/profile">Username</a></li>
-                <li><a href="#/admin">Admin</a></li>
-                <li><a href="#/home">Logout</a></li>
+                <li ng-class="{'active' : $location.url().indexOf('register') != -1}">
+                    <a ng-show="!user" href="#/register">Register</a>
+                </li>
+                <li ng-class="{'active' : $location.url().indexOf('login') != -1}">
+                    <a ng-show="!user" href="#/login">Login</a>
+                </li>
+                <li ng-class="{'active' : $location.url().indexOf('profile') != -1}">
+                    <a ng-show="user" href="#/profile">{{user.username}}</a>
+                </li>
+                <li ng-class="{'active' : $location.url().indexOf('admin') != -1}">
+                    <a ng-show="user && user.roles.indexOf('admin') >=0" href="#/admin">Admin</a>
+                </li>
+                <li>
+                    <a ng-show="user" ng-click="logout()" href="#/home">Logout</a>
+                </li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
