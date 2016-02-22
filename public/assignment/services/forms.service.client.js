@@ -26,14 +26,16 @@
             //Adds property called _id with unique id. You can use (new Date).getTime() to retrive a unique number
             var _id = (new Date).getTime();
             //Adds property called userId equal to user id parameter
-            var newForm = {"_id": _id, "title": form, "userId": userId};
+            form._id = _id;
+            form.userId = userId;
             //Adds new form to local array of forms
-            forms.push(newForm);
+            forms.push(form);
             //Calls back with new form
             if (typeof callback == "function") {
-                callback(newForm);
+                callback(form);
             }
-            return newForm;
+            console.log(forms);
+            return form;
         }
 
         function findAllFormsForUser(userId, callback) {

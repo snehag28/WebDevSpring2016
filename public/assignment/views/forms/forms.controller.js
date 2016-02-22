@@ -5,10 +5,9 @@
         .controller("FormController",FormController);
 
     function FormController($scope,$rootScope,FormService){
-        console.log("hello from formController!");
-        console.log($rootScope.user._id);
+
         $scope.forms = FormService.findAllFormsForUser($rootScope.user._id);
-        console.log("forms array is:"+$scope.forms);
+        $scope.selectedFormIndex = null;
 
         $scope.addForm = addForm;
         $scope.updateForm = updateForm;
@@ -17,12 +16,17 @@
 
         function addForm(form){
             var newForm = FormService.createFormForUser($rootScope.user._id,form);
+            console.log("newForm:"+newForm);
             $scope.forms.push(newForm);
+            $scope.selectedFormIndex = null;
+            $scope.newForm = {};
         }
 
         function updateForm(form){
             var updatedForm = FormService.updateFormById($scope.forms[$scope.selectedFormIndex]._id, form);
             $scope.forms[$scope.selectedFormIndex] = updatedForm;
+            $scope.selectedFormIndex = null;
+            $scope.newForm = {};
         }
 
         function deleteForm(index){
