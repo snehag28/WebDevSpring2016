@@ -14,7 +14,7 @@
         function login(user){
             var userObj = UserService.findUserByCredentials(user.username,user.password);
             if(userObj != null){
-                $rootScope = userObj;
+                $rootScope.user = userObj;
                 $scope.$location = $location;
             }
         }

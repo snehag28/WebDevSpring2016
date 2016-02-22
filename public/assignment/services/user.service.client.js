@@ -74,11 +74,12 @@
                 "email" : user.email
             };
             //Adds the new user to local array of users
-            users.concat(newUser);
+            users.push(newUser);
             //Calls back with new user
             if (typeof callback === "function") {
                 callback(newUser);
             }
+            console.log(users);
             return newUser;
         }
 
@@ -98,8 +99,12 @@
         }
 
         function findUserById(userId){
-            for (var user in users){
+            console.log("in findUserById:"+userId);
+            for (var index in users){
+                var user = users[index];
+                console.log("in findUserById for:"+user._id);
                 if(userId == user._id){
+                    console.log("in findUserById if:"+userId);
                     return user;
                 }
             }
@@ -111,9 +116,10 @@
             //Iterates over the array of current users looking for a user object
             // whose user id is equal to parameter user id
             var user = findUserById(userId);
+            console.log("in updateUser:"+userId);
             //If found, updates user with new user properties
             if(user != null){
-                user.firstName = newUSer.firstName;
+                user.firstName = newUser.firstName;
                 user.lastName = newUser.lastName;
                 user.username = newUser.username;
                 user.password = newUser.password;
@@ -123,6 +129,8 @@
             if (typeof callback === "function") {
                 callback(user);
             }
+
+            return user;
         }
     }
 })();

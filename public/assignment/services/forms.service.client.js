@@ -28,30 +28,36 @@
             //Adds property called userId equal to user id parameter
             var newForm = {"_id": _id, "title": form, "userId": userId};
             //Adds new form to local array of forms
-            forms.concat(newForm);
+            forms.push(newForm);
             //Calls back with new form
             if (typeof callback == "function") {
                 callback(newForm);
             }
+            return newForm;
         }
 
         function findAllFormsForUser(userId, callback) {
             //Accepts parameter user id, and callback function
             //Iterates over the array of current forms looking for forms whose user id is parameter user id
+            console.log("in findAllFormsForUser:"+userId);
             var formsForUser = [];
-            for (var form in forms) {
+            for (var index in forms) {
+                var form = forms[index];
                 if (form.userId == userId) {
-                    formsForUser.concat(form);
+                    formsForUser.push(form);
                 }
             }
             //Calls back with found forms for user id parameter, empty array otherwise
             if (typeof callback == "function") {
                 callback(formsForUser);
             }
+
+            return formsForUser;
         }
 
         function findFormById(formId) {
-            for (var form in forms) {
+            for (var index in forms) {
+                var form = forms[index];
                 if (formId == form._id) {
                     return form;
                 }
@@ -81,12 +87,13 @@
             //If found, updates form object with new form values
             if (form != null) {
                 form.title = newForm.title;
-                form.userId = newForm.userId;
             }
             //Calls back with update form
             if (typeof callback == "function") {
                 callback(form);
             }
+
+            return form;
         }
     }
 })();
