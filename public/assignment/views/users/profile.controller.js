@@ -5,15 +5,16 @@
         .module("FormBuilderApp")
         .controller("ProfileController",ProfileController);
 
-    function ProfileController($scope,$rootScope,UserService){
+    function ProfileController($scope,$rootScope,UserService) {
         console.log("Hello from profile controller!");
-        $scope.update = update;
-        return update;
 
-        function update(newUser){
-            console.log(newUser._id);
-            $rootScope.user = UserService.updateUser(newUser._id,newUser);
-            console.log($rootScope.user._id+", "+$rootScope.user.firstName+", "+$rootScope.user.lastName);
-        }
+        $scope.update = function (newUser) {
+            UserService.updateUser(newUser._id, newUser,
+                function (response) {
+                    $rootScope.user = response;
+                    console.log($rootScope.user._id + ", " + $rootScope.user.firstName + ", " + $rootScope.user.lastName);
+                }
+            )
+        };
     }
 })();

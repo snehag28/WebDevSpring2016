@@ -36,7 +36,6 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser
         };
-
         return service;
 
         function findUserByCredentials(username, password, callback) {
@@ -52,7 +51,6 @@
             if (typeof callback === "function") {
                 callback(userObj);
             }
-            return userObj;
         }
 
         function findAllUsers(callback) {
@@ -75,12 +73,12 @@
             };
             //Adds the new user to local array of users
             users.push(newUser);
+
+            console.log(users);
             //Calls back with new user
             if (typeof callback === "function") {
                 callback(newUser);
             }
-            console.log(users);
-            return newUser;
         }
 
         function deleteUserById(userId, callback) {
@@ -98,6 +96,7 @@
             }
         }
 
+        // function to return user based on ID
         function findUserById(userId){
             console.log("in findUserById:"+userId);
             for (var index in users){
@@ -129,8 +128,6 @@
             if (typeof callback === "function") {
                 callback(user);
             }
-
-            return user;
         }
     }
 })();

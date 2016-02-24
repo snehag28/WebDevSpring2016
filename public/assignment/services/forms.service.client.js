@@ -30,12 +30,11 @@
             form.userId = userId;
             //Adds new form to local array of forms
             forms.push(form);
+            console.log(forms);
             //Calls back with new form
             if (typeof callback == "function") {
                 callback(form);
             }
-            console.log(forms);
-            return form;
         }
 
         function findAllFormsForUser(userId, callback) {
@@ -53,10 +52,9 @@
             if (typeof callback == "function") {
                 callback(formsForUser);
             }
-
-            return formsForUser;
         }
 
+        //function that returns form based on the ID
         function findFormById(formId) {
             for (var index in forms) {
                 var form = forms[index];
@@ -94,8 +92,6 @@
             if (typeof callback == "function") {
                 callback(form);
             }
-
-            return form;
         }
     }
 })();
