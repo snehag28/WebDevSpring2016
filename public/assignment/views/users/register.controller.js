@@ -8,7 +8,7 @@
     function RegisterController($scope,$location,$rootScope,UserService){
         console.log("Hello from register controller!");
 
-        $scope.register = function(user){
+        $scope.register = function(newUser){
             UserService.createUser(newUser,
                 function(response){
                     $rootScope.user = response;
