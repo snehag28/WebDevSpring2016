@@ -6,13 +6,14 @@
         .controller("ProfileController",ProfileController);
 
     function ProfileController($scope,$rootScope,UserService) {
-        console.log("Hello from profile controller!");
+        //console.log("Hello from profile controller!");
+        $scope.update = update;
 
-        $scope.update = function (newUser) {
+        function update(newUser) {
             UserService.updateUser(newUser._id, newUser,
                 function (response) {
                     $rootScope.user = response;
-                    console.log($rootScope.user._id + ", " + $rootScope.user.firstName + ", " + $rootScope.user.lastName);
+                    //console.log($rootScope.user._id + ", " + $rootScope.user.firstName + ", " + $rootScope.user.lastName);
                 }
             )
         };

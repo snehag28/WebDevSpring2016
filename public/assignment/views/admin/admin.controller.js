@@ -6,6 +6,6 @@
         .controller("AdminController",AdminController);
 
     function AdminController(){
-        console.log("Hello from admin controller!");
+        //console.log("Hello from admin controller!");
     }
 })();

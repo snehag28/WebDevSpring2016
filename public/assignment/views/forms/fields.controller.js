@@ -6,6 +6,6 @@
         .controller("FieldController",FieldController);
 
     function FieldController(){
-        console.log("Hello from field controller!");
+        //console.log("Hello from field controller!");
     }
 })();

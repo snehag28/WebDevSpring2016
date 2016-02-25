@@ -40,7 +40,7 @@
 
         function findUserByCredentials(username, password, callback) {
             var userObj = null;
-            console.log("in findUserByCrendentials");
+            //console.log("in findUserByCrendentials");
             //Iterates over the array of current users looking for user object whose username and password match the parameters
             for (var index in users) {
                 if (users[index].username == username && users[index].password == password) {
@@ -74,7 +74,7 @@
             //Adds the new user to local array of users
             users.push(newUser);
 
-            console.log(users);
+            //console.log(users);
             //Calls back with new user
             if (typeof callback === "function") {
                 callback(newUser);
@@ -98,12 +98,12 @@
 
         // function to return user based on ID
         function findUserById(userId){
-            console.log("in findUserById:"+userId);
+            //console.log("in findUserById:"+userId);
             for (var index in users){
                 var user = users[index];
-                console.log("in findUserById for:"+user._id);
+                //console.log("in findUserById for:"+user._id);
                 if(userId == user._id){
-                    console.log("in findUserById if:"+userId);
+                    //console.log("in findUserById if:"+userId);
                     return user;
                 }
             }
@@ -115,7 +115,7 @@
             //Iterates over the array of current users looking for a user object
             // whose user id is equal to parameter user id
             var user = findUserById(userId);
-            console.log("in updateUser:"+userId);
+            //console.log("in updateUser:"+userId);
             //If found, updates user with new user properties
             if(user != null){
                 user.firstName = newUser.firstName;
@@ -123,6 +123,7 @@
                 user.username = newUser.username;
                 user.password = newUser.password;
                 user.roles = newUser.roles;
+                user.email = newUser.email;
             }
             //Calls back with updated user
             if (typeof callback === "function") {

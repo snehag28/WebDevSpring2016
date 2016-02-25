@@ -30,7 +30,7 @@
             form.userId = userId;
             //Adds new form to local array of forms
             forms.push(form);
-            console.log(forms);
+            //console.log(forms);
             //Calls back with new form
             if (typeof callback == "function") {
                 callback(form);
@@ -40,7 +40,7 @@
         function findAllFormsForUser(userId, callback) {
             //Accepts parameter user id, and callback function
             //Iterates over the array of current forms looking for forms whose user id is parameter user id
-            console.log("in findAllFormsForUser:"+userId);
+            //console.log("in findAllFormsForUser:"+userId);
             var formsForUser = [];
             for (var index in forms) {
                 var form = forms[index];
