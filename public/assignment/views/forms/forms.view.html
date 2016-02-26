@@ -8,7 +8,6 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#forms" aria-controls="forms" role="tab" data-toggle="tab">Forms</a></li>
                     <li role="presentation"><a href="#/fields" aria-controls="forms" role="tab">Fields</a></li>
-
                 </ul>
 
                 <!-- Tab panes -->
@@ -18,7 +17,7 @@
                             <thead>
                             <tr>
                                 <td>
-                                    <a href="#forms" class="btn btn-small"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+                                    <button class="btn btn-small btn-link"><span class="glyphicon glyphicon-triangle-bottom"></span></button>
                                     Form Name
                                 </td>
                                 <td>Action</td>
@@ -27,8 +26,12 @@
                             <tr>
                                 <td><input ng-model="newForm.title" type="text" class="form-control" id="title" placeholder="name"></td>
                                 <td>
-                                    <a ng-click="addForm(newForm)" class="btn btn-small"><span class="glyphicon glyphicon-plus"></span></a>
-                                    <a ng-click="updateForm(newForm)" class="btn btn-small"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <button ng-click="addForm(newForm)" class="btn btn-small btn-link">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                    <button ng-click="updateForm(newForm)" class="btn btn-small btn-link">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </button>
                                 </td>
                             </tr>
                             <tbody>
@@ -36,14 +39,14 @@
                                 ng-class="{'success' : $index == selectedFormIndex}">
                                 <td>{{form.title}}</td>
                                 <td>
-                                    <a ng-click="deleteForm($index)"
-                                       class="btn btn-small">
+                                    <button ng-click="deleteForm($index)"
+                                       class="btn btn-small btn-link">
                                         <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                    <a ng-click="selectForm($index)"
-                                       class="btn btn-small">
+                                    </button>
+                                    <button ng-click="selectForm($index)"
+                                       class="btn btn-small btn-link">
                                         <span class="glyphicon glyphicon-pencil"></span>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>

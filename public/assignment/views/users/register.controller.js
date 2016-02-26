@@ -16,7 +16,7 @@
                     //console.log($rootScope.user._id+", "+$rootScope.user.username+", "+$rootScope.user.email);
                 }
             )
+            $location.path('/profile');
         }
-        $scope.$location = $location;
     };
 })();
