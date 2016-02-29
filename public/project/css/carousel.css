@@ -139,6 +139,11 @@ body {
     .featurette-heading {
         font-size: 50px;
     }
+
+    .featurette-image {
+        max-height: 400px;
+        width: auto;
+    }
 }
 
 @media (min-width: 992px) {
