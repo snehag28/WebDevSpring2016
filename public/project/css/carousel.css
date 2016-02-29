@@ -96,12 +96,12 @@ body {
 ------------------------- */
 
 .featurette-divider {
-    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    margin: 50px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
 .featurette-heading {
-    font-weight: 300;
+    font-weight: 200;
     line-height: 1;
     letter-spacing: -1px;
 }
@@ -157,6 +157,10 @@ body {
 .mycontent-left {
     border-right: 1px solid slategrey;
 }
+.mycontent-center {
+    border-right: 1px solid slategrey;
+    border-left: 1px solid slategrey;
+}
 .mycontent-right {
     border-left: 1px solid slategrey;
 }
@@ -174,7 +178,15 @@ body {
 }
 .main {
     padding-top: 100px;
-    padding-right: 50px;
-    padding-left: 50px;
-    padding-bottom: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+.med-book-hori {
+    height: auto;
+    width: 250px;
+}
+.med-book-verti {
+    height: 200px;
+    width: auto;
 }
