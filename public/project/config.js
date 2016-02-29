@@ -26,8 +26,24 @@
                 templateUrl: "client/admin/admin.view.html",
                 //controller: "AdminController"
             })
+            .when("/editor", {
+                templateUrl: "client/editor/editor.view.html",
+                //controller: "AdminController"
+            })
+            .when("/book", {
+                templateUrl: "client/books/search.view.html",
+                //controller: "AdminController"
+            })
+            .when("/genre", {
+                templateUrl: "client/genre/genre.view.html",
+                //controller: "AdminController"
+            })
+            .when("/opinion", {
+                templateUrl: "client/opinion/opinion.view.html",
+                //controller: "AdminController"
+            })
             .when("/logout", {
-                templateUrl: "client/home/carousel.view.html",
+                templateUrl: "client/home/home.view.html",
                 //controller: "HomeController"
             })
             .otherwise({

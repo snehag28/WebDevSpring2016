@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container" ng-controller="SearchController">
+    <div class="row">
+        <div class="main">
+            <div>
+                <h3>Search Books</h3>
+            </div>
 
-</body>
-</html>
+            <div>
+                <input id="bookTitleTxt" class="form-control" placeholder="Harry Potter"/>
+                <br>
+                <button id="searchBookBtn" class="btn btn-primary btn-block">Search Book</button>
+            </div>
+            <div>
+                <br>
+                <table id="contentTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Poster</th>
+                        <th>Title</th>
+                        <th>Authors</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

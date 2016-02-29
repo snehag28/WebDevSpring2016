@@ -169,3 +169,12 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+.poster{
+    height: 165px;
+}
+.main {
+    padding-top: 100px;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+}
