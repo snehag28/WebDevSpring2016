@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div ng-controller="HomeController">
+    <!-- Carousel
+           ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div ng-include="'client/home/carousel.view.html'"></div>
+    </div>
+    <!-- messaging and featurettes
+    ================================================== -->
+    <div class="container">
+        <div ng-include="'client/home/featurettes.view.html'"></div>
+    </div>
+</div>
