@@ -1,0 +1,60 @@
+
+<div class="container-fluid" ng-controller="FollowerController">
+    <div class="row">
+        <div class="main">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="#profile" aria-controls="forms" role="tab" data-toggle="tab">
+                        Profile
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#/bookshelf" aria-controls="forms" role="tab">
+                        Bookshelf
+                    </a>
+                </li>
+                <li role="presentation"  class="active">
+                    <a href="#/people" aria-controls="forms" role="tab">
+                        People
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 sidebar mycontent-left mycontent-right">
+                        <ul class="nav nav-pills nav-stacked nav-sidebar">
+                            <li>
+                                People:
+                            </li>
+                            <li ng-class="{'active' : $location.url().indexOf('people') != -1}">
+                                <a href="#/people">Following</a>
+                            </li>
+                            <li ng-class="{'active' : $location.url().indexOf('followers') != -1}">
+                                <a href="#/followers">Followers</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9 col-md-10 ">
+                        <h3 class="sub-header">Followers:</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Details</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

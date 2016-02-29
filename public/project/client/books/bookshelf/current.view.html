@@ -1,0 +1,68 @@
+
+<div class="container-fluid" ng-controller="CurrentController">
+    <div class="row">
+        <div class="main">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="#profile" aria-controls="forms" role="tab" data-toggle="tab">
+                        Profile
+                    </a>
+                </li>
+                <li role="presentation"  class="active">
+                    <a href="#/bookshelf" aria-controls="forms" role="tab">
+                        Bookshelf
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#/people" aria-controls="forms" role="tab">
+                        People
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 sidebar mycontent-left mycontent-right">
+                        <ul class="nav nav-pills nav-stacked nav-sidebar">
+                            <li>
+                                Bookshelves:
+                            </li>
+                            <li ng-class="{'active' : $location.url().indexOf('bookshelf') != -1}">
+                                <a href="#/bookshelf">All</a>
+                            </li>
+                            <li ng-class="{'active' : $location.url().indexOf('read') != -1}">
+                                <a href="#/read">Read</a>
+                            </li>
+                            <li ng-class="{'active' : $location.url().indexOf('future') != -1}">
+                                <a href="#/future">To-Read</a>
+                            </li>
+                            <li ng-class="{'active' : $location.url().indexOf('current') != -1}">
+                                <a href="#/current">Currently Reading</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9 col-md-10 ">
+                        <h3 class="sub-header">Currently Reading:</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Cover</th>
+                                    <th>Book Title</th>
+                                    <th>Author</th>
+                                    <th>Shelf</th>
+                                    <th>Rating</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

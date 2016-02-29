@@ -18,6 +18,30 @@
                 templateUrl: "client/users/profile.view.html",
                 //controller: "ProfileController"
             })
+            .when("/bookshelf", {
+                templateUrl: "client/books/bookshelf/bookshelf.view.html",
+                //controller: "BookshelfController"
+            })
+            .when("/read", {
+                templateUrl: "client/books/bookshelf/read.view.html",
+                //controller: "BookshelfController"
+            })
+            .when("/current", {
+                templateUrl: "client/books/bookshelf/current.view.html",
+                //controller: "BookshelfController"
+            })
+            .when("/future", {
+                templateUrl: "client/books/bookshelf/future.view.html",
+                //controller: "BookshelfController"
+            })
+            .when("/people", {
+                templateUrl: "client/users/people/people.view.html",
+                //controller: "PeopleController"
+            })
+            .when("/followers", {
+                templateUrl: "client/users/people/followers.view.html",
+                //controller: "FollowerController"
+            })
             .when("/login", {
                 templateUrl: "client/users/login.view.html",
                 //controller: "LoginController"
