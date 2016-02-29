@@ -1,10 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<div class="container-fluid" ng-controller="ProfileController">
+    <div class="row">
+        <div class="main">
+            <div>
+                <h3>Profile</h3>
+            </div>
+            <br>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Username: </label>
+                    <div class="col-sm-4">
+                        <input ng-model="user.username" type="text" class="form-control" id="username" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">Password:</label>
+                    <div class="col-sm-4">
+                        <input ng-model="user.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname" class="col-sm-2 control-label">First Name:</label>
+                    <div class="col-sm-4">
+                        <input ng-model="user.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-2 control-label">Last Name:</label>
+                    <div class="col-sm-4">
+                        <input ng-model="user.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthdate" class="col-sm-2 control-label">Date of Birth:</label>
+                    <div class="col-sm-4">
+                        <input ng-model="user.birthdate" type="date" id="birthdate" placeholder="Date of Birth" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">Email:</label>
+                    <div class="col-sm-4">
+                        <input ng-model="user.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Gender:</label>
+                    <div class="col-sm-4">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="radio-inline">
+                                <input ng-model="user.gender" type="radio" id="female" name="gender" value="female" /> Female
+                            </label>
+                            <label class="radio-inline">
+                                <input ng-model="user.gender" type="radio" id="male" name="gender" value="male" /> Male
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="aboutme" class="col-sm-2 control-label">About Me:</label>
+                    <div class="col-sm-4">
+                        <textarea ng-model="user.aboutme"
+                                  class="form-control" rows="3"
+                                  id="aboutme" placeholder="About Me">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="favoritebooks" class="col-sm-2 control-label">Favorite Books:</label>
+                    <div class="col-sm-4">
+                        <textarea ng-model="user.aboutme"
+                                  class="form-control" rows="3"
+                                  id="favoritebooks" placeholder="Favorite Books">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button
+                                ng-click="update(user)"
+                                class="btn btn-primary btn-block">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
