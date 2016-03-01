@@ -1,0 +1,55 @@
+<div ng-controller="BookDetailsController" class="container">
+    <div class="container marketing">
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-4">
+                <img class="featurette-image img-responsive center-block"
+                     ng-src="{{details.volumeInfo.imageLinks.medium}}"
+                     alt="cover">
+            </div>
+            <div class="col-md-8">
+                <h3>{{details.volumeInfo.title}}</h3>
+                <table class="table">
+                    <tr>
+                        <td>Average Rating:</td>
+                        <td>{{details.volumeInfo.averageRating}}</td>
+                    </tr>
+                    <tr>
+                        <td>Authors:</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                <li ng-repeat="author in details.volumeInfo.authors">
+                                    {{author}}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Categories:</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                <li ng-repeat="category in details.volumeInfo.categories">
+                                    {{category}}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>{{details.volumeInfo.description}}</td>
+                    </tr>
+                    <tr>
+                        <td>Publisher:</td>
+                        <td>{{details.volumeInfo.publisher}}</td>
+                    </tr>
+                    <tr>
+                        <td>Published Date:</td>
+                        <td>{{details.volumeInfo.publishedDate}}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <hr class="featurette-divider">
+    </div>
+</div>

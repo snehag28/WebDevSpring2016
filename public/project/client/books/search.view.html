@@ -6,9 +6,9 @@
             </div>
 
             <div>
-                <input id="bookTitleTxt" class="form-control" placeholder="Harry Potter"/>
+                <input ng-model="bookname" id="bookTitleTxt" class="form-control" placeholder="Harry Potter"/>
                 <br>
-                <button id="searchBookBtn" class="btn btn-primary btn-block">Search Book</button>
+                <button id="searchBookBtn" ng-click="searchBook(bookname)" class="btn btn-primary btn-block">Search Book</button>
             </div>
             <div>
                 <br>
@@ -18,9 +18,24 @@
                         <th>Poster</th>
                         <th>Title</th>
                         <th>Authors</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
+                    <tr ng-repeat="book in books">
+                        <td>
+                            <img height="100px" ng-src="{{book.volumeInfo.imageLinks.thumbnail}}"/>
+                        </td>
+                        <td>
+                            {{book.volumeInfo.title}}
+                        </td>
+                        <td>
+                            {{book.volumeInfo.authors}}
+                        </td>
+                        <td>
+                            <button ng-click="selectBook(book)" class="btn btn-primary">Details</button>
+                        </td>
+                    </tr>
 
                     </tbody>
                 </table>

@@ -58,6 +58,10 @@
                 templateUrl: "client/books/search.view.html",
                 //controller: "AdminController"
             })
+            .when("/bookDetails", {
+                templateUrl: "client/books/bookDetails.view.html",
+                //controller: "AdminController"
+            })
             .when("/genre", {
                 templateUrl: "client/genre/genre.view.html",
                 //controller: "AdminController"
