@@ -9,23 +9,27 @@
         var users = [
             {
                 "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                "username": "alice", "password": "alice", "roles": ["student"]
+                "username": "alice", "password": "alice", "roles": ["student"],
+                "following": ["bob","nisha"], "followers": [],
+                "email": "alice@gmail.com", "gender" : "female"
             },
             {
-                "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                "username": "bob", "password": "bob", "roles": ["admin"]
+                "_id": 234, "firstName": "Sneha", "lastName": "Gaikwad",
+                "username": "sneha", "password": "sneha", "roles": ["admin"],
+                "following": [], "followers": [],
+                "email": "sneha@gmail.com", "gender" : "female"
             },
             {
-                "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                "username": "charlie", "password": "charlie", "roles": ["faculty"]
+                "_id": 345, "firstName": "Nisha", "lastName": "Ramakrishnan",
+                "username": "nisha", "password": "nisha", "roles": ["editor"],
+                "following": [], "followers": [],
+                "email": "nisha@gmail.com", "gender" : "female"
             },
             {
-                "_id": 456, "firstName": "Dan", "lastName": "Craig",
-                "username": "dan", "password": "dan", "roles": ["faculty", "admin"]
-            },
-            {
-                "_id": 567, "firstName": "Edward", "lastName": "Norton",
-                "username": "ed", "password": "ed", "roles": ["student"]
+                "_id": 567, "firstName": "Bob", "lastName": "Hope",
+                "username": "bob", "password": "bob", "roles": ["member"],
+                "following": [], "followers": [],
+                "email": "bob@gmail.com", "gender" : "male"
             }
         ];
 

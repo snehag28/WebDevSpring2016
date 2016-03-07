@@ -4,68 +4,55 @@
         .module("BookApp")
         .controller("GenreController",GenreController);
 
-    function GenreController($scope, $rootScope) {
-        console.log("Hello from genre controller!");
+    function GenreController($scope, $rootScope,$location, $http, BookService) {
+        console.log("Hello from search controller!");
 
-        $(init)
+        $scope.searchBook = searchBook;
+        $scope.selectBook = selectBook;
+        $scope.renderDetails = renderDetails;
+        $scope.renderBooks = renderBooks;
+        $scope.addToReadingList = addToReadingList;
 
-        var $genreTxt;
-        var $searchGenreBtn;
+        var $bookTitleTxt;
+        var $searchBookBtn;
         var $tbody;
         var searchURL = "https://www.googleapis.com/books/v1/volumes?q=subject:CATEGORY";
+        var DETAILS_URL = "https://www.googleapis.com/books/v1/volumes/BOOKID";
 
-        function init(){
-            $genreTxt = $("#genreTxt");
-            $searchGenreBtn = $("#searchGenreBtn");
-            $tbody=$("#contentTable tbody");
 
-            $searchGenreBtn.click(searchGenre);
-        }
-
-        function searchGenre(){
-            var genre = $genreTxt.val();
+        function searchBook(genre){
+            console.log("in searchBook");
             var url = searchURL.replace("CATEGORY", genre);
-            $.ajax({
-                url: url,
-                success: renderBookList
-            });
+            $http.get(url)
+                .success(renderBooks)
         }
 
-        function renderBookList(response){
-            $tbody.empty();
+        function selectBook(book){
+            console.log("in selectBook");
+            var url = DETAILS_URL.replace("BOOKID", book.id);
+            $http.get(url)
+                .success(renderDetails);
+        }
+
+        function addToReadingList(book,shelf){
+            BookService.createBookForUser($rootScope.user._id,book,shelf,
+                function(response){
+                    var newBook = response;
+                    $scope.books.push(newBook);
+                    $scope.selectedBookIndex = null;
+                    $scope.newBook = {};
+                }
+            )
+        }
+        function renderDetails(response) {
+            console.log("in renderDetails");
             console.log(response);
-            //var totalResults = response.totalResults;
-            var books = response.items;
+            $rootScope.details = response;
+            $location.path('/bookDetails');
+        }
 
-            for(var i=0; i<books.length; i++){
-                var book = books[i];
-
-                var id = book.id;
-                var title = book.volumeInfo.title;
-                var author = book.volumeInfo.authors;
-                var poster = book.volumeInfo.imageLinks.thumbnail;
-                console.log(poster);
-
-                var $tr = $("<tr>");
-
-                var $img = $("<img>")
-                    .attr("src",poster)
-                    .addClass("poster");
-                var $td = $("<td>");
-                $td.append($img);
-                $tr.append($td);
-
-                $td = $("<td>")
-                    .append(title);
-                $tr.append($td);
-
-                $td = $("<td>").append(author);
-                $tr.append($td);
-
-                $tbody.append($tr);
-
-            }
+        function renderBooks(response){
+            $scope.books = response.items;
         }
     }
-
 })();

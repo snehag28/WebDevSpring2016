@@ -54,7 +54,7 @@
                 templateUrl: "client/editor/editor.view.html",
                 //controller: "AdminController"
             })
-            .when("/book", {
+            .when("/search", {
                 templateUrl: "client/books/search.view.html",
                 //controller: "AdminController"
             })
@@ -72,6 +72,10 @@
             })
             .when("/logout", {
                 templateUrl: "client/home/home.view.html",
+                //controller: "HomeController"
+            })
+            .when("/myCarousel", {
+                templateUrl: "client/home/home.view.html/myCarousel",
                 //controller: "HomeController"
             })
             .otherwise({

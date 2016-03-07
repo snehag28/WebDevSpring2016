@@ -8,7 +8,8 @@
             <div>
                 <input ng-model="bookname" id="bookTitleTxt" class="form-control" placeholder="Harry Potter"/>
                 <br>
-                <button id="searchBookBtn" ng-click="searchBook(bookname)" class="btn btn-primary btn-block">Search Book</button>
+                <button id="searchBookBtn" ng-click="searchBook(bookname)"
+                        class="btn btn-primary btn-block">Search Book</button>
             </div>
             <div>
                 <br>
@@ -18,7 +19,7 @@
                         <th>Poster</th>
                         <th>Title</th>
                         <th>Authors</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,10 +31,38 @@
                             {{book.volumeInfo.title}}
                         </td>
                         <td>
-                            {{book.volumeInfo.authors}}
+                            <ul class="list-unstyled">
+                                <li ng-repeat="author in book.volumeInfo.authors">
+                                    {{author}}
+                                </li>
+                            </ul>
                         </td>
                         <td>
-                            <button ng-click="selectBook(book)" class="btn btn-primary">Details</button>
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                                    Add to:
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <input type="radio" id="ex1_1" name="ex1" value="1"
+                                               ng-click="addToReadingList(book,'read')">
+                                        <label for="ex1_1">Read</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="ex1_2" name="ex1" value="2"
+                                               ng-click="addToReadingList(book,'to-read')">
+                                        <label for="ex1_2">To-Read</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="ex1_3" name="ex1" value="3"
+                                               ng-click="addToReadingList(book,'currently-reading')">
+                                        <label for="ex1_3">Currently-Reading</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button ng-click="selectBook(book)" class="btn btn-primary">
+                                Details
+                            </button>
                         </td>
                     </tr>
 

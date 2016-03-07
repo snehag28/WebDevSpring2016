@@ -1,5 +1,5 @@
 
-<div class="container-fluid" ng-controller="ReadController">
+<div class="container-fluid" ng-controller="BookshelfController">
     <div class="row">
         <div class="main">
             <ul class="nav nav-tabs" role="tablist">
@@ -55,8 +55,61 @@
                                     <th>Rating</th>
                                 </tr>
                                 </thead>
+                                <tr>
+                                    <td>
+                                        <img height="100px" ng-src="{{newBook.imageURL}}"/>
+                                    </td>
+                                    <td>
+                                        <input ng-model="newBook.title" type="text" class="form-control" id="title" readonly>
+                                    </td>
+                                    <td>
+                                        <input ng-model="newBook.authors" type="text" class="form-control" id="authors" readonly>
+                                    </td>
+                                    <td>
+                                        <input ng-model="newBook.shelf" type="text" class="form-control" id="shelf">
+                                    </td>
+                                    <td>
+                                        <input ng-model="newBook.rating" type="text" class="form-control" id="rating" placeholder="Rating">
+                                    </td>
+                                    <td>
+                                        <button ng-click="updateBook(newBook)"
+                                                class="btn btn-primary">
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
                                 <tbody>
-
+                                <tr ng-repeat="book in books">
+                                    <td>
+                                        <img height="100px" ng-src="{{book.imageURL}}"/>
+                                    </td>
+                                    <td>
+                                        {{book.title}}
+                                    </td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="author in book.authors">
+                                                {{author}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{book.shelf}}
+                                    </td>
+                                    <td>
+                                        {{book.rating}}
+                                    </td>
+                                    <td>
+                                        <button ng-click="selectBook($index)"
+                                                class="btn btn-primary">
+                                            Select
+                                        </button>
+                                        <button ng-click="deleteBook($index)"
+                                                class="btn btn-primary">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

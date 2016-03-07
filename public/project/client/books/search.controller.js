@@ -4,13 +4,14 @@
         .module("BookApp")
         .controller("SearchController",SearchController);
 
-    function SearchController($scope, $rootScope, $location, $http) {
+    function SearchController($scope, $rootScope, $location, $http, BookService) {
         console.log("Hello from search controller!");
 
         $scope.searchBook = searchBook;
         $scope.selectBook = selectBook;
         $scope.renderDetails = renderDetails;
         $scope.renderBooks = renderBooks;
+        $scope.addToReadingList = addToReadingList;
 
         var $bookTitleTxt;
         var $searchBookBtn;
@@ -33,6 +34,16 @@
                 .success(renderDetails);
         }
 
+        function addToReadingList(book,shelf){
+            BookService.createBookForUser($rootScope.user._id,book,shelf,
+                function(response){
+                    var newBook = response;
+                    $scope.books.push(newBook);
+                    $scope.selectedBookIndex = null;
+                    $scope.newBook = {};
+                }
+            )
+        }
         function renderDetails(response) {
             console.log("in renderDetails");
             console.log(response);

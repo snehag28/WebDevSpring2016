@@ -15,30 +15,40 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{'active' : $location.url().indexOf('register') != -1}">
-                    <a href="#/register">Register</a>
+                    <a ng-show="!user" href="#/register">Register</a>
                 </li>
                 <li ng-class="{'active' : $location.url().indexOf('login') != -1}">
-                    <a href="#/login">Login</a>
+                    <a ng-show="!user" href="#/login">Login</a>
                 </li>
-                <li ng-class="{'active' : $location.url().indexOf('profile') != -1}">
-                    <a href="#/profile">Username</a>
+                <!-- -->
+                <li ng-class="{'active' : $location.url().indexOf('profile') != -1} dropdown pull-right">
+
+                    <a ng-show="user" data-toggle="dropdown"
+                       class="dropdown-toggle">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {{user.username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/profile">Profile</a></li>
+                        <li><a href="#/bookshelf">Bookshelf</a></li>
+                        <li><a href="#/people">People</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#/home" ng-click="logout()" href="#/home">Logout</a></li>
+                    </ul>
                 </li>
+                <!-- -->
                 <li ng-class="{'active' : $location.url().indexOf('admin') != -1}">
-                    <a href="#/admin">Admin</a>
+                    <a ng-show="user && user.roles.indexOf('admin') >=0" href="#/admin">Admin</a>
                 </li>
                 <li ng-class="{'active' : $location.url().indexOf('editor') != -1}">
-                    <a href="#/editor">Editor</a>
-                </li>
-                <li>
-                    <a href="#/home">Logout</a>
+                    <a ng-show="user && user.roles.indexOf('editor') >=0" href="#/editor">Editor</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
                 <li ng-class="{'active' : $location.url().indexOf('home') != -1}">
                     <a href="#">Home</a>
                 </li>
-                <li ng-class="{'active' : $location.url().indexOf('book') != -1}">
-                    <a href="#/book">Books</a>
+                <li ng-class="{'active' : $location.url().indexOf('search') != -1}">
+                    <a href="#/search">Books</a>
                 </li>
                 <li ng-class="{'active' : $location.url().indexOf('genre') != -1}"><a href="#/genre">
                     Genres</a>
