@@ -49,15 +49,16 @@
                                 <thead>
                                 <tr>
                                     <th>Cover</th>
-                                    <th>Book Title</th>
+                                    <th>Title</th>
                                     <th>Author</th>
                                     <th>Shelf</th>
                                     <th>Rating</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tr>
                                     <td>
-                                        <img height="100px" ng-src="{{newBook.imageURL}}"/>
+
                                     </td>
                                     <td>
                                         <input ng-model="newBook.title" type="text" class="form-control" id="title" readonly>
@@ -66,7 +67,29 @@
                                         <input ng-model="newBook.authors" type="text" class="form-control" id="authors" readonly>
                                     </td>
                                     <td>
-                                        <input ng-model="newBook.shelf" type="text" class="form-control" id="shelf">
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+                                                    data-placeholder="false">
+                                                {{newBook.shelf}}
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <input type="radio" id="{{book.id}}_1" name="{{book.id}}"
+                                                           ng-model="newBook.shelf" value="read">
+                                                    <label for="{{book.id}}_1">read</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="{{book.id}}_2" name="{{book.id}}"
+                                                           ng-model="newBook.shelf" value="to-read">
+                                                    <label for="{{book.id}}_2">to-read</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="{{book.id}}_3" name="{{book.id}}"
+                                                           ng-model="newBook.shelf" value="currently-reading">
+                                                    <label for="{{book.id}}_3">currently-reading</label>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                     <td>
                                         <input ng-model="newBook.rating" type="text" class="form-control" id="rating" placeholder="Rating">

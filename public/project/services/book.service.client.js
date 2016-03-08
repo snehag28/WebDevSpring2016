@@ -6,7 +6,7 @@
 
     function BookService() {
 
-        var books = [
+        /*var books = [
             {"_id": "000", "title": "Godfather", "authors": ["Mario Puzo"], "imageURL":"",
                "shelf":"read", "rating": "4", "userId": 123},
             {"_id": "010", "title": "Sicilian", "authors": ["Mario Puzo"], "imageURL":"",
@@ -15,7 +15,9 @@
                 "shelf":"read", "rating": "4","userId": 234},
             {"_id": "030", "title": "Monsoon", "authors": ["Wilbur Smith"], "imageURL":"",
                 "shelf":"to-read", "rating": "", "userId": 123},
-        ];
+        ];*/
+
+        var books = [];
 
         var service = {
             createBookForUser: createBookForUser,
@@ -37,6 +39,7 @@
             newBook.title = book.volumeInfo.title;
             newBook.authors = book.volumeInfo.authors;
             newBook.imageURL = book.volumeInfo.imageLinks.thumbnail;
+            newBook.id = book.id;
 
             //Adds new book to local array of books
             books.push(newBook);
@@ -85,7 +88,7 @@
         function findBookById(bookId) {
             for (var index in books) {
                 var book = books[index];
-                if (bookId == book._id) {
+                if (bookId == book.id) {
                     return book;
                 }
             }
@@ -114,9 +117,11 @@
             var book = findBookById(bookId);
             //If found, updates book object with new book values
             if (book != null) {
+                console.log("in if");
                 book.rating = newBook.rating;
                 book.shelf = newBook.shelf;
             }
+            console.log(book);
             //Calls back with update book
             if (typeof callback == "function") {
                 callback(book);

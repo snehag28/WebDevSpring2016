@@ -51,7 +51,7 @@
 
         function updateBook (book){
             console.log("in updteBook:" + book);
-            BookService.updateBookById($scope.books[$scope.selectedBookIndex]._id, book,
+            BookService.updateBookById($scope.books[$scope.selectedBookIndex].id, book,
                 function(response){
                     var updatedBook = response;
                     $scope.books[$scope.selectedBookIndex] = updatedBook;
@@ -61,7 +61,7 @@
             )
         };
         function deleteBook(index){
-            BookService.deleteBookById($scope.books[index]._id,
+            BookService.deleteBookById($scope.books[index].id,
                 function(response){
                     $scope.books.splice(index,1);
                 })
@@ -70,7 +70,7 @@
         function selectBook(index){
             $scope.selectedBookIndex = index;
             $scope.newBook = {
-                "_id" : $scope.books[index]._id,
+                "id" : $scope.books[index].id,
                 "title" : $scope.books[index].title,
                 "userId" : $scope.books[index].userId,
                 "authors" : $scope.books[index].authors,

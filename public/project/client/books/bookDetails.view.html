@@ -1,4 +1,4 @@
-<div ng-controller="BookDetailsController" class="container">
+<div ng-controller="SearchController" class="container">
     <div class="container marketing">
         <hr class="featurette-divider">
         <div class="row featurette">
@@ -10,6 +10,33 @@
             <div class="col-md-8">
                 <h3>{{details.volumeInfo.title}}</h3>
                 <table class="table">
+                    <tr>
+                        <div ng-show="user" class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                                Add to:
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <input type="radio" id="book_1" name="book"
+                                           value="read"
+                                           ng-click="addToReadingList(details,'read')">
+                                    <label for="book_1">Read</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="book_2" name="book"
+                                           value="to-read"
+                                           ng-click="addToReadingList(details,'to-read')">
+                                    <label for="book_2">To-Read</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="book_3" name="book"
+                                           value="currently-reading"
+                                           ng-click="addToReadingList(details,'currently-reading')">
+                                    <label for="book_3">Currently-Reading</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </tr>
                     <tr>
                         <td>Average Rating:</td>
                         <td>{{details.volumeInfo.averageRating}}</td>
