@@ -19,7 +19,6 @@
                         <th>Poster</th>
                         <th>Title</th>
                         <th>Authors</th>
-                        <th>Genres</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -39,15 +38,31 @@
                             </ul>
                         </td>
                         <td>
-                            <button ng-show="user" ng-click="addToReadingList(book,'read')" class="btn btn-primary">
-                                Mark Read
-                            </button>
-                            <button ng-show="user" ng-click="addToReadingList(book,'to-read')" class="btn btn-primary">
-                                Mark To-Read
-                            </button>
-                            <button ng-show="user" ng-click="addToReadingList(book,'currently-reading')" class="btn btn-primary">
-                                Mark Currently-Reading
-                            </button>
+                            <div ng-show="user" class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                                    Add to:
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <input type="radio" id="{{book.id}}_1" name="{{book.id}}"
+                                               value="read"
+                                               ng-click="addToReadingList(book,'read')">
+                                        <label for="{{book.id}}_1">Read</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="{{book.id}}_2" name="{{book.id}}"
+                                               value="to-read"
+                                               ng-click="addToReadingList(book,'to-read')">
+                                        <label for="{{book.id}}_2">To-Read</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="{{book.id}}_3" name="{{book.id}}"
+                                               value="currently-reading"
+                                               ng-click="addToReadingList(book,'currently-reading')">
+                                        <label for="{{book.id}}_3">Currently-Reading</label>
+                                    </li>
+                                </ul>
+                            </div>
                             <button ng-click="selectBook(book)" class="btn btn-primary">
                                 Details
                             </button>

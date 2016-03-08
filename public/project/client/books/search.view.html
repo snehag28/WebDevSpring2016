@@ -38,25 +38,28 @@
                             </ul>
                         </td>
                         <td>
-                            <div class="btn-group">
+                            <div ng-show="user" class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
                                     Add to:
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <input type="radio" id="ex1_1" name="ex1" value="1"
+                                        <input type="radio" id="{{book.id}}_1" name="{{book.id}}"
+                                               value="read"
                                                ng-click="addToReadingList(book,'read')">
-                                        <label for="ex1_1">Read</label>
+                                        <label for="{{book.id}}_1">Read</label>
                                     </li>
                                     <li>
-                                        <input type="radio" id="ex1_2" name="ex1" value="2"
+                                        <input type="radio" id="{{book.id}}_2" name="{{book.id}}"
+                                               value="to-read"
                                                ng-click="addToReadingList(book,'to-read')">
-                                        <label for="ex1_2">To-Read</label>
+                                        <label for="{{book.id}}_2">To-Read</label>
                                     </li>
                                     <li>
-                                        <input type="radio" id="ex1_3" name="ex1" value="3"
+                                        <input type="radio" id="{{book.id}}_3" name="{{book.id}}"
+                                               value="currently-reading"
                                                ng-click="addToReadingList(book,'currently-reading')">
-                                        <label for="ex1_3">Currently-Reading</label>
+                                        <label for="{{book.id}}_3">Currently-Reading</label>
                                     </li>
                                 </ul>
                             </div>
@@ -65,7 +68,6 @@
                             </button>
                         </td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
