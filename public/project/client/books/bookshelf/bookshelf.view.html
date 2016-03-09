@@ -1,5 +1,5 @@
 
-<div class="container-fluid" ng-controller="BookshelfController">
+<div class="container" ng-controller="BookshelfController">
     <div class="row">
         <div class="main">
             <ul class="nav nav-tabs" role="tablist">
@@ -21,7 +21,7 @@
             </ul>
             <br>
             <br>
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-sm-3 col-md-2 sidebar mycontent-left mycontent-right">
                         <ul class="nav nav-pills nav-stacked nav-sidebar">
@@ -92,11 +92,44 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <input ng-model="newBook.rating" type="text" class="form-control" id="rating" placeholder="Rating">
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+                                                    data-placeholder="false">
+                                                {{newBook.rating}}
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <input type="radio" id="rating_1" name="{{book.id}}_rating"
+                                                           ng-model="newBook.rating" value="1">
+                                                    <label for="rating_1">1</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="rating_2" name="{{book.id}}_rating"
+                                                           ng-model="newBook.rating" value="2">
+                                                    <label for="rating_2">2</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="rating_3" name="{{book.id}}_rating"
+                                                           ng-model="newBook.rating" value="3">
+                                                    <label for="rating_3">3</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="rating_4" name="{{book.id}}_rating"
+                                                           ng-model="newBook.rating" value="4">
+                                                    <label for="rating_4">4</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="rating_5" name="{{book.id}}_rating"
+                                                           ng-model="newBook.rating" value="5">
+                                                    <label for="rating_5">5</label>
+                                                </li>
+
+                                            </ul>
+                                        </div>
                                     </td>
                                     <td>
                                         <button ng-click="updateBook(newBook)"
-                                                class="btn btn-primary">
+                                                class="btn btn-success">
                                             Update
                                         </button>
                                     </td>
@@ -124,11 +157,11 @@
                                     </td>
                                     <td>
                                         <button ng-click="selectBook($index)"
-                                                class="btn btn-primary">
+                                                class="btn btn-info">
                                             Select
                                         </button>
                                         <button ng-click="deleteBook($index)"
-                                                class="btn btn-primary">
+                                                class="btn btn-danger">
                                             Delete
                                         </button>
                                     </td>

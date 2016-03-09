@@ -38,7 +38,7 @@
             BookService.createBookForUser($rootScope.user._id,book,shelf,
                 function(response){
                     var newBook = response;
-                    $scope.books.push(newBook);
+                    //$scope.books.push(newBook);
                     $scope.selectedBookIndex = null;
                     $scope.newBook = {};
                 }

@@ -74,6 +74,14 @@
                 templateUrl: "client/opinion/opinion.view.html",
                 //controller: "AdminController"
             })
+            .when("/booksOfMonth", {
+                templateUrl: "client/opinion/booksOfMonth.view.html",
+                //controller: "AdminController"
+            })
+            .when("/userArticles", {
+                templateUrl: "client/opinion/userArticles.view.html",
+                //controller: "AdminController"
+            })
             .when("/logout", {
                 templateUrl: "client/home/home.view.html",
                 //controller: "HomeController"
