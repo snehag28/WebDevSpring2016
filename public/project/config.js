@@ -75,11 +75,27 @@
                 //controller: "AdminController"
             })
             .when("/booksOfMonth", {
-                templateUrl: "client/opinion/booksOfMonth.view.html",
+                templateUrl: "client/opinion/BOM/booksOfMonth.view.html",
+                //controller: "AdminController"
+            })
+            .when("/bom_1", {
+                templateUrl: "client/opinion/BOM/bom_1.view.html",
+                //controller: "AdminController"
+            })
+            .when("/bom_2", {
+                templateUrl: "client/opinion/BOM/bom_2.view.html",
+                //controller: "AdminController"
+            })
+            .when("/bom_3", {
+                templateUrl: "client/opinion/BOM/bom_3.view.html",
                 //controller: "AdminController"
             })
             .when("/userArticles", {
-                templateUrl: "client/opinion/userArticles.view.html",
+                templateUrl: "client/opinion/userArticles/userArticles.view.html",
+                //controller: "AdminController"
+            })
+            .when("/submitUserArticle", {
+                templateUrl: "client/opinion/userArticles/userArticleForm.view.html",
                 //controller: "AdminController"
             })
             .when("/logout", {
