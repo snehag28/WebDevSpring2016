@@ -1,10 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="container-fluid" ng-controller="AdminController">
+    <div class="row">
+        <div class="main">
+            <br>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-9 col-md-10 ">
+                        <h3 class="sub-header">Manage Users:</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Roles</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <input ng-model="newUser.username" type="text"
+                                               class="form-control" id="username" readonly>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+                                                    data-placeholder="false">
+                                                {{newUser.roles}}
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <input type="radio" id="{{user.id}}_1" name="member"
+                                                           ng-model="newUser.roles" value="member">
+                                                    <label for="{{user.id}}_1">member</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="{{user.id}}_2" name="admin"
+                                                           ng-model="newUser.roles" value="admin">
+                                                    <label for="{{user.id}}_2">admin</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="{{user.id}}_3" name="editor"
+                                                           ng-model="newUser.roles" value="editor">
+                                                    <label for="{{user.id}}_3">editor</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input ng-model="newUser.email" type="text" class="form-control" id="email">
+                                    </td>
+                                    <td nowrap>
+                                        <button ng-click="updateUser(newUser)"
+                                                class="btn btn-success">
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tbody>
+                                <tr ng-repeat="user in users">
+                                    <td>
+                                        {{user.username}}
+                                    </td>
+                                    <td>
+                                        {{user.roles}}
+                                    </td>
+                                    <td>
+                                        {{user.email}}
+                                    </td>
+                                    <td nowrap>
+                                        <button ng-click="selectUser($index)"
+                                                class="btn btn-info">
+                                            Select
+                                        </button>
+                                        <button ng-click="deleteUser($index)"
+                                                class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

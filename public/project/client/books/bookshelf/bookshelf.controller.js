@@ -78,6 +78,6 @@
                 "rating" : $scope.books[index].rating,
                 "imageURL" : $scope.books[index].imageURL,
             };
-        }
+        };
     }
 })();
