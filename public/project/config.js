@@ -58,7 +58,11 @@
                 templateUrl: "client/books/search.view.html",
                 //controller: "AdminController"
             })
-            .when("/bookDetails", {
+            .when("/search/:title", {
+                templateUrl: "client/books/search.view.html",
+                controller: "SearchController"
+            })
+            .when("/bookDetails/:id", {
                 templateUrl: "client/books/bookDetails.view.html",
                 //controller: "AdminController"
             })
@@ -66,7 +70,15 @@
                 templateUrl: "client/genre/genre.view.html",
                 //controller: "AdminController"
             })
+            .when("/genre/:genreName", {
+                templateUrl: "client/genre/genre.view.html",
+                //controller: "AdminController"
+            })
             .when("/author", {
+                templateUrl: "client/authors/author.view.html",
+                //controller: "AdminController"
+            })
+            .when("/author/:authorName", {
                 templateUrl: "client/authors/author.view.html",
                 //controller: "AdminController"
             })

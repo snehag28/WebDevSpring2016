@@ -8,8 +8,13 @@
             <div>
                 <input ng-model="author" id="authorTxt" class="form-control"/>
                 <br>
+                <!--
                 <button id="searchAuthorBtn" ng-click="searchBook(author)"
                         class="btn btn-primary btn-block">Search Books</button>
+                        -->
+                <a href="#/author/{{author}}" class="btn btn-primary btn-block">
+                    Search Books
+                </a>
             </div>
             <div>
                 <br>
@@ -63,9 +68,12 @@
                                     </li>
                                 </ul>
                             </div>
+                            <a href="#/bookDetails/{{book.id}}" class="btn btn-primary">Details</a>
+                            <!--
                             <button ng-click="selectBook(book)" class="btn btn-primary">
                                 Details
                             </button>
+                            -->
                         </td>
                     </tr>
 

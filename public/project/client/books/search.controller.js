@@ -4,12 +4,12 @@
         .module("BookApp")
         .controller("SearchController",SearchController);
 
-    function SearchController($scope, $rootScope, $location, $http, BookService) {
+    function SearchController($scope, $rootScope, $location, $http, BookService,$routeParams) {
         console.log("Hello from search controller!");
 
         $scope.searchBook = searchBook;
-        $scope.selectBook = selectBook;
-        $scope.renderDetails = renderDetails;
+        //$scope.selectBook = selectBook;
+        //$scope.renderDetails = renderDetails;
         $scope.renderBooks = renderBooks;
         $scope.addToReadingList = addToReadingList;
 
@@ -19,6 +19,14 @@
         var searchURL = "https://www.googleapis.com/books/v1/volumes?q=TITLE&";
         var DETAILS_URL = "https://www.googleapis.com/books/v1/volumes/BOOKID";
 
+        function init() {
+            console.log("in init:" + $routeParams.title);
+            var bookname = $routeParams.title;
+            if(bookname) {
+                searchBook(bookname);
+            }
+        }
+        init();
 
         function searchBook(bookname){
             console.log("in searchBook");
@@ -26,14 +34,14 @@
             $http.get(url)
                 .success(renderBooks)
         }
-
+        /*
         function selectBook(book){
             console.log("in selectBook");
             var url = DETAILS_URL.replace("BOOKID", book.id);
             $http.get(url)
                 .success(renderDetails);
         }
-
+        */
         function addToReadingList(book,shelf){
             BookService.createBookForUser($rootScope.user._id,book,shelf,
                 function(response){
@@ -44,12 +52,14 @@
                 }
             )
         }
+        /*
         function renderDetails(response) {
             console.log("in renderDetails");
             console.log(response);
             $rootScope.details = response;
             $location.path('/bookDetails');
         }
+        */
 
         function renderBooks(response){
             $scope.books = response.items;
