@@ -98,6 +98,10 @@
                 templateUrl: "client/opinion/userArticles/userArticleForm.view.html",
                 //controller: "AdminController"
             })
+            .when("/submitEditorial", {
+                templateUrl: "client/editor/submitEditorial.view.html",
+                //controller: "AdminController"
+            })
             .when("/logout", {
                 templateUrl: "client/home/home.view.html",
                 //controller: "HomeController"

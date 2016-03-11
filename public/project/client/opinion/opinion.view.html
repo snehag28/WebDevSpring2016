@@ -47,6 +47,17 @@
                 <img class="featurette-image img-responsive center-block" src="images/pride_and_prejudice.jpg" alt="Generic placeholder image">
             </div>
         </div>
+        <br>
+        <div ng-show="user && user.roles.indexOf('editor') >=0">
+                <p class="text-center">
+                    <a class="btn btn-lg btn-primary" href="#/submitEditorial"
+                                          role="button">New editorial</a>
+
+                    <a class="btn btn-lg btn-primary" href="#/submitEditorial"
+                                          role="button">Edit editorial</a>
+                </p>
+        </div>
+
         <hr class="featurette-divider">
     </div>
 

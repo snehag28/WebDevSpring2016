@@ -10,7 +10,7 @@
             {
                 "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
                 "username": "alice", "password": "alice", "roles": "member",
-                "following": ["bob","nisha"], "followers": [],
+                "following": ["bob","nisha"], "followers": ["bob","sneha"],
                 "email": "alice@gmail.com", "gender" : "female",
                 "aboutme": "about alice", "favoritebooks":"alice's favorite books"
             },
