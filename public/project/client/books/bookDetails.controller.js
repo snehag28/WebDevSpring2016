@@ -10,7 +10,7 @@
         .module("BookApp")
         .controller("BookDetailsController", BookDetailsController);
 
-    function BookDetailsController($scope, $http, $routeParams) {
+    function BookDetailsController($scope, $http, $routeParams,$sce) {
         console.log("in BookDetailsController: " + $routeParams.id);
 
         var vm = this;
@@ -33,7 +33,10 @@
 
         function renderDetails(response) {
             //console.log(response);
+            //NewDetails=$sce.trustAsHtml(Details);
+
             $scope.details = response;
+            $scope.description = $sce.trustAsHtml($scope.details.volumeInfo.description);
         }
     }
 })();
