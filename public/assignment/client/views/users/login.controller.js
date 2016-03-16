@@ -6,22 +6,25 @@
         .controller("LoginController",LoginController);
 
     function LoginController($scope,$location,UserService){
-        console.log("Hello from login controller!");
+        //console.log("Hello from login controller!");
         var vm = this;
         $scope.login = login;
 
         function login(user){
             UserService
                 .findUserByCredentials(user.username,user.password)
-                .then(function(response){
-                    vm.user = response.data;
-                    console.log(vm.user);
-                    if(vm.user){
-                        UserService.setCurrentUser(vm.user);
-                        $location.url("/profile");
+                .then(
+                    function(doc){
+                        vm.user = doc;
+                        if(vm.user){
+                            UserService.setUser(vm.user);
+                            $location.url("/profile");
+                        }
+                    },
+                    function (err) {
+                        res.status(400).send(err);
                     }
-
-                });
+                )
         }
     };
 })();

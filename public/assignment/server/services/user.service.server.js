@@ -37,8 +37,8 @@ module.exports = function(app){
     function register(req, res){
         console.log("in register");
         var user = req.body;
-        var users = userModel.createUser(user);
-        res.json(users);
+        var newUser = userModel.createUser(user);
+        res.json(newUser);
     }
 
     function updateUser(req, res){
@@ -53,6 +53,5 @@ module.exports = function(app){
         var users = userModel.deleteUserById(req.params.id);
         res.json(users);
     }
-
 
 }

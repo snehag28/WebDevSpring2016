@@ -6,17 +6,25 @@
         .controller("RegisterController",RegisterController);
 
     function RegisterController($scope,$location,$rootScope,UserService){
-        //console.log("Hello from register controller!");
+        console.log("Hello from register controller!");
+        var vm = this;
         $scope.register = register;
 
         function register(newUser){
-            UserService.createUser(newUser,
-                function(response){
-                    $rootScope.user = response;
-                    //console.log($rootScope.user._id+", "+$rootScope.user.username+", "+$rootScope.user.email);
-                }
-            )
-            $location.path('/profile');
+            UserService
+                .createUser(newUser)
+                .then(
+                    function (doc) {
+                        vm.user = doc;
+                        console.log("registered user:");
+                        console.log(vm.user);
+                        UserService.setUser(vm.user);
+                        $location.path('/profile');
+                    },
+                    function (err){
+                        res.status(400).send(err);
+                    }
+                )
         }
     };
 })();

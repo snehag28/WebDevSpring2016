@@ -14,7 +14,7 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             findUserById: findUserById,
-            setCurrentUser: setCurrentUser
+            setUser: setUser
         };
         return api;
 
@@ -24,7 +24,18 @@
 
         function findUserByCredentials(username, password) {
             console.log("in userservice findUserByCredentials");
-            return $http.get("/api/assignment/user/username="+username+"&password="+password);
+            var deferred = $q.defer();
+
+            $http.get("/api/assignment/user/username="+username+"&password="+password)
+                .then(
+                    function(response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(error) {
+                        deferred.reject(error);
+                    }
+                );
+            return deferred.promise;
         }
 
         function findAllUsers() {
@@ -32,7 +43,12 @@
         }
 
         function createUser(user) {
-            return $http.post("/api/assignment/user",user);
+            var deferred = $q.defer();
+            $http.post("/api/assignment/user",user)
+                .success(function (response){
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
         }
 
         function deleteUserById(userId) {
@@ -44,11 +60,16 @@
         }
 
         function updateUser(userId, newUser) {
-            return $http.put("/api/assignment/user/"+userId, newUser);
+            var deferred = $q.defer();
+            $http.put("/api/assignment/user/"+userId, newUser)
+                .success(function (response) {
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
         }
 
-        function setCurrentUser(user) {
-            $rootScope.currentUser = user;
+        function setUser(newUser) {
+            $rootScope.user = newUser;
         }
     }
 })();

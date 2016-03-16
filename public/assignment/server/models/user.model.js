@@ -14,6 +14,7 @@ module.exports = function() {
 
     function findUserByCredentials(username, password) {
         console.log("in findUserByCredentials:");
+
         for (var index in users) {
             if (users[index].username == username && users[index].password == password) {
                 console.log(users[index]);
@@ -39,7 +40,7 @@ module.exports = function() {
         //Adds the new user to local array of users
         users.push(newUser);
 
-        return users;
+        return newUser;
     }
 
     function deleteUserById(userId) {
