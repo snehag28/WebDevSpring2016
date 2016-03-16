@@ -6,20 +6,25 @@ module.exports = function() {
         findAllUsers: findAllUsers,
         createUser: createUser,
         deleteUserById: deleteUserById,
-        updateUser: updateUser
+        updateUserById: updateUserById,
+        findUserByUsername: findUserByUsername,
+        findUserById: findUserById
     };
     return api;
 
     function findUserByCredentials(username, password) {
+        console.log("in findUserByCredentials:");
         for (var index in users) {
             if (users[index].username == username && users[index].password == password) {
+                console.log(users[index]);
                 return users[index];
             }
         }
         return null;
     }
 
-    function findAllUsers(callback) {
+    function findAllUsers() {
+        console.log("in findAllUsers");
         return users;
     }
 
@@ -48,16 +53,26 @@ module.exports = function() {
     }
 
     function findUserById(userId) {
+        console.log("in findUserById");
         userId = parseInt(userId);
         for(var i in users) {
-            if(users[i].id === userId) {
+            if(users[i]._id === userId) {
                 return users[i];
             }
         }
         return null;
     }
 
-    function updateUser(userId, newUser) {
+    function findUserByUsername(userName) {
+        for(var i in users) {
+            if(users[i].username === userName) {
+                return users[i];
+            }
+        }
+        return null;
+    }
+
+    function updateUserById(userId, newUser) {
         var user = findUserById(userId);
 
         if(user != null){

@@ -5,18 +5,23 @@
         .module("FormBuilderApp")
         .controller("LoginController",LoginController);
 
-    function LoginController($scope,$location,$rootScope,UserService){
-        //console.log("Hello from login controller!");
+    function LoginController($scope,$location,UserService){
+        console.log("Hello from login controller!");
+        var vm = this;
         $scope.login = login;
 
         function login(user){
-            UserService.findUserByCredentials(user.username,user.password,
-                function(response){
-                    $rootScope.user = response;
-                    //console.log($rootScope.user._id+", "+$rootScope.user.username+", "+$rootScope.user.email);
-                }
-            )
-            $location.path('/profile');
+            UserService
+                .findUserByCredentials(user.username,user.password)
+                .then(function(response){
+                    vm.user = response.data;
+                    console.log(vm.user);
+                    if(vm.user){
+                        UserService.setCurrentUser(vm.user);
+                        $location.url("/profile");
+                    }
+
+                });
         }
     };
 })();

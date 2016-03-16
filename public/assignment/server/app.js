@@ -1,3 +1,4 @@
-/**
- * Created by snehagaikwad on 3/13/16.
- */
+module.exports = function(app) {
+
+    var userService = require("./services/user.service.js")(app);
+};
