@@ -4,13 +4,11 @@
         .module("FormBuilderApp")
         .controller("HeaderController",HeaderController);
 
-    function HeaderController($scope, $rootScope) {
-        //console.log("Hello from header controller!");
+    function HeaderController($scope, UserService) {
         $scope.logout = logout;
 
         function logout() {
-            //console.log("in logout!");
-            $rootScope.user = null;
+            UserService.logout();
         }
     }
 

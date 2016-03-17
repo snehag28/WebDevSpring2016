@@ -14,7 +14,8 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             findUserById: findUserById,
-            setUser: setUser
+            setUser: setUser,
+            logout: logout
         };
         return api;
 
@@ -26,7 +27,7 @@
             console.log("in userservice findUserByCredentials");
             var deferred = $q.defer();
 
-            $http.get("/api/assignment/user/username="+username+"&password="+password)
+            $http.get("/api/assignment/user?username="+username+"&password="+password)
                 .then(
                     function(response) {
                         deferred.resolve(response.data);
@@ -70,6 +71,10 @@
 
         function setUser(newUser) {
             $rootScope.user = newUser;
+        }
+
+        function logout() {
+            $rootScope.user = null;
         }
     }
 })();

@@ -4,37 +4,27 @@
         .module("FormBuilderApp")
         .factory("FormService", FormService);
 
-    function FormService() {
+    function FormService($q) {
 
-        var forms = [
-            {"_id": "000", "title": "Contacts", "userId": 123},
-            {"_id": "010", "title": "ToDo", "userId": 123},
-            {"_id": "020", "title": "CDs", "userId": 234},
-        ];
-
-        var service = {
+        var api = {
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
             deleteFormById: deleteFormById,
             updateFormById: updateFormById
         };
 
-        return service;
+        return api;
 
-        function createFormForUser(userId, form, callback) {
-            //Accepts parameters user id, form object, and callback function
-            //Adds property called _id with unique id. You can use (new Date).getTime() to retrive a unique number
-            var _id = (new Date).getTime();
-            //Adds property called userId equal to user id parameter
-            form._id = _id;
-            form.userId = userId;
-            //Adds new form to local array of forms
-            forms.push(form);
-            //console.log(forms);
-            //Calls back with new form
-            if (typeof callback == "function") {
-                callback(form);
-            }
+
+        function createFormForUser(userId, form) {
+            console.log("in formService createFormForUser");
+            var deferred = $q.defer();
+
+            $http.post("/api/assignment/user/"+userId+"/form", form)
+                .success(function (response) {
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
         }
 
         function findAllFormsForUser(userId, callback) {

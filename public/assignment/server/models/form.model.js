@@ -1,4 +1,4 @@
-var forms = require("./user.mock.json");
+var forms = require("./form.mock.json");
 
 module.exports = function(){
     var api = {

@@ -6,6 +6,8 @@
 
     function FormController($scope,$rootScope,FormService){
 
+        var vm = this;
+
         $scope.selectedFormIndex = null;
         $scope.addForm = addForm;
         $scope.updateForm = updateForm;
@@ -18,24 +20,30 @@
         init();
 
         function getFormsForUser(userId){
-            FormService.findAllFormsForUser(userId,
-                function(response){
-                    var userForms = response;
-                    $scope.forms = userForms;
-                    //console.log("in getFormsForUser:"+$scope.forms);
-                }
-            )
+            FormService.findAllFormsForUser(userId)
+                .then(
+                    function (doc) {
+                        vm.forms = doc;
+                        $scope.forms = userForms;
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
         };
 
         function addForm (form){
-            FormService.createFormForUser($rootScope.user._id,form,
-                function(response){
-                    var newForm = response;
-                    $scope.forms.push(newForm);
-                    $scope.selectedFormIndex = null;
-                    $scope.newForm = {};
-                }
-            )
+            FormService.createFormForUser($rootScope.user._id,form)
+                .then(
+                    function (doc) {
+                        vm.form = doc;
+                        $scope.selectedFormIndex = null;
+                        $scope.newForm = {};
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
         };
 
         function updateForm (form){
