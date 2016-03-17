@@ -20,7 +20,17 @@
         return api;
 
         function findUserByUsername(username){
-            return $http.get("/api/assignment/user?username="+username);
+            var deferred = $q.defer();
+            $http.get("/api/assignment/user?username="+username)
+                .then(
+                    function(response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(error) {
+                        deferred.reject(error);
+                    }
+                );
+            return deferred.promise;
         }
 
         function findUserByCredentials(username, password) {
@@ -40,7 +50,17 @@
         }
 
         function findAllUsers() {
-            return $http.get("/api/assignment/user");
+            var deferred = $q.defer();
+            $http.get("/api/assignment/user")
+                .then(
+                    function(response){
+                        deferred.resolve(response.data);
+                    },
+                    function(error) {
+                        deferred.reject(error);
+                    }
+                );
+            return deferred.promise;
         }
 
         function createUser(user) {
@@ -53,11 +73,28 @@
         }
 
         function deleteUserById(userId) {
-            return $http.delete("/api/assignment/user/"+userId);
+            var deferred = $q.defer();
+            $http.delete("/api/assignment/user/"+userId)
+                .success(
+                    function(response){
+                        deferred.resolve(response);
+                    }
+                );
+            return deferred.promise;
         }
 
         function findUserById(userId){
-            return $http.get("/api/assignment/user/"+userId);
+            var deferred = $q.defer();
+            $http.get("/api/assignment/user/"+userId)
+                .then(
+                    function(response){
+                        deferred.resolve(response);
+                    },
+                    function(error){
+                        deferred.reject(error);
+                    }
+                );
+            return deferred.promise;
         }
 
         function updateUser(userId, newUser) {

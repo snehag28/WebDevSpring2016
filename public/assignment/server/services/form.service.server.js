@@ -7,56 +7,36 @@ module.exports = function(app){
     app.put("/api/assignment/form/:formId", updateForm);
     app.delete("/api/assignment/form/:formId",deleteForm);
 
-
     function createFormForUser(req, res){
         var newForm = req.body;
         var userId = req.params.userId;
-        var form = formModel.createFormForUser(userId,form);
+        var form = formModel.createFormForUser(userId,newForm);
         res.json(form);
     }
 
-    function login(req, res){
-        console.log("in service.server getUserByCredentials");
-        var user = userModel.findUserByCredentials(req.params.username,req.params.password);
-        res.json(user);
+    function getFormsForUser (req, res) {
+        console.log("in service server getFormsForUser");
+        var userId = req.params.userId;
+        var forms = formModel.findAllFormsForUser(userId);
+        //console.log(forms);
+        res.json(forms);
     }
 
-    function getUserByName(req, res){
-        console.log("in getUserByName");
-        var user = userModel.findUserByUsername(req.params.username);
-        res.json(user);
+    function getFormById (req, res) {
+        var form = formModel.findFormById(req.params.formId);
+        res.json(form);
     }
 
-    function allUsers(req, res){
-        console.log("in allUsers");
-        var users = userModel.findAllUsers();
-        res.json(users);
+    function updateForm (req, res) {
+        var newForm = req.body;
+        console.log("in updateForm: -----: ");
+        console.log(newForm);
+        var form = formModel.updateFormById(req.params.formId, newForm);
+        res.json(form);
     }
 
-    function profile(req, res){
-        console.log("in profile");
-        var user = userModel.findUserById(req.params.id);
-        res.json(user);
+    function deleteForm (req, res) {
+        var forms = formModel.deleteFormById(req.params.formId);
+        res.json(forms);
     }
-
-    function register(req, res){
-        console.log("in register");
-        var user = req.body;
-        var newUser = userModel.createUser(user);
-        res.json(newUser);
-    }
-
-    function updateUser(req, res){
-        console.log("in updateUser");
-        var user = req.body;
-        var users = userModel.updateUserById(req.params.id, user);
-        res.json(users);
-    }
-
-    function deleteUser(req, res){
-        console.log("in deleteUser");
-        var users = userModel.deleteUserById(req.params.id);
-        res.json(users);
-    }
-
 }

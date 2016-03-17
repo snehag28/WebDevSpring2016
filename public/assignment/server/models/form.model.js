@@ -19,10 +19,12 @@ module.exports = function(){
     }
 
     function findAllFormsForUser(userId) {
+        console.log("in findAllFormsForUser in model.js");
         var formsForUser = [];
         for (var index in forms) {
             var form = forms[index];
             if (form.userId == userId) {
+                console.log("index:"+index);
                 formsForUser.push(form);
             }
         }

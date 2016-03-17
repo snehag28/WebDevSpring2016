@@ -15,16 +15,18 @@
         $scope.selectForm = selectForm;
 
         function init() {
+            console.log("in init:");
             getFormsForUser($rootScope.user._id);
         }
         init();
 
         function getFormsForUser(userId){
+            console.log("in controller getFormsForUser");
             FormService.findAllFormsForUser(userId)
                 .then(
                     function (doc) {
                         vm.forms = doc;
-                        $scope.forms = userForms;
+                        $scope.forms = vm.forms;
                     },
                     function (err) {
                         res.status(400).send(err);
@@ -37,6 +39,7 @@
                 .then(
                     function (doc) {
                         vm.form = doc;
+                        $scope.forms.push(vm.form);
                         $scope.selectedFormIndex = null;
                         $scope.newForm = {};
                     },
@@ -47,20 +50,31 @@
         };
 
         function updateForm (form){
-            FormService.updateFormById($scope.forms[$scope.selectedFormIndex]._id, form,
-                function(response){
-                    var updatedForm = response;
-                    $scope.forms[$scope.selectedFormIndex] = updatedForm;
-                    $scope.selectedFormIndex = null;
-                    $scope.newForm = {};
-                }
-            )
+            console.log($scope.forms[$scope.selectedFormIndex]);
+            FormService.updateFormById($scope.forms[$scope.selectedFormIndex]._id, form)
+                .then(
+                    function(doc) {
+                        console.log("in controller:"+doc);
+                        $scope.forms[$scope.selectedFormIndex] = doc;
+                        $scope.selectedFormIndex = null;
+                        $scope.newForm = {};
+
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
         };
         function deleteForm(index){
-            FormService.deleteFormById($scope.forms[index]._id,
-            function(response){
-                $scope.forms.splice(index,1);
-            })
+            FormService.deleteFormById($scope.forms[index]._id)
+                .then(
+                    function(doc) {
+                        $scope.forms.splice(index,1);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
         };
 
         function selectForm(index){
