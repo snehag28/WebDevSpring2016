@@ -75,7 +75,7 @@ module.exports = function(){
         var form = findFormById(formId);
         if(form != null) {
             var fields = form.fields;
-            var field = getFieldByIndex(fields, fieldId);
+            var field = getFieldById(fields, fieldId);
             return field;
         }
         return null;

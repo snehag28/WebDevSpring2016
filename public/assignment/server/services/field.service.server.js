@@ -8,6 +8,7 @@ module.exports = function(app){
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldByFormIdFieldId);
 
     function getFieldsForFormId(req, res){
+        console.log("in getFieldsForFormId:"+req.params.formId);
         var fields = formModel.getFieldsForFormId(req.params.formId);
         res.json(fields);
     }

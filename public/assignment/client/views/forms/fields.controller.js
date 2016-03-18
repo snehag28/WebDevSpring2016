@@ -11,6 +11,9 @@
 
         $scope.addField = addField;
         $scope.deleteField = deleteField;
+        $scope.changeField = changeField;
+        $scope.editField = editField;
+        $scope.duplicateField = duplicateField;
 
         function init(){
             var userId = $rootScope.user._id;
@@ -23,8 +26,7 @@
             FieldService.getFieldsForForm(formId)
                 .then(
                     function (doc) {
-                        vm.fields = doc;
-                        $scope.fields = vm.fields;
+                        $scope.fields = doc;
                     },
                     function (err) {
                         res.status(400).send(err);
@@ -83,8 +85,7 @@
             FieldService.createFieldForForm(formId, field)
                 .then(
                     function (doc) {
-                        vm.fields = doc;
-                        $scope.fields = vm.fields;
+                        $scope.fields = doc;
                     },
                     function (err) {
                         res.status(400).send(err);
@@ -92,12 +93,48 @@
                 )
         }
 
+        function duplicateField(field) {
+            FieldService.createFieldForForm(formId, field)
+                .then(
+                    function (doc) {
+                        $scope.fields = doc;
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+        }
+
+        function editField(fieldId) {
+            FieldService.getFieldForForm(formId,fieldId)
+                .then(
+                    function (doc) {
+                        $scope.modalField = doc;
+                        $scope.modalField.options = JSON.stringify($scope.modalField.options);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+        }
+
+        function changeField(newField) {
+            newfield.options = JSON.parse(newfield.options);
+            FieldService.updateField(formId,newfield._id,newfield)
+                .then(
+                    function (doc) {
+                        $scope.fields = doc;
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+        }
         function deleteField(field) {
             FieldService.deleteFieldByFormIdFieldId(formId,field._id)
                 .then(
                     function (doc) {
-                        vm.fields = doc;
-                        $scope.fields = vm.fields;
+                        $scope.fields = doc;
                     },
                     function (err) {
                         res.status(400).send(err);

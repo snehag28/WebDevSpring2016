@@ -14,5 +14,6 @@ app.use(express.static(__dirname + '/public'));
 
 require("./public/assignment/server/services/user.service.server.js")(app);
 require("./public/assignment/server/services/form.service.server.js")(app);
+require("./public/assignment/server/services/field.service.server.js")(app);
 
 app.listen(port, ipaddress);
