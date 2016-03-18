@@ -37,7 +37,7 @@
                             <tbody>
                             <tr ng-repeat="form in forms"
                                 ng-class="{'success' : $index == selectedFormIndex}">
-                                <td><a href="#/form/{{form._id}}/fields">{{form.title}}</a></td>
+                                <td><a href="#/form/{{form._id}}/fields" ng-click="setFormTitle(form.title)">{{form.title}}</a></td>
                                 <td>
                                     <button ng-click="deleteForm($index)"
                                        class="btn btn-small btn-link">

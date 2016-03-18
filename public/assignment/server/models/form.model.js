@@ -117,7 +117,7 @@ module.exports = function(){
             var field = getFieldById(fields, fieldId);
             field.label = newField.label;
             field.type = newField.type;
-            field.placeholder = newfield.placeholder;
+            field.placeholder = newField.placeholder;
             field.options = newField.options;
             return form;
         }

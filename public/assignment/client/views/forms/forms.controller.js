@@ -13,6 +13,7 @@
         $scope.updateForm = updateForm;
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
+        $scope.setFormTitle = setFormTitle;
 
         function init() {
             console.log("in init:");
@@ -33,6 +34,10 @@
                     }
                 )
         };
+
+        function setFormTitle(title) {
+            $rootScope.formTitle = title;
+        }
 
         function addForm (form){
             FormService.createFormForUser($rootScope.user._id,form)

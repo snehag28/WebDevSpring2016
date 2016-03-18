@@ -9,6 +9,7 @@
         var vm = this;
         var formId = $routeParams.formId;
 
+
         $scope.addField = addField;
         $scope.deleteField = deleteField;
         $scope.changeField = changeField;
@@ -109,7 +110,8 @@
             FieldService.getFieldForForm(formId,fieldId)
                 .then(
                     function (doc) {
-                        $scope.modalField = doc;
+                        $scope.modalField = doc.data;
+                        console.log($scope.modalField);
                         $scope.modalField.options = JSON.stringify($scope.modalField.options);
                     },
                     function (err) {
@@ -119,11 +121,14 @@
         }
 
         function changeField(newField) {
-            newfield.options = JSON.parse(newfield.options);
-            FieldService.updateField(formId,newfield._id,newfield)
+            if(newField.options){
+                newField.options = JSON.parse(newField.options);
+            }
+            FieldService.updateField(formId,newField._id,newField)
                 .then(
                     function (doc) {
-                        $scope.fields = doc;
+                        $scope.modalField = doc;
+                        getFieldsForForm(formId);
                     },
                     function (err) {
                         res.status(400).send(err);

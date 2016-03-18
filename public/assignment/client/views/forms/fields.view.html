@@ -1,7 +1,7 @@
 <div class="container-fluid" ng-controller="FieldController">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1>Form : {{form.title}}</h1>
+            <h1>Form : {{formTitle}}</h1>
             <div>
 
                 <!-- Nav tabs -->
@@ -91,7 +91,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h4 class="modal-title text-center" id="modalLabel">{{modalField.title}}</h4>
+                                            <h4 class="modal-title text-center" id="modalLabel">Edit Field Properties</h4>
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-horizontal">
@@ -128,7 +128,8 @@
                                                         <label for="options1" class="col-sm-2 control-label">Options: </label>
                                                         <div class="col-sm-10">
                                                             <textarea class="form-control" id="options1"
-                                                                      ng-model="modalField.options"></textarea>
+                                                                      ng-model="modalField.options">
+                                                            </textarea>
                                                         </div>
                                                     </div>
                                                     <div ng-switch-when="CHECKBOXES">
