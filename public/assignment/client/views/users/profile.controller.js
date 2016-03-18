@@ -20,9 +20,6 @@
                         if(vm.user){
                             UserService.setUser(vm.user);
                         }
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         };

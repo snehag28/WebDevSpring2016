@@ -20,9 +20,6 @@
                         console.log(vm.user);
                         UserService.setUser(vm.user);
                         $location.path('/profile');
-                    },
-                    function (err){
-                        res.status(400).send(err);
                     }
                 )
         }

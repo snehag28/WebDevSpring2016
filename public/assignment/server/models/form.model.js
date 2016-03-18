@@ -1,4 +1,5 @@
 var forms = require("./form.mock.json");
+var uuid = require('node-uuid');
 
 module.exports = function(){
     var api = {
@@ -16,7 +17,7 @@ module.exports = function(){
     return api;
 
     function createFormForUser(userId, form) {
-        var _id = (new Date).getTime();
+        var _id = uuid.v1();
         form._id = _id;
         form.userId = userId;
         forms.push(form);
@@ -90,7 +91,7 @@ module.exports = function(){
     }
 
     function addFieldToFormId(field, formId) {
-        var _id = (new Date).getTime();
+        var _id = uuid.v1();
         field._id = _id;
         var form = findFormById(formId);
         form.fields.push(field);

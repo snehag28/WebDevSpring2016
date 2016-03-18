@@ -28,9 +28,6 @@
                     function (doc) {
                         vm.forms = doc;
                         $scope.forms = vm.forms;
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         };
@@ -47,9 +44,6 @@
                         $scope.forms.push(vm.form);
                         $scope.selectedFormIndex = null;
                         $scope.newForm = {};
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         };
@@ -64,9 +58,6 @@
                         $scope.selectedFormIndex = null;
                         $scope.newForm = {};
 
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         };
@@ -75,9 +66,6 @@
                 .then(
                     function(doc) {
                         $scope.forms.splice(index,1);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         };

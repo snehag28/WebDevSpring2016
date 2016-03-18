@@ -20,9 +20,6 @@
                             UserService.setUser(vm.user);
                             $location.url("/profile");
                         }
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         }
