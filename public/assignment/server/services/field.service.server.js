@@ -20,7 +20,7 @@ module.exports = function(app){
 
     function deleteFieldByFormIdFieldId(req, res){
         var fields = formModel.deleteFieldByFormIdFieldId(req.params.formId, req.params.fieldId);
-        res.json(forms);
+        res.json(fields);
     }
 
     function addFieldToFormId(req, res){
