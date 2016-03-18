@@ -13,11 +13,9 @@ module.exports = function() {
     return api;
 
     function findUserByCredentials(username, password) {
-        console.log("in findUserByCredentials:");
 
         for (var index in users) {
             if (users[index].username == username && users[index].password == password) {
-                console.log(users[index]);
                 return users[index];
             }
         }
@@ -25,7 +23,6 @@ module.exports = function() {
     }
 
     function findAllUsers() {
-        console.log("in findAllUsers");
         return users;
     }
 
@@ -54,7 +51,6 @@ module.exports = function() {
     }
 
     function findUserById(userId) {
-        console.log("in findUserById");
         userId = parseInt(userId);
         for(var i in users) {
             if(users[i]._id === userId) {

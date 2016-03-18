@@ -15,10 +15,10 @@ module.exports = function(app){
     }
 
     function getFormsForUser (req, res) {
-        console.log("in service server getFormsForUser");
+
         var userId = req.params.userId;
         var forms = formModel.findAllFormsForUser(userId);
-        //console.log(forms);
+
         res.json(forms);
     }
 
@@ -29,8 +29,6 @@ module.exports = function(app){
 
     function updateForm (req, res) {
         var newForm = req.body;
-        console.log("in updateForm: -----: ");
-        console.log(newForm);
         var form = formModel.updateFormById(req.params.formId, newForm);
         res.json(form);
     }

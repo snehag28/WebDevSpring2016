@@ -28,9 +28,6 @@
                 .then(
                     function (doc) {
                         $scope.fields = doc;
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         }
@@ -38,7 +35,7 @@
         function addField(fieldType) {
             var field;
             switch(fieldType) {
-                case "Single Line Text Field":
+                case "singleLineText":
                     field = {
                         "_id": null,
                         "label": "New Text Field",
@@ -46,7 +43,7 @@
                         "placeholder": "New Field"
                     };
                     break;
-                case "Multi Line Text Field":
+                case "paragraphTextField":
                     field = {
                         "_id": null,
                         "label": "New Text Field",
@@ -54,42 +51,41 @@
                         "placeholder": "New Field"
                     };
                     break;
-                case "Date Field":
+                case "date":
                     field = {
                         "_id": null,
                         "label": "New Date Field",
                         "type": "DATE"
                     };
                     break;
-                case "Dropdown Field":
+                case "dropdown":
                     field = {"_id": null, "label": "New Dropdown", "type": "OPTIONS", "options": [
                         {"label": "Option 1", "value": "OPTION_1"},
                         {"label": "Option 2", "value": "OPTION_2"},
                         {"label": "Option 3", "value": "OPTION_3"}
                     ]};
                     break;
-                case "Checkboxes Field":
+                case "checkBoxes":
                     field = {"_id": null, "label": "New Checkboxes", "type": "CHECKBOXES", "options": [
                         {"label": "Option A", "value": "OPTION_A"},
                         {"label": "Option B", "value": "OPTION_B"},
                         {"label": "Option C", "value": "OPTION_C"}
                     ]};
                     break;
-                case "Radio Buttons Field":
+                case "radioButtons":
                     field = {"_id": null, "label": "New Radio Buttons", "type": "RADIOS", "options": [
                         {"label": "Option X", "value": "OPTION_X"},
                         {"label": "Option Y", "value": "OPTION_Y"},
                         {"label": "Option Z", "value": "OPTION_Z"}
                     ]};
             }
-
+            console.log("after switch:"+field);
             FieldService.createFieldForForm(formId, field)
                 .then(
                     function (doc) {
+                        console.log(doc);
                         $scope.fields = doc;
-                    },
-                    function (err) {
-                        res.status(400).send(err);
+                        getFieldsForForm(formId);
                     }
                 )
         }
@@ -99,9 +95,6 @@
                 .then(
                     function (doc) {
                         $scope.fields = doc;
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         }
@@ -113,9 +106,6 @@
                         $scope.modalField = doc.data;
                         console.log($scope.modalField);
                         $scope.modalField.options = JSON.stringify($scope.modalField.options);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         }
@@ -129,9 +119,6 @@
                     function (doc) {
                         $scope.modalField = doc;
                         getFieldsForForm(formId);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         }
@@ -140,9 +127,6 @@
                 .then(
                     function (doc) {
                         $scope.fields = doc;
-                    },
-                    function (err) {
-                        res.status(400).send(err);
                     }
                 )
         }

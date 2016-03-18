@@ -24,12 +24,10 @@ module.exports = function(){
     }
 
     function findAllFormsForUser(userId) {
-        console.log("in findAllFormsForUser in model.js");
         var formsForUser = [];
         for (var index in forms) {
             var form = forms[index];
             if (form.userId == userId) {
-                console.log("index:"+index);
                 formsForUser.push(form);
             }
         }
@@ -96,7 +94,7 @@ module.exports = function(){
         field._id = _id;
         var form = findFormById(formId);
         form.fields.push(field);
-        return form;
+        return form.fields;
     }
 
     function deleteFieldByFormIdFieldId(formId, fieldId) {
