@@ -2,5 +2,5 @@
 
 (function(){
     angular
-        .module("FormBuilderApp", ["ngRoute","ui-sortable"]);
+        .module("FormBuilderApp", ["ngRoute"]);
 })();
