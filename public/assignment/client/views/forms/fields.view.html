@@ -11,14 +11,11 @@
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane" id="forms">
-
-                    </div>
-                    <div role="tabpanel" class="tab-pane active" id="form-fields">
+                <div class="panel panel-default">
+                    <div role="tabpanel" class="panel-body" id="form-fields">
                         <br>
 
-
+                        <div ui-sortable ng-model="fields">
                             <div class="form-group" ng-repeat="field in fields">
                                 <label for="{{field.label}}">{{field.label}}</label>
                                 <div class="form-horizontal row">
@@ -68,7 +65,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
                         <hr>
                         <div class="form-group">
                             <label for="newField">Add New Field </label>
