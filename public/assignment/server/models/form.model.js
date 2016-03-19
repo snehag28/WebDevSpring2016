@@ -94,7 +94,13 @@ module.exports = function(){
         var _id = uuid.v1();
         field._id = _id;
         var form = findFormById(formId);
-        form.fields.push(field);
+        if(form.fields){
+            form.fields.push(field);
+        }else{
+            form.fields = [];
+            form.fields.push(field);
+        }
+
         return form.fields;
     }
 

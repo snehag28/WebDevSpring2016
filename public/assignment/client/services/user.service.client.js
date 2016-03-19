@@ -112,6 +112,8 @@
 
         function logout() {
             $rootScope.user = null;
+            console.log("in logout");
+            console.log($rootScope.user);
         }
     }
 })();

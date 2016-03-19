@@ -7,7 +7,6 @@
 
     function ProfileController($scope,$routeParams,$rootScope, UserService) {
         console.log("Hello from profile controller!");
-        var vm = this;
         $scope.update = update;
 
         function update(newUser) {
@@ -15,10 +14,9 @@
                 .updateUser(newUser._id, newUser)
                 .then(
                     function(doc){
-                        vm.user = doc;
-                        console.log(vm.user);
-                        if(vm.user){
-                            UserService.setUser(vm.user);
+                        var user = doc;
+                        if(user){
+                            UserService.setUser(user);
                         }
                     }
                 )
