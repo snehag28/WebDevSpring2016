@@ -17,6 +17,7 @@
         $scope.duplicateField = duplicateField;
 
         function init(){
+            console.log("in init:"+formId);
             var userId = $rootScope.user._id;
             getFieldsForForm(formId);
         }
