@@ -5,17 +5,21 @@
         .module("BookApp")
         .controller("ProfileController",ProfileController);
 
-    function ProfileController($scope,$rootScope,UserService) {
+    function ProfileController($scope,UserService) {
         //console.log("Hello from profile controller!");
         $scope.update = update;
 
         function update(newUser) {
-            UserService.updateUser(newUser._id, newUser,
-                function (response) {
-                    $rootScope.user = response;
-                    //console.log($rootScope.user._id + ", " + $rootScope.user.firstName + ", " + $rootScope.user.lastName);
-                }
-            )
-        };
+            UserService
+                .updateUserById(newUser._id, newUser)
+                .then(
+                    function(doc){
+                        var user = doc;
+                        if(user){
+                            UserService.setUser(user);
+                        }
+                    }
+                )
+        }
     }
 })();

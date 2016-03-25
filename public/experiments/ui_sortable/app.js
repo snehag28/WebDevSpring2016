@@ -61,7 +61,7 @@ myapp.controller('sortableController', function ($scope) {
         stop: function(e, ui) {
             console.log("stop");
 
-            // this callback has the changed model
+            // this callback has the changed models
             var logEntry = tmpList.map(function(i){
                 return i.value;
             }).join(', ');

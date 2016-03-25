@@ -16,7 +16,7 @@
             })
             .when("/profile", {
                 templateUrl: "client/views/users/profile.view.html",
-                //controller: "ProfileController"
+                controller: "ProfileController"
             })
             .when("/bookshelf", {
                 templateUrl: "client/views/books/bookshelf/bookshelf.view.html",
@@ -44,7 +44,7 @@
             })
             .when("/login", {
                 templateUrl: "client/views/users/login.view.html",
-                //controller: "LoginController"
+                controller: "LoginController"
             })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
@@ -118,8 +118,8 @@
                 templateUrl: "client/views/home/home.view.html",
                 //controller: "HomeController"
             })
-            .when("/myCarousel", {
-                templateUrl: "client/views/home/home.view.html/myCarousel",
+            .when("/#myCarousel", {
+                templateUrl: "client/views/home/home.view.html/#myCarousel",
                 //controller: "HomeController"
             })
             .otherwise({

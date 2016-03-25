@@ -10,13 +10,15 @@
         $scope.register = register;
 
         function register(newUser){
-            UserService.createUser(newUser,
-                function(response){
-                    $rootScope.user = response;
-                    //console.log($rootScope.user._id+", "+$rootScope.user.username+", "+$rootScope.user.email);
-                }
-            )
-            $location.path('/profile');
+            UserService
+                .createUser(newUser)
+                .then(
+                    function (doc) {
+                        UserService.setUser(doc);
+                        console.log(doc);
+                        $location.url('/profile');
+                    }
+                )
         }
     };
 })();

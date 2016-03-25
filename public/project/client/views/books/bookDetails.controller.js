@@ -10,8 +10,9 @@
         .module("BookApp")
         .controller("BookDetailsController", BookDetailsController);
 
-    function BookDetailsController($scope, $http, $routeParams,$sce) {
+    function BookDetailsController($scope, $http, $routeParams,$sce,BookService, $rootScope) {
         console.log("in BookDetailsController: " + $routeParams.id);
+        $scope.addToReadingList = addToReadingList;
 
         var vm = this;
 
@@ -29,6 +30,17 @@
             var url = DETAILS_URL.replace("BOOKID", bookId);
             $http.get(url)
                 .success(renderDetails);
+        }
+
+        function addToReadingList(book,shelf){
+            BookService.createBookForUser($rootScope.user._id,book,shelf,
+                function(response){
+                    var newBook = response;
+                    //$scope.books.push(newBook);
+                    $scope.selectedBookIndex = null;
+                    $scope.newBook = {};
+                }
+            )
         }
 
         function renderDetails(response) {

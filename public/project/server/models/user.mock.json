@@ -1,0 +1,30 @@
+[
+{
+"_id": 123, "firstName": "Alice", "lastName": "Wonderland",
+"username": "alice", "password": "alice", "roles": "member",
+"following": ["bob","nisha"], "followers": ["bob","sneha"],
+"email": "alice@gmail.com", "gender" : "female",
+"aboutme": "about alice", "favoritebooks":"alice's favorite books"
+},
+{
+"_id": 234, "firstName": "Sneha", "lastName": "Gaikwad",
+"username": "sneha", "password": "sneha", "roles": "admin",
+"following": [], "followers": [],
+"email": "sneha@gmail.com", "gender" : "female",
+"aboutme": "about sneha", "favoritebooks":"sneha's favorite books"
+},
+{
+"_id": 345, "firstName": "Nisha", "lastName": "Ramakrishnan",
+"username": "nisha", "password": "nisha", "roles": "editor",
+"following": [], "followers": [],
+"email": "nisha@gmail.com", "gender" : "female",
+"aboutme": "about nisha", "favoritebooks":"nisha's favorite books"
+},
+{
+"_id": 567, "firstName": "Bob", "lastName": "Hope",
+"username": "bob", "password": "bob", "roles": "member",
+"following": [], "followers": [],
+"email": "bob@gmail.com", "gender" : "male",
+"aboutme": "about bob", "favoritebooks":"bob's favorite books"
+}
+]
