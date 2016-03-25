@@ -6,6 +6,7 @@
 
     function BookshelfController($scope, $rootScope, $location, BookService) {
         console.log("Hello from Bookshelf controller!");
+        var vm = this;
 
         $scope.selectedBookIndex = null;
         $scope.updateBook = updateBook;
@@ -14,15 +15,19 @@
 
         function init() {
             if($location.url().indexOf('bookshelf') != -1){
+                console.log("in all");
                 getBooksForUser($rootScope.user._id);
             }
             else if($location.url().indexOf('current') != -1){
+                console.log("in current");
                 getBooksForUserByShelf($rootScope.user._id,"currently-reading");
             }
             else if($location.url().indexOf('read') != -1){
+                console.log("in read");
                 getBooksForUserByShelf($rootScope.user._id,"read");
             }
             else if($location.url().indexOf('future') != -1){
+                console.log("in future");
                 getBooksForUserByShelf($rootScope.user._id,"to-read");
             }
 
@@ -30,42 +35,43 @@
         init();
 
         function getBooksForUser(userId){
-            BookService.findAllBooksForUser(userId,
-                function(response){
-                    var userBooks = response;
-                    $scope.books = userBooks;
-                    console.log("in getBooksForUser:"+$scope.books);
-                }
-            )
-        };
+            BookService.findAllBooksForUser(userId)
+                .then(
+                    function(doc) {
+                        $scope.books = doc;
+                    }
+                )
+        }
 
         function getBooksForUserByShelf(userId,shelf){
-            BookService.findAllBooksForUserByShelf(userId,shelf,
-                function(response){
-                    var userBooks = response;
-                    $scope.books = userBooks;
-                    console.log("in getBooksForUser:"+$scope.books);
-                }
-            )
-        };
+            BookService.findAllBooksForUserByShelf(userId,shelf)
+                .then(
+                    function(doc) {
+                        $scope.books = doc;
+                    }
+                )
+        }
 
         function updateBook (book){
-            console.log("in updteBook:" + book);
-            BookService.updateBookById($scope.books[$scope.selectedBookIndex].id, book,
-                function(response){
-                    var updatedBook = response;
-                    $scope.books[$scope.selectedBookIndex] = updatedBook;
-                    $scope.selectedBookIndex = null;
-                    $scope.newBook = {};
-                }
-            )
-        };
+            BookService.updateBookById($scope.books[$scope.selectedBookIndex].id, book)
+                .then(
+                    function(doc){
+                        var updatedBook = doc;
+                        $scope.books[$scope.selectedBookIndex] = updatedBook;
+                        $scope.selectedBookIndex = null;
+                        $scope.newBook = {};
+                    }
+                )
+        }
+
         function deleteBook(index){
-            BookService.deleteBookById($scope.books[index].id,
-                function(response){
-                    $scope.books.splice(index,1);
-                })
-        };
+            BookService.deleteBookById($scope.books[index].id)
+                .then(
+                    function(doc){
+                        $scope.books.splice(index,1);
+                    }
+                )
+        }
 
         function selectBook(index){
             $scope.selectedBookIndex = index;
@@ -78,6 +84,6 @@
                 "rating" : $scope.books[index].rating,
                 "imageURL" : $scope.books[index].imageURL,
             };
-        };
+        }
     }
 })();
