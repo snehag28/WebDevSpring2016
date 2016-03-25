@@ -5,7 +5,7 @@
         .module("BookApp")
         .controller("AdminController",AdminController);
 
-    function AdminController($scope,$location,$rootScope,UserService){
+    function AdminController($scope,UserService){
         console.log("Hello from admin controller!");
 
         $scope.selectedUserIndex = null;
@@ -18,33 +18,36 @@
         }
         init();
 
-        function getAllUsers(userId){
-            UserService.findAllUsers(
-                function(response){
-                    $scope.users = response;
-                    console.log("in getAllUsers:"+$scope.users);
-                }
-            )
-        };
+        function getAllUsers(){
+            UserService.findAllUsers()
+                .then(
+                    function(response){
+                        $scope.users = response;
+                        console.log("in getAllUsers:"+$scope.users);
+                    }
+                )
+        }
 
         function updateUser(user){
             console.log("in updateUser:" + user);
-            UserService.updateUserById($scope.users[$scope.selectedUserIndex]._id, user,
-                function(response){
-                    var updatedUser = response;
-                    $scope.users[$scope.selectedUserIndex] = updatedUser;
-                    $scope.selectedUserIndex = null;
-                    $scope.newUser = {};
-                }
-            )
-        };
+            UserService.updateUserById($scope.users[$scope.selectedUserIndex]._id, user)
+                .then(
+                    function(response){
+                        var updatedUser = response;
+                        $scope.users[$scope.selectedUserIndex] = updatedUser;
+                        $scope.selectedUserIndex = null;
+                        $scope.newUser = {};
+                    }
+                )
+        }
 
         function deleteUser(index){
-            UserService.deleteUserById($scope.users[index]._id,
-                function(response){
-                    $scope.users = response;
-                })
-        };
+            UserService.deleteUserById($scope.users[index]._id)
+                .then(
+                    function(response){
+                        $scope.users = response;
+                    })
+        }
 
         function selectUser(index){
             $scope.selectedUserIndex = index;
@@ -55,6 +58,5 @@
                 "roles" : $scope.users[index].roles
             };
         };
-
-    };
+    }
 })();
