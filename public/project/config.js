@@ -7,119 +7,119 @@
     function Configure($routeProvider) {
         $routeProvider
             .when("/home",{
-                templateUrl: "client/home/home.view.html",
+                templateUrl: "client/views/home/home.view.html",
                 //controller: "HomeController"
             })
             .when("/register", {
-                templateUrl: "client/users/register.view.html",
+                templateUrl: "client/views/users/register.view.html",
                 //controller: "RegisterController"
             })
             .when("/profile", {
-                templateUrl: "client/users/profile.view.html",
+                templateUrl: "client/views/users/profile.view.html",
                 //controller: "ProfileController"
             })
             .when("/bookshelf", {
-                templateUrl: "client/books/bookshelf/bookshelf.view.html",
+                templateUrl: "client/views/books/bookshelf/bookshelf.view.html",
                 //controller: "BookshelfController"
             })
             .when("/read", {
-                templateUrl: "client/books/bookshelf/read.view.html",
+                templateUrl: "client/views/books/bookshelf/read.view.html",
                 //controller: "BookshelfController"
             })
             .when("/current", {
-                templateUrl: "client/books/bookshelf/current.view.html",
+                templateUrl: "client/views/books/bookshelf/current.view.html",
                 //controller: "BookshelfController"
             })
             .when("/future", {
-                templateUrl: "client/books/bookshelf/future.view.html",
+                templateUrl: "client/views/books/bookshelf/future.view.html",
                 //controller: "BookshelfController"
             })
             .when("/people", {
-                templateUrl: "client/users/people/people.view.html",
+                templateUrl: "client/views/users/people/people.view.html",
                 //controller: "PeopleController"
             })
             .when("/followers", {
-                templateUrl: "client/users/people/followers.view.html",
+                templateUrl: "client/views/users/people/followers.view.html",
                 //controller: "FollowerController"
             })
             .when("/login", {
-                templateUrl: "client/users/login.view.html",
+                templateUrl: "client/views/users/login.view.html",
                 //controller: "LoginController"
             })
             .when("/admin", {
-                templateUrl: "client/admin/admin.view.html",
+                templateUrl: "client/views/admin/admin.view.html",
                 //controller: "AdminController"
             })
             .when("/editor", {
-                templateUrl: "client/editor/editor.view.html",
+                templateUrl: "client/views/editor/editor.view.html",
                 //controller: "AdminController"
             })
             .when("/search", {
-                templateUrl: "client/books/search.view.html",
+                templateUrl: "client/views/books/search.view.html",
                 //controller: "AdminController"
             })
             .when("/search/:title", {
-                templateUrl: "client/books/search.view.html",
+                templateUrl: "client/views/books/search.view.html",
                 controller: "SearchController"
             })
             .when("/bookDetails/:id", {
-                templateUrl: "client/books/bookDetails.view.html",
+                templateUrl: "client/views/books/bookDetails.view.html",
                 //controller: "AdminController"
             })
             .when("/genre", {
-                templateUrl: "client/genre/genre.view.html",
+                templateUrl: "client/views/genre/genre.view.html",
                 //controller: "AdminController"
             })
             .when("/genre/:genreName", {
-                templateUrl: "client/genre/genre.view.html",
+                templateUrl: "client/views/genre/genre.view.html",
                 //controller: "AdminController"
             })
             .when("/author", {
-                templateUrl: "client/authors/author.view.html",
+                templateUrl: "client/views/authors/author.view.html",
                 //controller: "AdminController"
             })
             .when("/author/:authorName", {
-                templateUrl: "client/authors/author.view.html",
+                templateUrl: "client/views/authors/author.view.html",
                 //controller: "AdminController"
             })
             .when("/opinion", {
-                templateUrl: "client/opinion/opinion.view.html",
+                templateUrl: "client/views/opinion/opinion.view.html",
                 //controller: "AdminController"
             })
             .when("/booksOfMonth", {
-                templateUrl: "client/opinion/BOM/booksOfMonth.view.html",
+                templateUrl: "client/views/opinion/BOM/booksOfMonth.view.html",
                 //controller: "AdminController"
             })
             .when("/bom_1", {
-                templateUrl: "client/opinion/BOM/bom_1.view.html",
+                templateUrl: "client/views/opinion/BOM/bom_1.view.html",
                 //controller: "AdminController"
             })
             .when("/bom_2", {
-                templateUrl: "client/opinion/BOM/bom_2.view.html",
+                templateUrl: "client/views/opinion/BOM/bom_2.view.html",
                 //controller: "AdminController"
             })
             .when("/bom_3", {
-                templateUrl: "client/opinion/BOM/bom_3.view.html",
+                templateUrl: "client/views/opinion/BOM/bom_3.view.html",
                 //controller: "AdminController"
             })
             .when("/userArticles", {
-                templateUrl: "client/opinion/userArticles/userArticles.view.html",
+                templateUrl: "client/views/opinion/userArticles/userArticles.view.html",
                 //controller: "AdminController"
             })
             .when("/submitUserArticle", {
-                templateUrl: "client/opinion/userArticles/userArticleForm.view.html",
+                templateUrl: "client/views/opinion/userArticles/userArticleForm.view.html",
                 //controller: "AdminController"
             })
             .when("/submitEditorial", {
-                templateUrl: "client/editor/submitEditorial.view.html",
+                templateUrl: "client/views/editor/submitEditorial.view.html",
                 //controller: "AdminController"
             })
             .when("/logout", {
-                templateUrl: "client/home/home.view.html",
+                templateUrl: "client/views/home/home.view.html",
                 //controller: "HomeController"
             })
             .when("/myCarousel", {
-                templateUrl: "client/home/home.view.html/myCarousel",
+                templateUrl: "client/views/home/home.view.html/myCarousel",
                 //controller: "HomeController"
             })
             .otherwise({
