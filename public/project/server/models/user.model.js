@@ -89,6 +89,8 @@ module.exports = function() {
             user.gender = newUser.gender;
             user.aboutme = newUser.aboutme;
             user.favoritebooks = newUser.favoritebooks;
+            user.following = newUser.following;
+            user.followers = newUser.followers;
         }
         return user;
     }

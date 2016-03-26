@@ -9,21 +9,21 @@
 {
 "_id": 234, "firstName": "Sneha", "lastName": "Gaikwad",
 "username": "sneha", "password": "sneha", "roles": "admin",
-"following": [], "followers": [],
+"following": ["alice"], "followers": [],
 "email": "sneha@gmail.com", "gender" : "female",
 "aboutme": "about sneha", "favoritebooks":"sneha's favorite books"
 },
 {
 "_id": 345, "firstName": "Nisha", "lastName": "Ramakrishnan",
 "username": "nisha", "password": "nisha", "roles": "editor",
-"following": [], "followers": [],
+"following": [], "followers": ["alice"],
 "email": "nisha@gmail.com", "gender" : "female",
 "aboutme": "about nisha", "favoritebooks":"nisha's favorite books"
 },
 {
 "_id": 567, "firstName": "Bob", "lastName": "Hope",
 "username": "bob", "password": "bob", "roles": "member",
-"following": [], "followers": [],
+"following": ["alice"], "followers": ["alice"],
 "email": "bob@gmail.com", "gender" : "male",
 "aboutme": "about bob", "favoritebooks":"bob's favorite books"
 }

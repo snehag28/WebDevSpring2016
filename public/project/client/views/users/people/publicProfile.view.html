@@ -1,0 +1,61 @@
+<div ng-controller="PublicProfileController" class="container">
+    <div class="container marketing">
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <h3>{{userDetails.firstName}} {{userDetails.lastName}}</h3>
+                <table class="table">
+                    <tr>
+                        <button ng-show="user.following.indexOf(userDetails.username) >= 0"
+                                ng-click="removeFromFollowList(userDetails.username)"
+                                class="btn btn-danger">
+                            Unfollow
+                        </button>
+                        <button ng-show="user.following.indexOf(userDetails.username) == -1"
+                                ng-click="addToFollowList(userDetails.username)"
+                                class="btn btn-primary">
+                            Follow
+                        </button>
+                    </tr>
+                    <tr>
+                        <td>About:</td>
+                        <td>{{userDetails.aboutme}}</td>
+                    </tr>
+                    <tr>
+                        <td>Favorite Books:</td>
+                        <td>
+                            {{userDetails.favoritebooks}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Books:</td>
+                        <td>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Shelf</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="book in books">
+                                    <td>
+                                        {{book.title}}
+                                    </td>
+                                    <td>
+                                        {{book.shelf}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <hr class="featurette-divider">
+    </div>
+</div>

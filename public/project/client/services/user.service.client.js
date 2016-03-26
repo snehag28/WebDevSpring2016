@@ -15,6 +15,7 @@
             updateUserById: updateUserById,
             findUserById: findUserById,
             setUser: setUser,
+            getUser: getUser,
             logout: logout
         };
         return api;
@@ -109,6 +110,10 @@
         function setUser(newUser) {
             console.log("in user service client setUser:"+newUser);
             $rootScope.user = newUser;
+        }
+
+        function getUser() {
+            return $rootScope.user;
         }
 
         function logout() {

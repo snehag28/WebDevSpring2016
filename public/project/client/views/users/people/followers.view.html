@@ -1,5 +1,5 @@
 
-<div class="container-fluid" ng-controller="FollowerController">
+<div class="container-fluid" ng-controller="PeopleController">
     <div class="row">
         <div class="main">
             <ul class="nav nav-tabs" role="tablist">
@@ -43,12 +43,20 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Details</th>
-                                    <th>Status</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr ng-repeat="follower in user.followers">
+                                    <td>
+                                        {{follower}}
+                                    </td>
+                                    <td nowrap>
+                                        <a href="#/userDetails/{{follower}}"
+                                           class="btn btn-primary">View Profile</a>
 
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

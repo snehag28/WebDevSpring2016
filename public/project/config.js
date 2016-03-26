@@ -38,6 +38,10 @@
                 templateUrl: "client/views/users/people/people.view.html",
                 //controller: "PeopleController"
             })
+            .when("/userDetails/:username", {
+                templateUrl: "client/views/users/people/publicProfile.view.html",
+                //controller: "PeopleController"
+            })
             .when("/followers", {
                 templateUrl: "client/views/users/people/followers.view.html",
                 //controller: "FollowerController"

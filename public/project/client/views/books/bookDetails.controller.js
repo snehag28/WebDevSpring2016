@@ -6,10 +6,6 @@
 
     var DETAILS_URL = "https://www.googleapis.com/books/v1/volumes/BOOKID";
 
-    angular
-        .module("BookApp")
-        .controller("BookDetailsController", BookDetailsController);
-
     function BookDetailsController($scope, $http, $routeParams,$sce,BookService, $rootScope) {
         $scope.addToReadingList = addToReadingList;
 
