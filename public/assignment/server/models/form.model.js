@@ -11,7 +11,8 @@ module.exports = function(){
         getFieldByFormIdFieldId: getFieldByFormIdFieldId,
         deleteFieldByFormIdFieldId: deleteFieldByFormIdFieldId,
         updateFieldByFormIdFieldId: updateFieldByFormIdFieldId,
-        addFieldToFormId: addFieldToFormId
+        addFieldToFormId: addFieldToFormId,
+        ReorderFormFields:ReorderFormFields
     }
 
     return api;
@@ -126,6 +127,16 @@ module.exports = function(){
             field.options = newField.options;
             return form;
         }
+    }
+
+    // reference:https://github.com/dev92/WebDevSpring2016/
+    function ReorderFormFields(formId,fields){
+        var requiredForm = findFormById(formId);
+        if(requiredForm!=null){
+            requiredForm.fields = fields;
+            return updateFormById(requiredForm._id,requiredForm).fields;
+        }
+        return null;
     }
 
 }
