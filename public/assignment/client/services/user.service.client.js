@@ -34,7 +34,6 @@
         }
 
         function findUserByCredentials(username, password) {
-            console.log("in userservice findUserByCredentials");
             var deferred = $q.defer();
 
             $http.get("/api/assignment/user?username="+username+"&password="+password)
@@ -112,8 +111,6 @@
 
         function logout() {
             $rootScope.user = null;
-            console.log("in logout");
-            console.log($rootScope.user);
         }
     }
 })();

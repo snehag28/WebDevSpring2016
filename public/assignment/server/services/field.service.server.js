@@ -1,4 +1,4 @@
-var formModel = require("./../models/form.model.js")();
+var formModel = require("./../models/form.model.server.js")();
 
 module.exports = function(app){
     app.get("/api/assignment/form/:formId/field", getFieldsForFormId);

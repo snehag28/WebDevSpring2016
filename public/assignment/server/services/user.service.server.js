@@ -1,6 +1,4 @@
-var userModel = require("./../models/user.model.js")();
-
-module.exports = function(app){
+module.exports = function(app, formUserModel){
     app.get("/api/assignment/user?username=username",getUsers);
     app.get("/api/assignment/user?username=username&password=password",getUsers);
     app.get("/api/assignment/user", getUsers);
@@ -10,6 +8,10 @@ module.exports = function(app){
     app.delete("/api/assignment/user/:id",deleteUser);
 
     function getUsers(req, res){
+        //if both username and password are passed in the url,
+        //      get user information using username and password
+        //if just username is passed, get user information using username
+        //if nothing is passed, send all users
         if(req.query.username){
             if(req.query.password){
                 login(req, res);
@@ -22,47 +24,105 @@ module.exports = function(app){
     }
 
     function login(req, res){
-
-        var user = userModel.findUserByCredentials(req.query.username,req.query.password);
-        res.json(user);
+        // use model to find user by credentials
+        formUserModel.findUserByCredentials(req.query.username,req.query.password)
+            .then(
+                // return user if promise resolved
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getUserByName(req, res){
-
-        var user = userModel.findUserByUsername(req.query.username);
-        res.json(user);
+        formUserModel.findUserByUsername(req.query.username)
+            .then(
+                // return user if promise resolved
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function allUsers(req, res){
-
-        var users = userModel.findAllUsers();
-        res.json(users);
+        formUserModel.findAllUsers()
+            .then(
+                // return user if promise resolved
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function profile(req, res){
 
-        var user = userModel.findUserById(req.params.id);
-        res.json(user);
+        var userId = req.params.id;
+
+        // use model to find user by id
+        formUserModel.findUserById(userId)
+            .then(
+                // return user if promise resolved
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function register(req, res){
-
         var user = req.body;
-        var newUser = userModel.createUser(user);
-        res.json(newUser);
+        formUserModel.createUser(user)
+            // handle model promise
+            .then(
+                // login user if promise resolved
+                function ( doc ) {
+                    //req.session.currentUser = doc;
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateUser(req, res){
-
         var user = req.body;
-        var users = userModel.updateUserById(req.params.id, user);
-        res.json(users);
+        formUserModel.updateUserById(req.params.id,user)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteUser(req, res){
-
-        var users = userModel.deleteUserById(req.params.id);
-        res.json(users);
+        formUserModel.deleteUserById(req.params.id)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
-
 }

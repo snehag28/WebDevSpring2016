@@ -6,7 +6,6 @@
         .controller("ProfileController",ProfileController);
 
     function ProfileController($scope,$routeParams,$rootScope, UserService) {
-        console.log("Hello from profile controller!");
         $scope.update = update;
 
         function update(newUser) {

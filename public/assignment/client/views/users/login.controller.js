@@ -6,7 +6,6 @@
         .controller("LoginController",LoginController);
 
     function LoginController($rootScope,$scope,$location,UserService){
-        //console.log("Hello from login controller!");
         $scope.login = login;
 
         function login(user){
