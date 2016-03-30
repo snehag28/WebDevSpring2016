@@ -9,8 +9,6 @@
 
         function logout() {
             UserService.logout();
-            console.log("in controller logout:");
-            console.log($rootScope.user);
         }
     }
 

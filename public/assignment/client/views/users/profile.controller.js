@@ -5,10 +5,12 @@
         .module("FormBuilderApp")
         .controller("ProfileController",ProfileController);
 
-    function ProfileController($scope,$routeParams,$rootScope, UserService) {
+    function ProfileController($scope, UserService) {
         $scope.update = update;
 
         function update(newUser) {
+            console.log("in update of profile controller:");
+            console.log(newUser);
             UserService
                 .updateUser(newUser._id, newUser)
                 .then(

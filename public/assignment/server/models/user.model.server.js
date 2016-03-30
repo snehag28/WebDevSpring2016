@@ -1,3 +1,4 @@
+
 // load q promise library
 var q = require("q");
 
@@ -105,19 +106,7 @@ module.exports = function(db, mongoose) {
     }
 
     function findUserById(userId) {
-        var deferred = q.defer();
-
-        // find one user with mongoose user model's findOne()
-        UserModel.findOne(
-            {_id: userId},
-            function (err, doc) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(doc);
-                }
-            });
-        return deferred.promise;
+        return UserModel.findById(userId);
     }
 
     function findUserByUsername(userName) {
@@ -138,7 +127,8 @@ module.exports = function(db, mongoose) {
 
     function updateUserById(userId, newUser) {
         var deferred = q.defer();
-
+        console.log("in model");
+        console.log(newUser);
         // update user with mongoose user model's update()
         UserModel.update (
             {_id: userId},
@@ -148,7 +138,7 @@ module.exports = function(db, mongoose) {
                     deferred.reject(err);
                 }
                 else {
-                    deferred.resolve(findUserById(userId));
+                    deferred.resolve(stats);
                 }
             });
         return deferred.promise;

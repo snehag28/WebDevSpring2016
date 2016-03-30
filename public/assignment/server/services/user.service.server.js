@@ -84,18 +84,23 @@ module.exports = function(app, formUserModel){
             );
     }
 
-    function register(req, res){
+    function register(req, res) {
         var user = req.body;
-        formUserModel.createUser(user)
+
+        user = formUserModel.createUser(user)
             // handle model promise
             .then(
                 // login user if promise resolved
                 function ( doc ) {
                     //req.session.currentUser = doc;
-                    res.json(doc);
+                    console.log(doc);
+                    console.log(user);
+                    res.json(user);
                 },
                 // send error if promise rejected
                 function ( err ) {
+                    console.log("in err:");
+                    console.log(user);
                     res.status(400).send(err);
                 }
             );
@@ -103,10 +108,15 @@ module.exports = function(app, formUserModel){
 
     function updateUser(req, res){
         var user = req.body;
-        formUserModel.updateUserById(req.params.id,user)
+        console.log("in service updateUser");
+        console.log(user);
+        user = formUserModel.updateUserById(req.params.id,user)
             .then(
                 function (doc) {
-                    res.json(doc);
+                    console.log("after update");
+                    console.log(doc);
+                    console.log(user);
+                    res.json(user);
                 },
                 function (err) {
                     res.status(400).send(err);

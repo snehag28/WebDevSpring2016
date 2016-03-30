@@ -1,136 +1,108 @@
-var forms = require("./form.mock.json");
-var uuid = require('node-uuid');
+
+// load q promise library
+var q = require("q");
 
 module.exports = function(db, mongoose){
+    // load user schema
+    var FormSchema = require("./form.schema.server.js")(mongoose);
+
+    // create user model from schema
+    var FormModel = mongoose.model('Form', FormSchema);
+
     var api = {
+        getForm: getForm,
         createFormForUser: createFormForUser,
         findAllFormsForUser: findAllFormsForUser,
         deleteFormById: deleteFormById,
         updateFormById: updateFormById,
-        getFieldsForFormId: getFieldsForFormId,
-        getFieldByFormIdFieldId: getFieldByFormIdFieldId,
-        deleteFieldByFormIdFieldId: deleteFieldByFormIdFieldId,
-        updateFieldByFormIdFieldId: updateFieldByFormIdFieldId,
-        addFieldToFormId: addFieldToFormId,
         ReorderFormFields:ReorderFormFields
-    }
+    };
 
     return api;
 
+    function getForm(){
+        return FormModel;
+    }
+
     function createFormForUser(userId, form) {
-        var _id = uuid.v1();
-        form._id = _id;
-        form.userId = userId;
-        forms.push(form);
-        return form;
+        var deferred = q.defer();
+
+        form["userId"] = userId;
+
+        FormModel.create(form,
+            function(err, doc) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
     }
 
     function findAllFormsForUser(userId) {
-        var formsForUser = [];
-        for (var index in forms) {
-            var form = forms[index];
-            if (form.userId == userId) {
-                formsForUser.push(form);
+        var deferred = q.defer();
+        console.log("in findAllFormsForUser:"+userId);
+
+        FormModel.find({ userId: userId },
+            function(err, doc) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    console.log(doc);
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return formsForUser;
+        );
+        return deferred.promise;
     }
 
     //function that returns form based on the ID
     function findFormById(formId) {
-        for (var index in forms) {
-            var form = forms[index];
-            if (formId == form._id) {
-                return form;
-            }
-        }
-        return null;
+        return FormModel.findById(formId);
     }
 
     function deleteFormById(formId) {
-        var form = findFormById(formId);
-        if (form != null) {
-            var index = forms.indexOf(form);
-            forms.splice(index, 1);
-        }
-        return forms;
+
+        var defered = q.defer();
+
+        FormModel.remove(
+            {_id: formId},
+            function(err, stats) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(findAllFormsForUser);
+                }
+            }
+        );
+        return deferred.promise;
     }
 
     function updateFormById(formId, newForm) {
-        var form = findFormById(formId);
-        if (form != null) {
-            form.title = newForm.title;
-        }
-        return form;
-    }
+        var deferred = q.defer();
 
-    function getFieldsForFormId(formId) {
-        var form = findFormById(formId);
-        if(form != null) {
-            return form.fields;
-        }
-    }
-
-    function getFieldByFormIdFieldId(formId, fieldId) {
-        var form = findFormById(formId);
-        if(form != null) {
-            var fields = form.fields;
-            var field = getFieldById(fields, fieldId);
-            return field;
-        }
-        return null;
-    }
-
-    function getFieldById(fields, fieldId) {
-        for (var index in fields) {
-            var field = fields[index];
-            if (fieldId == field._id) {
-                return field;
+        FormModel.update(
+            {_id: formId},
+            {$set: newForm},
+            function(err, stats) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(findFormById(formId));
+                }
             }
-        }
-        return null;
-    }
-
-    function addFieldToFormId(field, formId) {
-        var _id = uuid.v1();
-        field._id = _id;
-        var form = findFormById(formId);
-        if(form.fields){
-            form.fields.push(field);
-        }else{
-            form.fields = [];
-            form.fields.push(field);
-        }
-
-        return form.fields;
-    }
-
-    function deleteFieldByFormIdFieldId(formId, fieldId) {
-        var form = findFormById(formId);
-        if (form != null) {
-            var fields = form.fields;
-            var field = getFieldById(fields, fieldId);
-            var index = fields.indexOf(field);
-            fields.splice(index, 1);
-            return fields;
-        }
-    }
-
-    function updateFieldByFormIdFieldId(formId, fieldId, newField) {
-        var form = findFormById(formId);
-        if (form != null) {
-            var fields = form.fields;
-            var field = getFieldById(fields, fieldId);
-            field.label = newField.label;
-            field.type = newField.type;
-            field.placeholder = newField.placeholder;
-            field.options = newField.options;
-            return form;
-        }
+        );
+        return deferred.promise;
     }
 
     // reference:https://github.com/dev92/WebDevSpring2016/
-    function ReorderFormFields(formId,fields){
+    function ReorderFormFields(formId, fields){
         var requiredForm = findFormById(formId);
         if(requiredForm!=null){
             requiredForm.fields = fields;
@@ -138,6 +110,5 @@ module.exports = function(db, mongoose){
         }
         return null;
     }
-
 }
 

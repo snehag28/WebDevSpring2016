@@ -29,7 +29,7 @@
 
         function findAllFormsForUser(userId) {
             var deferred = $q.defer();
-            console.log("in findAllFormsForUser service client");
+            console.log("in findAllFormsForUser service client:"+userId);
             $http.get("/api/assignment/user/"+userId+"/form")
                 .then(
                     function(response){

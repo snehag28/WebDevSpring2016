@@ -63,12 +63,9 @@
         }
 
         function createUser(user) {
-            var deferred = $q.defer();
-            $http.post("/api/assignment/user",user)
-                .success(function (response){
-                    deferred.resolve(response);
-                });
-            return deferred.promise;
+
+            return $http.post("/api/assignment/user",user);
+
         }
 
         function deleteUserById(userId) {
@@ -98,6 +95,8 @@
 
         function updateUser(userId, newUser) {
             var deferred = $q.defer();
+            console.log("in updateUser");
+            console.log(newUser);
             $http.put("/api/assignment/user/"+userId, newUser)
                 .success(function (response) {
                     deferred.resolve(response);

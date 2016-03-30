@@ -6,7 +6,6 @@
         .controller("RegisterController",RegisterController);
 
     function RegisterController($scope,$location,UserService){
-        var vm = this;
         $scope.register = register;
 
         function register(newUser){
@@ -14,11 +13,13 @@
                 .createUser(newUser)
                 .then(
                     function (doc) {
-                        vm.user = doc;
-                        UserService.setUser(vm.user);
-                        $location.path('/profile');
+                        var currentUser = doc.data;
+                        if( currentUser != null){
+                            UserService.setUser(currentUser);
+                            $location.url('/profile');
+                        }
                     }
-                )
+                );
         }
-    };
+    }
 })();

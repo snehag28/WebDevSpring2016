@@ -22,7 +22,7 @@
         init();
 
         function getFormsForUser(userId){
-            console.log("in controller getFormsForUser");
+            console.log("in controller getFormsForUser:"+userId);
             FormService.findAllFormsForUser(userId)
                 .then(
                     function (doc) {

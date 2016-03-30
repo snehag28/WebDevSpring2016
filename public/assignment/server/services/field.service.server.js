@@ -1,43 +1,68 @@
-var formModel = require("./../models/form.model.server.js")();
-
-module.exports = function(app){
+module.exports = function(app, fieldModel){
     app.get("/api/assignment/form/:formId/field", getFieldsForFormId);
     app.get("/api/assignment/form/:formId/field/:fieldId", getFieldByFormIdFieldId);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByFormIdFieldId);
     app.post("/api/assignment/form/:formId/field", addFieldToFormId);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldByFormIdFieldId);
-    app.put("/api/assignment/form/:formId/field", ReorderFormFields);
+//    app.put("/api/assignment/form/:formId/field", ReorderFormFields);
 
     function getFieldsForFormId(req, res){
-        console.log("in getFieldsForFormId:"+req.params.formId);
-        var fields = formModel.getFieldsForFormId(req.params.formId);
-        res.json(fields);
+        fieldModel.getFieldsForFormId(req.params.formId)
+            .then(function(form) {
+                    res.json(form.fields);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
     }
 
     function getFieldByFormIdFieldId(req, res){
-        var field = formModel.getFieldByFormIdFieldId(req.params.formId, req.params.fieldId);
-        res.json(field);
+        fieldModel.getFieldByFormIdFieldId(req.params.formId, req.params.fieldId)
+            .then(function(field) {
+                    res.json(field);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteFieldByFormIdFieldId(req, res){
-        var fields = formModel.deleteFieldByFormIdFieldId(req.params.formId, req.params.fieldId);
-        res.json(fields);
+        fieldModel.deleteFieldByFormIdFieldId(req.params.formId, req.params.fieldId)
+            .then(function(form) {
+                    res.json(form.fields);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function addFieldToFormId(req, res){
-        var fields = formModel.addFieldToFormId(req.body, req.params.formId);
-        res.json(fields);
+        fieldModel.addFieldToFormId(req.body, req.params.formId)
+            .then( function(field) {
+                    res.json(field);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateFieldByFormIdFieldId(req, res){
-        var newField = req.body;
-        var field = formModel.updateFieldByFormIdFieldId(req.params.formId, req.params.fieldId, newField);
-        res.json(field);
+        fieldModel.updateFieldByFormIdFieldId(req.params.formId, req.params.fieldId,req.body)
+            .then(function(field) {
+                    res.json(field);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     // reference:https://github.com/dev92/WebDevSpring2016/
-    function ReorderFormFields(req,res){
+    /*function ReorderFormFields(req,res){
         res.json(formModel.ReorderFormFields(req.params["formId"],req.body));
-    }
+    }*/
 }
 

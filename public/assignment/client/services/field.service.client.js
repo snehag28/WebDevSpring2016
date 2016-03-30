@@ -12,7 +12,7 @@
             getFieldForForm: getFieldForForm,
             deleteFieldFromForm: deleteFieldFromForm,
             updateField: updateField,
-            reorderFields: reorderFields
+            //reorderFields: reorderFields
         };
 
         return api;
@@ -78,13 +78,13 @@
         }
 
         // reference:https://github.com/dev92/WebDevSpring2016/
-        function reorderFields(formId,fields){
+        /*function reorderFields(formId,fields){
             var defer = $q.defer();
             var url = "/api/assignment/form/" + formId + "/field";
             $http.put(url, fields).success(function (response) {
                 defer.resolve(response);
             });
             return defer.promise;
-        }
+        }*/
     }
 })();
