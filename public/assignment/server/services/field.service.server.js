@@ -1,4 +1,4 @@
-module.exports = function(app, fieldModel){
+module.exports = function(app, formModel){
     app.get("/api/assignment/form/:formId/field", getFieldsForFormId);
     app.get("/api/assignment/form/:formId/field/:fieldId", getFieldByFormIdFieldId);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByFormIdFieldId);

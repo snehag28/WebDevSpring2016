@@ -1,6 +1,7 @@
 
 // load q promise library
 var q = require("q");
+var uuid = require('node-uuid');
 
 // pass db and mongoose reference to model
 module.exports = function(db, mongoose) {
@@ -9,7 +10,7 @@ module.exports = function(db, mongoose) {
     var UserSchema = require("./user.schema.server.js")(mongoose);
 
     // create user model from schema
-    var UserModel = mongoose.model('User', UserSchema);
+    var UserModel = mongoose.model('UserModel', UserSchema);
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -69,11 +70,23 @@ module.exports = function(db, mongoose) {
 
     function createUser(user) {
 
-        // use q to defer the response
+        var _id = uuid.v1();
+        var newUser = {
+            "_id": _id,
+            "username": user.username,
+            "password": user.password,
+            "firstName": user.firstName,
+            "lastName": user.lastName,
+            "email" : user.email,
+            "gender" : user.gender,
+            "aboutme": user.aboutme,
+            "favoritebooks": user.favoritebooks
+        };
+
         var deferred = q.defer();
 
-        // insert new user with mongoose user model's create()
-        UserModel.create(user, function (err, doc) {
+        UserModel.create(newUser, function (err, doc) {
+
             if (err) {
                 // reject promise if error
                 deferred.reject(err);
@@ -81,7 +94,9 @@ module.exports = function(db, mongoose) {
                 // resolve promise
                 deferred.resolve(doc);
             }
+
         });
+
         // return a promise
         return deferred.promise;
     }

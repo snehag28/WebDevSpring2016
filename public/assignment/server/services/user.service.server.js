@@ -93,14 +93,10 @@ module.exports = function(app, formUserModel){
                 // login user if promise resolved
                 function ( doc ) {
                     //req.session.currentUser = doc;
-                    console.log(doc);
-                    console.log(user);
-                    res.json(user);
+                    res.json(doc);
                 },
                 // send error if promise rejected
                 function ( err ) {
-                    console.log("in err:");
-                    console.log(user);
                     res.status(400).send(err);
                 }
             );
