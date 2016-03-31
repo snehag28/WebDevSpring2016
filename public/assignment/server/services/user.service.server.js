@@ -104,15 +104,14 @@ module.exports = function(app, formUserModel){
 
     function updateUser(req, res){
         var user = req.body;
-        console.log("in service updateUser");
-        console.log(user);
+
         user = formUserModel.updateUserById(req.params.id,user)
             .then(
                 function (doc) {
                     console.log("after update");
                     console.log(doc);
                     console.log(user);
-                    res.json(user);
+                    res.json(doc);
                 },
                 function (err) {
                     res.status(400).send(err);
