@@ -141,6 +141,7 @@
                 .then(
                     function (doc) {
                         $scope.fields = doc;
+                        getFieldsForForm(formId);
                     }
                 )
         }
