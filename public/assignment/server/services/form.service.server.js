@@ -1,9 +1,20 @@
 module.exports = function(app, fieldModel, formModel){
     app.get("/api/assignment/user/:userId/form",getFormsForUser);
     app.get("/api/assignment/form/:formId", getFormById);
+    app.get("/api/assignment/form/:formId/field", getFieldsForFormId);
     app.post("/api/assignment/user/:userId/form",createForm);
     app.put("/api/assignment/form/:formId", updateForm);
     app.delete("/api/assignment/form/:formId",deleteForm);
+
+    function getFieldsForFormId(req, res){
+        formModel.getFieldsForFormId(req.params.formId)
+            .then(function(fields) {
+                    res.json(fields);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
+    }
 
     function getFormsForUser (req, res) {
         var userId = req.params.userId;

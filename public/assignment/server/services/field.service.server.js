@@ -1,58 +1,69 @@
 module.exports = function(app, fieldModel, formModel){
-    app.get("/api/assignment/form/:formId/field", getFieldsForFormId);
     app.get("/api/assignment/form/:formId/field/:fieldId", getFieldByFormIdFieldId);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByFormIdFieldId);
     app.post("/api/assignment/form/:formId/field", addFieldToFormId);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldByFormIdFieldId);
     //app.put("/api/assignment/form/:formId/field", ReorderFormFields);
 
-    function getFieldsForFormId(req, res){
-        formModel.getFieldsForFormId(req.params.formId)
-            .then(function(form) {
-                    res.json(form.fields);
+    function getFieldByFormIdFieldId(req, res){
+        formModel.findFormById(req.params.formId)
+            .then(
+                function(form) {
+                    console.log("in getFieldByFormIdFieldId");
+                    console.log(form.fields.id(req.params.fieldId));
+                    return form.fields.id(req.params.fieldId);
                 },
                 function(err) {
                     res.status(400).send(err);
                 });
     }
 
-    function getFieldByFormIdFieldId(req, res){
-        fieldModel.getFieldByFormIdFieldId(req.params.formId, req.params.fieldId)
-            .then(function(field) {
-                    res.json(field);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
-    }
-
     function deleteFieldByFormIdFieldId(req, res){
-        fieldModel.deleteFieldByFormIdFieldId(req.params.formId, req.params.fieldId)
-            .then(function(form) {
-                    res.json(form.fields);
+        formModel.findFormById(req.params.formId)
+            .then(
+                function(form) {
+                    fieldModel.deleteField(req.params.fieldId);
+                    form.fields.id(req.params.fieldId).remove();
+                    return form.save();
                 },
                 function(err) {
                     res.status(400).send(err);
-                }
-            );
+                });
     }
 
     function addFieldToFormId(req, res){
-        fieldModel.addFieldToFormId(req.body, req.params.formId)
-            .then( function(field) {
-                    res.json(field);
+        var newField = req.body;
+        var formId = req.params.formId;
+        formModel.findFormById(formId)
+            .then(
+                function(form) {
+                    fieldModel.createField(newField)
+                        .then(
+                            function (field) {
+                                form.fields.push(field);
+                                form.save();
+                                res.json(form);
+                            },
+                            function(err) {
+                                res.status(400).send(err);
+                            });
                 },
                 function(err) {
                     res.status(400).send(err);
-                }
-            );
+                });
     }
 
     function updateFieldByFormIdFieldId(req, res){
-        fieldModel.updateFieldByFormIdFieldId(req.params.formId, req.params.fieldId,req.body)
-            .then(function(field) {
-                    res.json(field);
+        var newField = req.body;
+        var formId = req.params.formId;
+        var fieldId = req.params.fieldId;
+        fieldModel.findFormById(formId)
+            .then(
+                function(form) {
+                    form.fields.id(newField._id).remove();
+                    var field = fieldModel.updateField(fieldId, newField);
+                    form.fields.push(field);
+                    return form.save();
                 },
                 function(err) {
                     res.status(400).send(err);

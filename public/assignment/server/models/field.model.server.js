@@ -11,26 +11,18 @@ module.exports = function(db, mongoose) {
     var FieldModel = mongoose.model('FieldModel', FieldSchema);
 
     var api = {
-        getFieldsForFormId: getFieldsForFormId,
         getFieldById: getFieldById,
-        getFieldByFormIdFieldId: getFieldByFormIdFieldId,
-        addFieldToFormId: addFieldToFormId,
-        deleteFieldByFormIdFieldId: deleteFieldByFormIdFieldId,
-        updateFieldByFormIdFieldId: updateFieldByFormIdFieldId,
+        createField: createField,
+        deleteField: deleteField,
+        updateField: updateField,
     };
     return api;
-
-    function getFieldsForFormId(formId) {
-        return FormModel.findById(formId).select("fields");
-    }
 
     function getFieldById(fieldId) {
         var deferred = q.defer();
 
         // find one field with mongoose field model's findOne()
-        FieldModel.fineOne(
-            {_id: fieldId},
-
+        FieldModel.findById(fieldId,
             function (err,doc) {
                 if(err) {
                     deferred.reject(err);
@@ -41,20 +33,10 @@ module.exports = function(db, mongoose) {
         );
     }
 
-
-
-    function getFieldByFormIdFieldId(formId, fieldId) {
-        /*return FormModel.findById(formId)
-            .then(
-                function(form) {
-                    return form.fields.id(fieldId);
-                }
-            );*/
-    }
-
-    function addFieldToFormId(field, formId) {
-        /*var deferred = q.defer();
-
+    function createField(field) {
+        var deferred = q.defer();
+        //console.log("in createField");
+        //console.log(field);
         FieldModel.create(
             field,
             function(err, doc) {
@@ -62,43 +44,14 @@ module.exports = function(db, mongoose) {
                     deferred.reject(err);
                 }
                 else {
-                    var field = doc;
-                    FormModel.update(
-                        {_id: formId},
-                        { $push: {fields: field}},
-                        function(err, stats) {
-                            if(err) {
-                                deferred.reject(err);
-                            }
-                            else {
-                                deferred.resolve(stats);
-                            }
-                        }
-                    );
+                    //console.log(doc)
+                    deferred.resolve(doc);
                 }
-            }
-        );
-        return deferred.promise;*/
+            });
+        return deferred.promise;
     }
 
-    function deleteFieldByFormIdFieldId(formId, fieldId) {
-        /*var deferred = q.defer();
-
-        FormModel.update(
-            {_id: formId},
-            { $pull: {fields : {_id: fieldId}}},
-            function (err,doc) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(deleteFieldByFieldId(fieldId));
-                }
-            }
-        );
-        return deferred.promise;*/
-    }
-
-    function deleteFieldByFieldId(fieldId) {
+    function deleteField(fieldId) {
         var deferred = q.defer();
 
         FieldModel.remove(
@@ -114,24 +67,19 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function updateFieldByFormIdFieldId(formId, fieldId, newField) {
-        /*var deferred = q.defer();
-
+    function updateField(fieldId, newField) {
+        var deferred = q.defer();
         FieldModel.update(
             {_id: fieldId},
             {$set: newField},
-            function (err,stats) {
+            function (err, field) {
                 if(err) {
                     deferred.reject(err);
                 } else {
-                    FormModel.update(
-                        {_id: formId},
-                        { $pull: {fields: {_id: fieldId}}}
-                    );
-                    deferred.resolve(stats);
+                    deferred.resolve(field);
                 }
-            }
-        )*/
+            });
+        return deferred.promise;
     }
 
 }

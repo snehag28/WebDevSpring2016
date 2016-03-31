@@ -10,6 +10,7 @@ module.exports = function(db, mongoose){
     var FormModel = mongoose.model('FormModel', FormSchema);
 
     var api = {
+        getFieldsForFormId: getFieldsForFormId,
         createFormForUser: createFormForUser,
         findAllFormsForUser: findAllFormsForUser,
         deleteFormById: deleteFormById,
@@ -19,6 +20,21 @@ module.exports = function(db, mongoose){
     };
 
     return api;
+
+    function getFieldsForFormId(formId) {
+        var deferred = q.defer();
+
+        FormModel.findById(formId,
+        function(err, form) {
+            if(err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(form.fields);
+            }
+        });
+        return deferred.promise;
+    }
 
     function createFormForUser(userId, form) {
 
@@ -57,7 +73,8 @@ module.exports = function(db, mongoose){
 
     //function that returns form based on the ID
     function findFormById(formId) {
-        return FormModel.findById(formId,
+        var deferred = q.defer();
+        FormModel.findById(formId,
         function(err, doc) {
             if (err) {
                 deferred.reject(err);
