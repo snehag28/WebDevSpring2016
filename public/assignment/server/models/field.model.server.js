@@ -35,18 +35,13 @@ module.exports = function(db, mongoose) {
 
     function createField(field) {
         var deferred = q.defer();
-        //console.log("in createField");
-        //console.log(field);
         FieldModel.create(
             field,
             function(err, doc) {
                 if(err) {
-                    console.log("in createField err");
-                    console.log(err);
                     deferred.reject(err);
                 }
                 else {
-                    //console.log(doc)
                     deferred.resolve(doc);
                 }
             });
@@ -78,7 +73,15 @@ module.exports = function(db, mongoose) {
                 if(err) {
                     deferred.reject(err);
                 } else {
-                    deferred.resolve(field);
+                    FieldModel.findById(fieldId,
+                        function(err, doc) {
+                            if(err) {
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(doc);
+                            }
+                        });
                 }
             });
         return deferred.promise;

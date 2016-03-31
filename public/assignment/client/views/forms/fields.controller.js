@@ -17,7 +17,6 @@
         $scope.duplicateField = duplicateField;
 
         function init(){
-            console.log("in init:"+formId);
             var userId = $rootScope.user._id;
             getFieldsForForm(formId);
         }
@@ -35,7 +34,6 @@
 
         function addField(fieldType) {
             var field;
-            console.log("fieldType:"+fieldType);
             if(fieldType) {
                 switch (fieldType) {
                     case "singleLineText":
@@ -92,15 +90,13 @@
                         };
                 }
 
-                console.log("after switch:" + field);
                 FieldService.createFieldForForm(formId, field)
                     .then(
                         function (doc) {
-                            console.log(doc);
                             $scope.fields = doc;
                             getFieldsForForm(formId);
                         }
-                    )
+                    );
             }
         }
 
@@ -116,18 +112,19 @@
                         $scope.fields = doc;
                         getFieldsForForm(formId);
                     }
-                )
+                );
         }
 
-        function editField(fieldId) {
-            FieldService.getFieldForForm(formId,fieldId)
+        function editField(field) {
+            FieldService.getFieldForForm(formId,field._id)
                 .then(
                     function (doc) {
                         $scope.modalField = doc.data;
-                        console.log($scope.modalField);
-                        $scope.modalField.options = JSON.stringify($scope.modalField.options);
+                        if ($scope.modalField.options) {
+                            $scope.modalField.options = JSON.stringify($scope.modalField.options);
+                        }
                     }
-                )
+                );
         }
 
         function changeField(newField) {
@@ -137,11 +134,11 @@
             FieldService.updateField(formId,newField._id,newField)
                 .then(
                     function (doc) {
-                        $scope.modalField = doc;
                         getFieldsForForm(formId);
                     }
-                )
+                );
         }
+
         function deleteField(fieldId) {
             FieldService.deleteFieldFromForm(formId,fieldId)
                 .then(
@@ -149,7 +146,7 @@
                         $scope.fields = doc;
                         getFieldsForForm(formId);
                     }
-                )
+                );
         }
 
         // reference:https://github.com/dev92/WebDevSpring2016/
