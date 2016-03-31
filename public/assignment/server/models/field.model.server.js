@@ -1,26 +1,28 @@
-var mongoose = require("mongoose");
+
 // load q promise library
 var q = require("q");
 
-module.exports = function(formModel) {
-
-    var FormModel = formModel.getForm();
+module.exports = function(db, mongoose) {
 
     // load user schema
     var FieldSchema = require("./field.schema.server.js")(mongoose);
 
     // create user model from schema
-    var FieldModel = mongoose.model('Field', FieldSchema);
+    var FieldModel = mongoose.model('FieldModel', FieldSchema);
 
     var api = {
+        getFieldsForFormId: getFieldsForFormId,
         getFieldById: getFieldById,
         getFieldByFormIdFieldId: getFieldByFormIdFieldId,
-        getFieldsForFormId: getFieldsForFormId,
         addFieldToFormId: addFieldToFormId,
         deleteFieldByFormIdFieldId: deleteFieldByFormIdFieldId,
         updateFieldByFormIdFieldId: updateFieldByFormIdFieldId,
     };
     return api;
+
+    function getFieldsForFormId(formId) {
+        return FormModel.findById(formId).select("fields");
+    }
 
     function getFieldById(fieldId) {
         var deferred = q.defer();
@@ -39,21 +41,19 @@ module.exports = function(formModel) {
         );
     }
 
-    function getFieldsForFormId(formId) {
-        return FormModel.findById(formId).select("fields");
-    }
+
 
     function getFieldByFormIdFieldId(formId, fieldId) {
-        return FormModel.findById(formId)
+        /*return FormModel.findById(formId)
             .then(
                 function(form) {
                     return form.fields.id(fieldId);
                 }
-            );
+            );*/
     }
 
     function addFieldToFormId(field, formId) {
-        var deferred = q.defer();
+        /*var deferred = q.defer();
 
         FieldModel.create(
             field,
@@ -78,11 +78,11 @@ module.exports = function(formModel) {
                 }
             }
         );
-        return deferred.promise;
+        return deferred.promise;*/
     }
 
     function deleteFieldByFormIdFieldId(formId, fieldId) {
-        var deferred = q.defer();
+        /*var deferred = q.defer();
 
         FormModel.update(
             {_id: formId},
@@ -95,7 +95,7 @@ module.exports = function(formModel) {
                 }
             }
         );
-        return deferred.promise;
+        return deferred.promise;*/
     }
 
     function deleteFieldByFieldId(fieldId) {
@@ -115,7 +115,7 @@ module.exports = function(formModel) {
     }
 
     function updateFieldByFormIdFieldId(formId, fieldId, newField) {
-        var deferred = q.defer();
+        /*var deferred = q.defer();
 
         FieldModel.update(
             {_id: fieldId},
@@ -131,7 +131,7 @@ module.exports = function(formModel) {
                     deferred.resolve(stats);
                 }
             }
-        )
+        )*/
     }
 
 }

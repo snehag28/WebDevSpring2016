@@ -1,13 +1,13 @@
-module.exports = function(app, formModel){
+module.exports = function(app, fieldModel, formModel){
     app.get("/api/assignment/form/:formId/field", getFieldsForFormId);
     app.get("/api/assignment/form/:formId/field/:fieldId", getFieldByFormIdFieldId);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByFormIdFieldId);
     app.post("/api/assignment/form/:formId/field", addFieldToFormId);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldByFormIdFieldId);
-//    app.put("/api/assignment/form/:formId/field", ReorderFormFields);
+    //app.put("/api/assignment/form/:formId/field", ReorderFormFields);
 
     function getFieldsForFormId(req, res){
-        fieldModel.getFieldsForFormId(req.params.formId)
+        formModel.getFieldsForFormId(req.params.formId)
             .then(function(form) {
                     res.json(form.fields);
                 },

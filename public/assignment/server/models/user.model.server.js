@@ -69,7 +69,6 @@ module.exports = function(db, mongoose) {
     }
 
     function createUser(user) {
-
         var _id = uuid.v1();
         var newUser = {
             "_id": _id,
@@ -142,8 +141,6 @@ module.exports = function(db, mongoose) {
 
     function updateUserById(userId, newUser) {
         var deferred = q.defer();
-        console.log("in model");
-        console.log(newUser);
         // update user with mongoose user model's update()
         UserModel.update (
             {_id: userId},
@@ -161,8 +158,7 @@ module.exports = function(db, mongoose) {
                         else {
                             deferred.resolve(user);
                         }
-                    }
-                    );
+                    });
                 }
             });
         return deferred.promise;
