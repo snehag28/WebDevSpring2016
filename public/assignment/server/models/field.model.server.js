@@ -41,6 +41,8 @@ module.exports = function(db, mongoose) {
             field,
             function(err, doc) {
                 if(err) {
+                    console.log("in createField err");
+                    console.log(err);
                     deferred.reject(err);
                 }
                 else {

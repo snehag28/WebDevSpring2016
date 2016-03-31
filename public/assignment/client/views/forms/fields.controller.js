@@ -105,10 +105,16 @@
         }
 
         function duplicateField(field) {
-            FieldService.createFieldForForm(formId, field)
+            var newField = {};
+            newField.label = field.label;
+            newField.type = field.type;
+            newField.placeholder = field.placeholder;
+            newField.options = field.options;
+            FieldService.createFieldForForm(formId, newField)
                 .then(
                     function (doc) {
                         $scope.fields = doc;
+                        getFieldsForForm(formId);
                     }
                 )
         }

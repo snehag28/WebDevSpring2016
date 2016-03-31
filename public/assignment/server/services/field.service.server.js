@@ -69,18 +69,24 @@ module.exports = function(app, fieldModel, formModel){
         var newField = req.body;
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        fieldModel.findFormById(formId)
+        formModel.findFormById(formId)
             .then(
                 function(form) {
-                    form.fields.id(newField._id).remove();
-                    var field = fieldModel.updateField(fieldId, newField);
-                    form.fields.push(field);
-                    return form.save();
+                    fieldModel.updateField(fieldId, newField)
+                        .then(
+                            function (field) {
+                                form.fields.id(fieldId).remove();
+                                form.fields.push(field);
+                                form.save();
+                                res.json(form);
+                            },
+                            function(err) {
+                                res.status(400).send(err);
+                            });
                 },
                 function(err) {
                     res.status(400).send(err);
-                }
-            );
+                });
     }
 
     // reference:https://github.com/dev92/WebDevSpring2016/
