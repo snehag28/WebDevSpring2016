@@ -24,26 +24,26 @@
                             </tr>
                             </thead>
                             <tr>
-                                <td><input ng-model="newForm.title" type="text" class="form-control" id="title" placeholder="name"></td>
+                                <td><input ng-model="model.newForm.title" type="text" class="form-control" id="title" placeholder="name"></td>
                                 <td>
-                                    <button ng-click="addForm(newForm)" class="btn btn-small btn-link">
+                                    <button ng-click="model.addForm(model.newForm)" class="btn btn-small btn-link">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
-                                    <button ng-click="updateForm(newForm)" class="btn btn-small btn-link">
+                                    <button ng-click="model.updateForm(model.newForm)" class="btn btn-small btn-link">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </button>
                                 </td>
                             </tr>
                             <tbody>
-                            <tr ng-repeat="form in forms"
-                                ng-class="{'success' : $index == selectedFormIndex}">
-                                <td><a href="#/form/{{form._id}}/fields" ng-click="setFormTitle(form.title)">{{form.title}}</a></td>
+                            <tr ng-repeat="form in model.forms"
+                                ng-class="{'success' : $index == model.selectedFormIndex}">
+                                <td><a href="#/form/{{form._id}}/fields" ng-click="model.setFormTitle(form.title)">{{form.title}}</a></td>
                                 <td>
-                                    <button ng-click="deleteForm($index)"
+                                    <button ng-click="model.deleteForm($index)"
                                        class="btn btn-small btn-link">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button ng-click="selectForm($index)"
+                                    <button ng-click="model.selectForm($index)"
                                        class="btn btn-small btn-link">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
