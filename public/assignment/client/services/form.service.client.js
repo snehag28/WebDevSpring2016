@@ -16,12 +16,10 @@
         return api;
 
         function createFormForUser(userId, form) {
-            console.log("in formService createFormForUser");
             var deferred = $q.defer();
 
             $http.post("/api/assignment/user/"+userId+"/form", form)
                 .success(function (response) {
-                    console.log(response);
                     deferred.resolve(response);
                 });
             return deferred.promise;
@@ -29,7 +27,6 @@
 
         function findAllFormsForUser(userId) {
             var deferred = $q.defer();
-            console.log("in findAllFormsForUser service client:"+userId);
             $http.get("/api/assignment/user/"+userId+"/form")
                 .then(
                     function(response){

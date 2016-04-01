@@ -15,8 +15,8 @@ module.exports = function(db, mongoose){
         findAllFormsForUser: findAllFormsForUser,
         deleteFormById: deleteFormById,
         updateFormById: updateFormById,
-        findFormById: findFormById
-        //ReorderFormFields:ReorderFormFields
+        findFormById: findFormById,
+        ReorderFormFields:ReorderFormFields
     };
 
     return api;
@@ -130,15 +130,20 @@ module.exports = function(db, mongoose){
     }
 
     // reference:https://github.com/dev92/WebDevSpring2016/
-    /*
+
     function ReorderFormFields(formId, fields){
-        var requiredForm = findFormById(formId);
-        if(requiredForm!=null){
-            requiredForm.fields = fields;
-            return updateFormById(requiredForm._id,requiredForm).fields;
-        }
-        return null;
+        var deferred = q.defer();
+        FormModel.findById(formId,
+            function(err, form) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    var requiredForm = form;
+                    requiredForm.fields = fields;
+                    return updateFormById(formId, requiredForm);
+                }
+            });
     }
-    */
 }
 

@@ -16,13 +16,11 @@
         $scope.setFormTitle = setFormTitle;
 
         function init() {
-            console.log("in init:");
             getFormsForUser($rootScope.user._id);
         }
         init();
 
         function getFormsForUser(userId){
-            console.log("in controller getFormsForUser:"+userId);
             FormService.findAllFormsForUser(userId)
                 .then(
                     function (doc) {
@@ -49,11 +47,9 @@
         };
 
         function updateForm (form){
-            console.log($scope.forms[$scope.selectedFormIndex]);
             FormService.updateFormById($scope.forms[$scope.selectedFormIndex]._id, form)
                 .then(
                     function(doc) {
-                        console.log("in controller:"+doc);
                         $scope.forms[$scope.selectedFormIndex] = doc;
                         $scope.selectedFormIndex = null;
                         $scope.newForm = {};

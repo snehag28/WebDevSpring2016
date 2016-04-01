@@ -150,11 +150,11 @@
         }
 
         // reference:https://github.com/dev92/WebDevSpring2016/
-        /*$scope.$watch('fields', function (newValue, oldValue) {
+        $scope.$watch('fields', function (newValue, oldValue) {
            FieldService.reorderFields(formId,newValue)
                     .then(function (response) {
                         $scope.formFields = response;
                     });
-        }, true);*/
+        }, true);
     }
 })();
