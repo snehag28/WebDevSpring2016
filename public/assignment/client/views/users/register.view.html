@@ -7,31 +7,37 @@
                 <div class="form-group">
                     <label for="username" class="col-sm-3 control-label">Username:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.username" type="text" id="username" placeholder="Username" class="form-control"/>
+                        <input ng-model="model.user.username" type="text" id="username" placeholder="Username" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword" class="col-sm-3 control-label">Password:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        <input ng-model="model.user.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword1" class="col-sm-3 control-label">Verify Password:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.confirmPassword" type="password" class="form-control" id="inputPassword1" placeholder="Password">
+                        <input ng-model="model.user.confirmPassword" type="password" class="form-control" id="inputPassword1" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-3 control-label">Email:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <input ng-model="model.user.emails" type="text" class="form-control" id="inputEmail" placeholder="Emails">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhones" class="col-sm-3 control-label">Phone:</label>
+                    <div class="col-sm-9">
+                        <input ng-model="model.user.phones" type="text" class="form-control" id="inputPhones" placeholder="Phone numbers">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                         <button
-                           ng-click="register(user)"
+                           ng-click="model.register(model.user)"
                            class="btn btn-primary btn-block">
                             Register
                         </button>

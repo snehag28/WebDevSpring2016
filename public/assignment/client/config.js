@@ -12,16 +12,18 @@
             })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
-                controller: "RegisterController"
+                controller: "RegisterController",
+                controllerAs: "model"
             })
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
-                controller: "ProfileController"
+                controller: "ProfileController",
+                controllerAs: "model"
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
                 controller: "LoginController",
-                controllerAs: "models"
+                controllerAs: "model"
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",

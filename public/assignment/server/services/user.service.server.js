@@ -108,6 +108,9 @@ module.exports = function(app, formUserModel){
         user = formUserModel.updateUserById(req.params.id,user)
             .then(
                 function (doc) {
+                    console.log("after update");
+                    console.log(doc);
+                    console.log(user);
                     res.json(doc);
                 },
                 function (err) {

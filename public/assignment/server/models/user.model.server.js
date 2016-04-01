@@ -76,10 +76,8 @@ module.exports = function(db, mongoose) {
             "password": user.password,
             "firstName": user.firstName,
             "lastName": user.lastName,
-            "email" : user.email,
-            "gender" : user.gender,
-            "aboutme": user.aboutme,
-            "favoritebooks": user.favoritebooks
+            "emails" : [user.emails],
+            "phones" : [user.phones]
         };
 
         var deferred = q.defer();
@@ -141,7 +139,16 @@ module.exports = function(db, mongoose) {
 
     function updateUserById(userId, newUser) {
         var deferred = q.defer();
-
+        if(newUser.emails) {
+            if(newUser.emails && newUser.emails.indexOf(",")>-1) {
+                newUser.emails =  newUser.emails.split(",");
+            }
+        }
+        if(newUser.phones) {
+            if(newUser.phones && newUser.phones.indexOf(",")>-1) {
+                newUser.phones =  newUser.phones.split(",");
+            }
+        }
         // update user with mongoose user model's update()
         UserModel.update (
             {_id: userId},

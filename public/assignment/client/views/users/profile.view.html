@@ -8,37 +8,43 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Username: </label>
                     <div class="col-sm-9">
-                        <input ng-model="user.username" type="text" class="form-control" id="username" readonly>
+                        <input ng-model="model.user.username" type="text" class="form-control" id="username" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword" class="col-sm-3 control-label">Password:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        <input ng-model="model.user.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="firstname" class="col-sm-3 control-label">First Name:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
+                        <input ng-model="model.user.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="lastname" class="col-sm-3 control-label">Last Name:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
+                        <input ng-model="model.user.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-3 control-label">Email:</label>
                     <div class="col-sm-9">
-                        <input ng-model="user.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <input ng-model="model.user.emails" type="text" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone" class="col-sm-3 control-label">Phone:</label>
+                    <div class="col-sm-9">
+                        <input ng-model="model.user.phones" type="text" class="form-control" id="inputPhone" placeholder="Phone numbers">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                         <button
-                           ng-click="update(user)"
+                           ng-click="model.update(model.user)"
                            class="btn btn-primary btn-block">
                             Update
                         </button>
