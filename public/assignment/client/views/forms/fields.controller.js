@@ -5,19 +5,18 @@
         .module("FormBuilderApp")
         .controller("FieldController",FieldController);
 
-    function FieldController($routeParams, $scope, $rootScope, FieldService){
+    function FieldController($routeParams, $scope, FieldService){
         var vm = this;
         var formId = $routeParams.formId;
 
 
-        $scope.addField = addField;
-        $scope.deleteField = deleteField;
-        $scope.changeField = changeField;
-        $scope.editField = editField;
-        $scope.duplicateField = duplicateField;
+        vm.addField = addField;
+        vm.deleteField = deleteField;
+        vm.changeField = changeField;
+        vm.editField = editField;
+        vm.duplicateField = duplicateField;
 
         function init(){
-            var userId = $rootScope.user._id;
             getFieldsForForm(formId);
         }
 
@@ -27,7 +26,7 @@
             FieldService.getFieldsForForm(formId)
                 .then(
                     function (doc) {
-                        $scope.fields = doc;
+                        vm.fields = doc;
                     }
                 )
         }
@@ -109,7 +108,7 @@
                 FieldService.createFieldForForm(formId, field)
                     .then(
                         function (doc) {
-                            $scope.fields = doc;
+
                             getFieldsForForm(formId);
                         }
                     );
@@ -125,7 +124,7 @@
             FieldService.createFieldForForm(formId, newField)
                 .then(
                     function (doc) {
-                        $scope.fields = doc;
+
                         getFieldsForForm(formId);
                     }
                 );
@@ -135,9 +134,9 @@
             FieldService.getFieldForForm(formId,field._id)
                 .then(
                     function (doc) {
-                        $scope.modalField = doc.data;
-                        if ($scope.modalField.options) {
-                            $scope.modalField.options = JSON.stringify($scope.modalField.options);
+                        vm.modalField = doc.data;
+                        if (vm.modalField.options) {
+                            vm.modalField.options = JSON.stringify(vm.modalField.options);
                         }
                     }
                 );
@@ -165,17 +164,16 @@
             FieldService.deleteFieldFromForm(formId,fieldId)
                 .then(
                     function (doc) {
-                        $scope.fields = doc;
                         getFieldsForForm(formId);
                     }
                 );
         }
 
         // reference:https://github.com/dev92/WebDevSpring2016/
-        $scope.$watch('fields', function (newValue, oldValue) {
+        $scope.$watch('model.fields', function (newValue, oldValue) {
            FieldService.reorderFields(formId,newValue)
                     .then(function (response) {
-                        $scope.formFields = response;
+
                     });
         }, true);
     }

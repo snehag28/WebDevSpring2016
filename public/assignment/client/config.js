@@ -36,11 +36,13 @@
             })
             .when("/form/:formId/fields", {
                 templateUrl: "views/forms/fields.view.html",
-                controller: "FieldController"
+                controller: "FieldController",
+                controllerAs: "model"
             })
             .when("/fields", {
                 templateUrl: "views/forms/fields.view.html",
-                controller: "FieldController"
+                controller: "FieldController",
+                controllerAs: "model"
             })
             .when("/logout", {
                 templateUrl: "views/home/home.view.html",

@@ -15,8 +15,8 @@
                     <div role="tabpanel" class="panel-body" id="form-fields">
                         <br>
 
-                        <div ui-sortable ng-model="fields">
-                            <div class="form-group" ng-repeat="field in fields">
+                        <div ui-sortable ng-model="model.fields">
+                            <div class="form-group" ng-repeat="field in model.fields">
                                 <label for="{{field.label}}">{{field.label}}</label>
                                 <div class="form-horizontal row">
                                     <div class="col-xs-6" ng-switch on="field.type">
@@ -58,12 +58,12 @@
                                         </div>
                                     </div>
                                     <div class="formIcons" >
-                                        <span class="glyphicon glyphicon-pencil" ng-click="editField(field)"
+                                        <span class="glyphicon glyphicon-pencil" ng-click="model.editField(field)"
                                               data-toggle="modal"
                                               data-target="#newFieldModal">
                                         </span>
-                                        <span class="glyphicon glyphicon-plus" ng-click="duplicateField(field)"></span>
-                                        <span class="glyphicon glyphicon-remove" ng-click="deleteField(field._id)"></span>
+                                        <span class="glyphicon glyphicon-plus" ng-click="model.duplicateField(field)"></span>
+                                        <span class="glyphicon glyphicon-remove" ng-click="model.deleteField(field._id)"></span>
                                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                     </select>
                                 </div>
                                 <div class="formIcons" >
-                                    <span class="glyphicon glyphicon-plus" ng-click="addField(fieldType)"></span>
+                                    <span class="glyphicon glyphicon-plus" ng-click="model.addField(fieldType)"></span>
                                 </div>
                             </div>
                         </div>
@@ -102,51 +102,51 @@
                                             <div class="form-group">
                                                 <label for="label" class="col-sm-2 control-label">Label: </label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="label" ng-model="modalField.label">
+                                                    <input type="text" class="form-control" id="label" ng-model="model.modalField.label">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-switch on="modalField.type">
+                                            <div class="form-group" ng-switch on="model.modalField.type">
                                                 <div ng-switch-when="TEXT">
                                                     <label for="placeholder" class="col-sm-2 control-label">Placeholder: </label>
                                                     <div class="col-sm-10">
                                                         <input type="text"
                                                                class="form-control" id="placeholder"
-                                                               ng-model="modalField.placeholder">
+                                                               ng-model="model.modalField.placeholder">
                                                     </div>
                                                 </div>
                                                 <div ng-switch-when="EMAIL">
                                                     <label for="placeholder2" class="col-sm-2 control-label">Placeholder: </label>
                                                     <div class="col-sm-10">
                                                         <input type="email" class="form-control"
-                                                               id="placeholder2" ng-model="modalField.placeholder">
+                                                               id="placeholder2" ng-model="model.modalField.placeholder">
                                                     </div>
                                                 </div>
                                                 <div ng-switch-when="PASSWORD">
                                                     <label for="placeholder_password" class="col-sm-2 control-label">Placeholder: </label>
                                                     <div class="col-sm-10">
                                                         <input type="password" class="form-control"
-                                                               id="placeholder_password" ng-model="modalField.placeholder">
+                                                               id="placeholder_password" ng-model="model.modalField.placeholder">
                                                     </div>
                                                 </div>
                                                 <div ng-switch-when="TEXTAREA">
                                                     <label for="placeholder3" class="col-sm-2 control-label">Placeholder: </label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" id="placeholder3"
-                                                               ng-model="modalField.placeholder">
+                                                               ng-model="model.modalField.placeholder">
                                                     </div>
                                                 </div>
                                                 <div ng-switch-when="DATE">
                                                     <label for="placeholder_date" class="col-sm-2 control-label">Placeholder: </label>
                                                     <div class="col-sm-10">
                                                         <input type="date" class="form-control" id="placeholder_date"
-                                                               ng-model="modalField.placeholder">
+                                                               ng-model="model.modalField.placeholder">
                                                     </div>
                                                 </div>
                                                 <div ng-switch-when="OPTIONS">
                                                     <label for="options1" class="col-sm-2 control-label">Options: </label>
                                                     <div class="col-sm-10">
                                                             <textarea class="form-control" id="options1"
-                                                                      ng-model="modalField.options">
+                                                                      ng-model="model.modalField.options">
                                                             </textarea>
                                                     </div>
                                                 </div>
@@ -154,14 +154,14 @@
                                                     <label for="options2" class="col-sm-2 control-label">Options: </label>
                                                     <div class="col-sm-10">
                                                             <textarea class="form-control" id="options2"
-                                                                      ng-model="modalField.options"></textarea>
+                                                                      ng-model="model.modalField.options"></textarea>
                                                     </div>
                                                 </div>
                                                 <div ng-switch-when="RADIOS">
                                                     <label for="options3" class="col-sm-2 control-label">Options: </label>
                                                     <div class="col-sm-10">
                                                             <textarea class="form-control" id="options3"
-                                                                      ng-model="modalField.options"></textarea>
+                                                                      ng-model="model.modalField.options"></textarea>
                                                     </div>
                                                 </div>
 
@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="changeField(modalField)">Ok</button>
+                                            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="model.changeField(model.modalField)">Ok</button>
                                         </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
