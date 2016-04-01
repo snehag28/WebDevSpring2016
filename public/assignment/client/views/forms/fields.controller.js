@@ -52,6 +52,22 @@
                             "placeholder": "New Field"
                         };
                         break;
+                    case "email":
+                        field = {
+                            //"_id": null,
+                            "label": "New Email Field",
+                            "type": "EMAIL",
+                            "placeholder": "New Email Field"
+                        };
+                        break;
+                    case "password":
+                        field = {
+                            //"_id": null,
+                            "label": "New Password Field",
+                            "type": "PASSWORD",
+                            "placeholder": "New Password Field"
+                        };
+                        break;
                     case "date":
                         field = {
                             //"_id": null,
