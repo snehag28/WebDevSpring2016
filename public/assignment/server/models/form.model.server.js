@@ -133,17 +133,26 @@ module.exports = function(db, mongoose){
 
     function ReorderFormFields(formId, fields){
         var deferred = q.defer();
-        FormModel.findById(formId,
-            function(err, form) {
+        FormModel.update(
+            {_id: formId},
+            {$set: {fields: fields}},
+            function(err, stats) {
                 if(err) {
                     deferred.reject(err);
                 }
                 else {
-                    var requiredForm = form;
-                    requiredForm.fields = fields;
-                    return updateFormById(formId, requiredForm);
+                    FormModel.findById(formId,
+                        function(err, doc) {
+                            if(err) {
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(doc);
+                            }
+                        });
                 }
             });
+        return deferred.promise;
     }
 }
 

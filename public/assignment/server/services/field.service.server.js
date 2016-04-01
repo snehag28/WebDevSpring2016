@@ -3,7 +3,6 @@ module.exports = function(app, fieldModel, formModel){
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByFormIdFieldId);
     app.post("/api/assignment/form/:formId/field", addFieldToFormId);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldByFormIdFieldId);
-    app.put("/api/assignment/form/:formId/field", ReorderFormFields);
 
     function getFieldByFormIdFieldId(req, res){
         formModel.findFormById(req.params.formId)
@@ -82,11 +81,6 @@ module.exports = function(app, fieldModel, formModel){
                 function(err) {
                     res.status(400).send(err);
                 });
-    }
-
-    // reference:https://github.com/dev92/WebDevSpring2016/
-    function ReorderFormFields(req,res){
-        res.json(formModel.ReorderFormFields(req.params["formId"],req.body));
     }
 }
 

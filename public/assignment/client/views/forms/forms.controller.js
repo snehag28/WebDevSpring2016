@@ -47,7 +47,13 @@
         };
 
         function updateForm (form){
-            FormService.updateFormById($scope.forms[$scope.selectedFormIndex]._id, form)
+            var newForm = {};
+            newForm.userId = form.userId;
+            newForm.title = form.title;
+            newForm.fields = form.fields;
+            newForm.created = form.created;
+            newForm.updated = form.updated;
+            FormService.updateFormById($scope.forms[$scope.selectedFormIndex]._id, newForm)
                 .then(
                     function(doc) {
                         $scope.forms[$scope.selectedFormIndex] = doc;

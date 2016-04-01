@@ -5,6 +5,7 @@ module.exports = function(app, fieldModel, formModel){
     app.post("/api/assignment/user/:userId/form",createForm);
     app.put("/api/assignment/form/:formId", updateForm);
     app.delete("/api/assignment/form/:formId",deleteForm);
+    app.put("/api/assignment/form/:formId/field", ReorderFormFields);
 
     function getFieldsForFormId(req, res){
         formModel.getFieldsForFormId(req.params.formId)
@@ -70,6 +71,18 @@ module.exports = function(app, fieldModel, formModel){
             .then(
                 function(forms) {
                     res.json(forms);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
+    }
+
+    // reference:https://github.com/dev92/WebDevSpring2016/
+    function ReorderFormFields(req,res){
+        formModel.ReorderFormFields(req.params["formId"],req.body)
+            .then(
+                function(form) {
+                    res.json(form);
                 },
                 function(err) {
                     res.status(400).send(err);

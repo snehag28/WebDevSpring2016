@@ -8,11 +8,16 @@
     function ProfileController($scope, UserService) {
         $scope.update = update;
 
-        function update(newUser) {
-            console.log("in update of profile controller:");
-            console.log(newUser);
+        function update(changedUser) {
+            var newUser = {};
+            newUser.username = changedUser.username;
+            newUser.password = changedUser.password;
+            newUser.firstName = changedUser.firstName;
+            newUser.lastName = changedUser.lastName;
+            newUser.email = changedUser.email;
+            newUser.roles = changedUser.roles;
             UserService
-                .updateUser(newUser._id, newUser)
+                .updateUser(changedUser._id, newUser)
                 .then(
                     function(doc){
                         var user = doc;

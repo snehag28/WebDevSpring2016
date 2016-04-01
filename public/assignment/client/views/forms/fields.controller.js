@@ -127,11 +127,17 @@
                 );
         }
 
-        function changeField(newField) {
-            if(newField.options){
-                newField.options = JSON.parse(newField.options);
+        function changeField(field) {
+            if(field.options){
+                field.options = JSON.parse(field.options);
             }
-            FieldService.updateField(formId,newField._id,newField)
+            var newField = {};
+            newField.label = field.label;
+            newField.type = field.type;
+            newField.placeholder = field.placeholder;
+            newField.options = field.options;
+
+            FieldService.updateField(formId,field._id,newField)
                 .then(
                     function (doc) {
                         getFieldsForForm(formId);

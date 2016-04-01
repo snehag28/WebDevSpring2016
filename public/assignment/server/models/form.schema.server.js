@@ -5,10 +5,10 @@ module.exports = function (mongoose) {
     var FormSchema = mongoose.Schema({
         //_id: String,
         userId: String,
-        title: String,
+        title: { type: String, default: "New Form" },
         fields: [FieldSchema],
-        created: Date,
-        update: Date
+        created: { type: Date, default: Date.now },
+        update: { type: Date, default: Date.now }
     }, {collection: 'assignment.form'});
     return FormSchema;
 }

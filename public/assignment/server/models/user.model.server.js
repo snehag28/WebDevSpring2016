@@ -141,17 +141,11 @@ module.exports = function(db, mongoose) {
 
     function updateUserById(userId, newUser) {
         var deferred = q.defer();
-        var newuser1 = {};
-        newuser1.username = newUser.username;
-        newuser1.password = newUser.password;
-        newuser1.firstName = newUser.firstName;
-        newuser1.lastName = newUser.lastName;
-        newuser1.email = newUser.email;
 
         // update user with mongoose user model's update()
         UserModel.update (
             {_id: userId},
-            {$set: newuser1},
+            {$set: newUser},
             function (err, stats) {
                 if(err) {
                     deferred.reject(err);
