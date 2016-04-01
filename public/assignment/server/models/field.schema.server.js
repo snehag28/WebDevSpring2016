@@ -9,6 +9,7 @@ module.exports = function (mongoose) {
                 type: String,
                 enum: [
                     'TEXT',
+                    'TEXTAREA',
                     'EMAIL',
                     'PASSWORD',
                     'OPTIONS',
