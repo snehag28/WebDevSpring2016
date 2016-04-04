@@ -3,14 +3,13 @@
 var q = require("q");
 var uuid = require('node-uuid');
 
-// pass db and mongoose reference to model
 module.exports = function(db, mongoose) {
 
     // load user schema
-    var UserSchema = require("./user.schema.server.js")(mongoose);
+    var ProjectUserSchema = require("./user.schema.server.js")(mongoose);
 
     // create user model from schema
-    var UserModel = mongoose.model('UserModel', UserSchema);
+    var ProjectUserModel = mongoose.model('ProjectUserModel', ProjectUserSchema);
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -24,10 +23,11 @@ module.exports = function(db, mongoose) {
     return api;
 
     function findUserByCredentials(username, password) {
+
         var deferred = q.defer();
 
         // find one user with mongoose user model's findOne()
-        UserModel.findOne(
+        ProjectUserModel.findOne(
 
             // first argument is predicate
             { username: username,
@@ -37,6 +37,7 @@ module.exports = function(db, mongoose) {
             function(err, doc) {
 
                 if (err) {
+                    console.log("err: "+err);
                     // reject promise if error
                     deferred.reject(err);
                 } else {
@@ -53,11 +54,12 @@ module.exports = function(db, mongoose) {
         var deferred = q.defer();
 
         // find users with mongoose user model's find()
-        UserModel.find(
-            function(err, doc) {
+        ProjectUserModel.find(
+            function (err, doc) {
 
                 if (err) {
                     // reject promise if error
+                    console.log("err: "+err);
                     deferred.reject(err);
                 } else {
                     // resolve promise
@@ -69,23 +71,26 @@ module.exports = function(db, mongoose) {
     }
 
     function createUser(user) {
-        var _id = uuid.v1();
         var newUser = {
-            "_id": _id,
             "username": user.username,
             "password": user.password,
             "firstName": user.firstName,
             "lastName": user.lastName,
-            "emails" : [user.emails],
-            "phones" : [user.phones]
+            "dateOfBirth": user.dateOfBirth,
+            "email" : user.email,
+            "gender" : user.gender,
+            "aboutMe": user.aboutMe,
+            "favoriteBooks": user.favoriteBooks,
+            "following": user.following,
+            "followers": user.followers
         };
-
         var deferred = q.defer();
 
-        UserModel.create(newUser, function (err, doc) {
+        ProjectUserModel.create(newUser, function (err, doc) {
 
             if (err) {
                 // reject promise if error
+                console.log("err: "+err);
                 deferred.reject(err);
             } else {
                 // resolve promise
@@ -102,12 +107,13 @@ module.exports = function(db, mongoose) {
         var deferred = q.defer();
 
         // remove user with mongoose user model's remove()
-        UserModel.remove(
+        ProjectUserModel.remove(
             {_id: userId},
             function(err, stats) {
 
                 if (err) {
                     // reject promise if error
+                    console.log("err: "+err);
                     deferred.reject(err);
                 } else {
                     // resolve promise
@@ -119,11 +125,12 @@ module.exports = function(db, mongoose) {
 
     function findUserById(userId) {
         var deferred = q.defer();
-        UserModel.findById(userId,
+        ProjectUserModel.findById(userId,
             function(err, doc) {
 
                 if (err) {
                     // reject promise if error
+                    console.log("err: "+err);
                     deferred.reject(err);
                 } else {
                     // resolve promise
@@ -138,10 +145,11 @@ module.exports = function(db, mongoose) {
         var deferred = q.defer();
 
         // find one user with mongoose user model's findOne()
-        UserModel.findOne (
+        ProjectUserModel.findOne (
             {username: userName},
             function (err, user) {
                 if(err) {
+                    console.log("err: "+err);
                     deferred.reject(err);
                 } else {
                     deferred.resolve(user);
@@ -152,36 +160,30 @@ module.exports = function(db, mongoose) {
 
     function updateUserById(userId, newUser) {
         var deferred = q.defer();
-        if(newUser.emails) {
-            if(newUser.emails && newUser.emails.indexOf(",")>-1) {
-                newUser.emails =  newUser.emails.split(",");
-            }
-        }
-        if(newUser.phones) {
-            if(newUser.phones && newUser.phones.indexOf(",")>-1) {
-                newUser.phones =  newUser.phones.split(",");
-            }
-        }
+
         // update user with mongoose user model's update()
-        UserModel.update (
+        ProjectUserModel.update (
             {_id: userId},
             {$set: newUser},
             function (err, stats) {
                 if(err) {
+                    console.log("err: "+err);
                     deferred.reject(err);
                 }
                 else {
-                    UserModel.findById(userId,
-                    function (err, user) {
-                        if(err) {
-                            deferred.reject(err);
-                        }
-                        else {
-                            deferred.resolve(user);
-                        }
-                    });
+                    ProjectUserModel.findById(userId,
+                        function (err, user) {
+                            if(err) {
+                                console.log("err: "+err);
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(user);
+                            }
+                        });
                 }
             });
         return deferred.promise;
     }
-};
+}
+

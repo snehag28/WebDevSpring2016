@@ -1,4 +1,4 @@
-var bookModel = require("./../models/book.model.js")();
+var bookModel = require("./../models/book.model.server.js")();
 
 module.exports = function(app) {
     app.get("/api/project/user/:userId/book",getBooksForUser);

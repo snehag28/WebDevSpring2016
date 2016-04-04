@@ -1,7 +1,7 @@
 var books = require("./book.mock.json");
 var uuid = require('node-uuid');
 
-module.exports = function() {
+module.exports = function(db, mongoose) {
     var api = {
         createBookForUser: createBookForUser,
         findAllBooksForUser: findAllBooksForUser,

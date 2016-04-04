@@ -33,6 +33,7 @@ app.use(express.static(__dirname + '/public'));
 //require("./public/project/server/services/user.service.server.js")(app);
 //require("./public/project/server/services/book.service.server.js")(app);
 
-require("./public/assignment/server/app.js")(app, db, mongoose);
+//require("./public/assignment/server/app.js")(app, db, mongoose);
+require("./public/project/server/app.js")(app, db, mongoose);
 
 app.listen(port, ipaddress);
