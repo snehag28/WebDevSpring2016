@@ -122,8 +122,8 @@
                 templateUrl: "client/views/home/home.view.html",
                 //controller: "HomeController"
             })
-            .when("/#myCarousel", {
-                templateUrl: "client/views/home/home.view.html/#myCarousel",
+            .when("/myCarousel", {
+                templateUrl: "client/views/home/home.view.html#myCarousel",
                 //controller: "HomeController"
             })
             .otherwise({

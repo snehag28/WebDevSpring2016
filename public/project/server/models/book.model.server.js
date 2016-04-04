@@ -1,7 +1,16 @@
-var books = require("./book.mock.json");
+
+// load q promise library
+var q = require("q");
 var uuid = require('node-uuid');
 
 module.exports = function(db, mongoose) {
+
+    // load book schema
+    var BookSchema = require("./book.schema.server.js")(mongoose);
+
+    // create book model from schema
+    var BookModel = mongoose.model('BookModel', BookSchema);
+
     var api = {
         createBookForUser: createBookForUser,
         findAllBooksForUser: findAllBooksForUser,
@@ -24,78 +33,128 @@ module.exports = function(db, mongoose) {
         newBook.imageURL = book.volumeInfo.imageLinks.thumbnail;
         newBook.id = book.id;
 
-        //Adds new book to local array of books
-        books.push(newBook);
-        console.log(books);
-        //Calls back with new book
+        var deferred = q.defer();
 
-        return newBook;
+        BookModel.create(newBook, function (err, doc) {
+            if (err) {
+                // reject promise if error
+                console.log("err: "+err);
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+        });
+        // return a promise
+        return deferred.promise;
     }
 
     function findAllBooksForUser(userId) {
-        //Accepts parameter user id
-        //Iterates over the array of current books looking for books whose user id is parameter user id
-        console.log("in findAllBooksForUser:"+userId);
-        var booksForUser = [];
-        for (var index in books) {
-            var book = books[index];
-            if (book.userId == userId) {
-                booksForUser.push(book);
-            }
-        }
-        return booksForUser;
+        var deferred = q.defer();
+
+        BookModel.find(
+            {userId: userId},
+            function (err, doc) {
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+
+            });
+        return deferred.promise;
     }
 
     function findAllBooksForUserByShelf(userId, shelf) {
         //Accepts parameter user id and shelf
         //Iterates over the array of current books looking for books whose user id is parameter user id
-        console.log("in findAllBooksForUser:"+userId+":"+shelf);
-        var booksForUser = [];
-        for (var index in books) {
-            var book = books[index];
-            if (book.userId == userId && book.shelf == shelf) {
-                booksForUser.push(book);
-            }
-        }
-        console.log(booksForUser);
-        return booksForUser;
+
+        var deferred = q.defer();
+
+        // find users with mongoose user model's find()
+        BookModel.find(
+            {userId: userId},
+            {shelf: shelf},
+            function (err, doc) {
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+
+            });
+        return deferred.promise;
     }
 
     //function that returns book based on the ID
     function findBookById(bookId) {
-        for (var index in books) {
-            var book = books[index];
-            if (bookId == book.id) {
-                return book;
-            }
-        }
-        return null;
+        var deferred = q.defer();
+
+        BookModel.findOne(
+            {id: bookId},
+            function(err, doc) {
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            });
+        return deferred.promise;
     }
 
     function deleteBookById(bookId) {
-        //Accepts parameter book id
-        //Iterates over array of books looking for book whose id is book id parameter
-        var book = findBookById(bookId);
-        //If found, removes book from current array of books
-        if (book != null) {
-            var index = books.indexOf(book);
-            books.splice(index, 1);
-        }
-        return books;
+        var deferred = q.defer();
+
+        BookModel.remove(
+            {id: bookId},
+            function(err, stats) {
+
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(stats);
+                }
+            });
+        return deferred.promise;
     }
 
     function updateBookById(bookId, newBook) {
-        console.log("in updateBookById:" + newBook)
-        //Accepts parameter book id, new book object
-        //Iterates over array of books looking for book whose id is book id parameter
-        var book = findBookById(bookId);
-        //If found, updates book object with new book values
-        if (book != null) {
-            console.log("in if");
-            book.rating = newBook.rating;
-            book.shelf = newBook.shelf;
-        }
-        console.log(book);
-        return book;
+        var deferred = q.defer();
+
+        BookModel.update (
+            {id: bookId},
+            {$set: newBook},
+            function (err, stats) {
+                if(err) {
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                }
+                else {
+                    BookModel.findOne(
+                        {id: bookId},
+                        function (err, book) {
+                            if(err) {
+                                console.log("err: "+err);
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(book);
+                            }
+                        });
+                }
+            });
+        return deferred.promise;
     }
 }

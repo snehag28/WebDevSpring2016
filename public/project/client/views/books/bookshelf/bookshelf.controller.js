@@ -13,24 +13,30 @@
         $scope.deleteBook = deleteBook;
         $scope.selectBook = selectBook;
 
+        var userId = $rootScope.user._id;
+        var shelf;
+
         function init() {
             if($location.url().indexOf('bookshelf') != -1){
                 console.log("in all");
+                shelf = "all";
                 getBooksForUser($rootScope.user._id);
             }
             else if($location.url().indexOf('current') != -1){
                 console.log("in current");
-                getBooksForUserByShelf($rootScope.user._id,"currently-reading");
+                shelf = "currently-reading";
+                getBooksForUserByShelf(userId,shelf);
             }
             else if($location.url().indexOf('read') != -1){
                 console.log("in read");
-                getBooksForUserByShelf($rootScope.user._id,"read");
+                shelf = "read";
+                getBooksForUserByShelf(userId,shelf);
             }
             else if($location.url().indexOf('future') != -1){
                 console.log("in future");
-                getBooksForUserByShelf($rootScope.user._id,"to-read");
+                shelf = "to-read";
+                getBooksForUserByShelf(userId,shelf);
             }
-
         }
         init();
 
@@ -40,7 +46,7 @@
                     function(doc) {
                         $scope.books = doc;
                     }
-                )
+                );
         }
 
         function getBooksForUserByShelf(userId,shelf){
@@ -49,7 +55,7 @@
                     function(doc) {
                         $scope.books = doc;
                     }
-                )
+                );
         }
 
         function updateBook (book){
@@ -61,16 +67,22 @@
                         $scope.selectedBookIndex = null;
                         $scope.newBook = {};
                     }
-                )
+                );
         }
 
         function deleteBook(index){
             BookService.deleteBookById($scope.books[index].id)
                 .then(
                     function(doc){
-                        $scope.books.splice(index,1);
+                        if(shelf == "all"){
+                            getBooksForUser(userId);
+                        }
+                        else {
+                            getBooksForUserByShelf(userId,shelf);
+                        }
+
                     }
-                )
+                );
         }
 
         function selectBook(index){
