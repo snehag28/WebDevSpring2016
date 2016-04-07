@@ -74,17 +74,6 @@
             return deferred.promise;
         }
 
-        function updateFormById(formId, newForm) {
-            var deferred = $q.defer();
-            $http.put("/api/project/form/"+formId, newForm)
-                .success(
-                    function(response){
-                        deferred.resolve(response);
-                    }
-                );
-            return deferred.promise;
-        }
-
         function updateBookById(bookId, newBook) {
             var deferred = $q.defer();
             $http.put("/api/project/book/"+bookId, newBook)

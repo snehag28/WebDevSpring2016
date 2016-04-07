@@ -67,7 +67,7 @@ module.exports = function(app, bookModel) {
 
     function updateBook (req, res) {
         var newBook = req.body;
-        var book = bookModel.updateBookById(req.params.bookId, newBook)
+        bookModel.updateBookById(req.params.bookId, newBook)
             .then(
                 function ( book ) {
                     res.json(book);

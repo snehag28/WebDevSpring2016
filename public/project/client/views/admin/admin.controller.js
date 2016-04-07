@@ -52,7 +52,7 @@
         function selectUser(index){
             $scope.selectedUserIndex = index;
             $scope.newUser = {
-                "_id" : $scope.users[index]._id,
+                //"_id" : $scope.users[index]._id,
                 "username" : $scope.users[index].username,
                 "email" : $scope.users[index].email,
                 "roles" : $scope.users[index].roles

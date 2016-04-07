@@ -33,7 +33,7 @@
                         $scope.selectedBookIndex = null;
                         $scope.newBook = {};
                     }
-                )
+                );
         }
 
         function renderDetails(response) {

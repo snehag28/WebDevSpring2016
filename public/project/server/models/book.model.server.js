@@ -22,29 +22,54 @@ module.exports = function(db, mongoose) {
     return api;
 
     function createBookForUser(userId, book, shelf) {
+        var deferred = q.defer();
         //Accepts parameters user id, book object, and shelf
         //Adds property called userId equal to user id parameter
         var newBook = {};
+        var userObj = {userId: userId, shelf: shelf};
 
-        newBook.userId = userId;
-        newBook.shelf = shelf;
-        newBook.title = book.volumeInfo.title;
-        newBook.authors = book.volumeInfo.authors;
-        newBook.imageURL = book.volumeInfo.imageLinks.thumbnail;
-        newBook.id = book.id;
+        BookModel.findOne(
+            {googleBooksId: book.id},
+            function(err, doc) {
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                }
+                else {
+                    // if book already exists
+                    if(doc) {
+                        doc.userShelf.push(userObj);
+                        doc.save(function(err, doc) {
+                            if (err) {
+                                console.log("err: "+err);
+                                deferred.reject(err);
+                            } else {
+                                deferred.resolve(doc);
+                            }
+                        });
+                    }
+                    // book doesn't exist
+                    else {
+                        newBook.googleBooksId = book.id;
+                        newBook.title = book.volumeInfo.title;
+                        newBook.authors = book.volumeInfo.authors;
+                        newBook.imageURL = book.volumeInfo.imageLinks.thumbnail;
+                        newBook.userShelf = [userObj];
 
-        var deferred = q.defer();
-
-        BookModel.create(newBook, function (err, doc) {
-            if (err) {
-                // reject promise if error
-                console.log("err: "+err);
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                deferred.resolve(doc);
-            }
-        });
+                        BookModel.create(newBook, function (err, doc) {
+                            if (err) {
+                                // reject promise if error
+                                console.log("err: "+err);
+                                deferred.reject(err);
+                            } else {
+                                // resolve promise
+                                deferred.resolve(doc);
+                            }
+                        });
+                    }
+                }
+            });
         // return a promise
         return deferred.promise;
     }
@@ -53,7 +78,7 @@ module.exports = function(db, mongoose) {
         var deferred = q.defer();
 
         BookModel.find(
-            {userId: userId},
+            {'userShelf.userId': userId},
             function (err, doc) {
                 if (err) {
                     // reject promise if error
@@ -76,8 +101,8 @@ module.exports = function(db, mongoose) {
 
         // find users with mongoose user model's find()
         BookModel.find(
-            {userId: userId},
-            {shelf: shelf},
+            {'userShelf.userId': userId,
+                'userShelf.shelf': shelf},
             function (err, doc) {
                 if (err) {
                     // reject promise if error
@@ -97,7 +122,7 @@ module.exports = function(db, mongoose) {
         var deferred = q.defer();
 
         BookModel.findOne(
-            {id: bookId},
+            {googleBooksId: bookId},
             function(err, doc) {
                 if (err) {
                     // reject promise if error
@@ -111,13 +136,28 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function deleteBookById(bookId) {
+    function findAndRemove(array, property, value) {
+        array.forEach(function(result, index) {
+            if(result[property] === value) {
+                //Remove from array
+                array.splice(index, 1);
+            }
+        });
+        return array;
+    }
+
+    //deletes a user object from the books UserShelf
+    function deleteBookById(bookId, userId) {
         var deferred = q.defer();
 
-        BookModel.remove(
-            {id: bookId},
-            function(err, stats) {
+        var book = findBookById(bookId);
+        var userShelf = book.userShelf;
+        var newUserShelf = findAndRemove(userShelf, "userId", userId);
 
+        BookModel.update(
+            {googleBooksId: bookId},
+            {$set: {userShelf: newUserShelf}},
+            function(err, stats) {
                 if (err) {
                     // reject promise if error
                     console.log("err: "+err);
@@ -132,9 +172,9 @@ module.exports = function(db, mongoose) {
 
     function updateBookById(bookId, newBook) {
         var deferred = q.defer();
-
+        console.log(newBook);
         BookModel.update (
-            {id: bookId},
+            {_id: bookId},
             {$set: newBook},
             function (err, stats) {
                 if(err) {
@@ -143,13 +183,15 @@ module.exports = function(db, mongoose) {
                 }
                 else {
                     BookModel.findOne(
-                        {id: bookId},
+                        {_id: bookId},
                         function (err, book) {
                             if(err) {
                                 console.log("err: "+err);
                                 deferred.reject(err);
                             }
                             else {
+                                console.log("after update");
+                                console.log(book);
                                 deferred.resolve(book);
                             }
                         });
@@ -157,4 +199,4 @@ module.exports = function(db, mongoose) {
             });
         return deferred.promise;
     }
-}
+};
