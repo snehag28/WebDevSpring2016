@@ -27,7 +27,7 @@
                 .updateUser(changedUser._id, newUser)
                 .then(
                     function(doc){
-                        var user = doc;
+                        var user = doc.data;
                         if(user){
                             UserService.setUser(user);
                         }
