@@ -68,6 +68,7 @@ module.exports = function(app, formUserModel){
     }
 
     function loggedin(req, res) {
+        console.log("in loggedin");
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 

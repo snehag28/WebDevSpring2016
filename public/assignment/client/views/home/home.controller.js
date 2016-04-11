@@ -6,6 +6,6 @@
         .controller("HomeController",HomeController);
 
     function HomeController(){
-
+        console.log("in homecontroller");
     }
 })();
