@@ -1,7 +1,6 @@
 
 // load q promise library
 var q = require("q");
-var uuid = require('node-uuid');
 
 // pass db and mongoose reference to model
 module.exports = function(db, mongoose) {
@@ -23,20 +22,20 @@ module.exports = function(db, mongoose) {
     };
     return api;
 
-    function findUserByCredentials(username, password) {
+    function findUserByCredentials(credentials) {
         var deferred = q.defer();
 
         // find one user with mongoose user model's findOne()
         UserModel.findOne(
 
             // first argument is predicate
-            { username: username,
-                password: password },
+            { username: credentials.username,
+                password: credentials.password },
 
             // doc is unique instance matches predicate
             function(err, doc) {
-
                 if (err) {
+                    console.log(err);
                     // reject promise if error
                     deferred.reject(err);
                 } else {
@@ -57,6 +56,7 @@ module.exports = function(db, mongoose) {
             function(err, doc) {
 
                 if (err) {
+                    console.log(err);
                     // reject promise if error
                     deferred.reject(err);
                 } else {
@@ -69,23 +69,24 @@ module.exports = function(db, mongoose) {
     }
 
     function createUser(user) {
-        var _id = uuid.v1();
+        console.log(user);
         var newUser = {
-            "_id": _id,
             "username": user.username,
             "password": user.password,
             "firstName": user.firstName,
             "lastName": user.lastName,
             "emails" : [user.emails],
-            "phones" : [user.phones]
+            "phones" : [user.phones],
+            "roles" : user.roles
         };
-
+        console.log(newUser);
         var deferred = q.defer();
 
         UserModel.create(newUser, function (err, doc) {
 
             if (err) {
                 // reject promise if error
+                console.log(err);
                 deferred.reject(err);
             } else {
                 // resolve promise
@@ -108,6 +109,7 @@ module.exports = function(db, mongoose) {
 
                 if (err) {
                     // reject promise if error
+                    console.log(err);
                     deferred.reject(err);
                 } else {
                     // resolve promise
@@ -123,6 +125,7 @@ module.exports = function(db, mongoose) {
             function(err, doc) {
 
                 if (err) {
+                    console.log(err);
                     // reject promise if error
                     deferred.reject(err);
                 } else {
@@ -142,6 +145,7 @@ module.exports = function(db, mongoose) {
             {username: userName},
             function (err, user) {
                 if(err) {
+                    console.log(err);
                     deferred.reject(err);
                 } else {
                     deferred.resolve(user);
@@ -168,12 +172,14 @@ module.exports = function(db, mongoose) {
             {$set: newUser},
             function (err, stats) {
                 if(err) {
+                    console.log(err);
                     deferred.reject(err);
                 }
                 else {
                     UserModel.findById(userId,
                     function (err, user) {
                         if(err) {
+                            console.log(err);
                             deferred.reject(err);
                         }
                         else {

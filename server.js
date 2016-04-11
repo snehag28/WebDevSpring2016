@@ -3,6 +3,9 @@ var express = require('express');
 var app = express();
 var bodyParser    = require('body-parser');
 var multer        = require('multer');
+var passport      = require('passport');
+var cookieParser  = require('cookie-parser');
+var session       = require('express-session');
 // install and require the mongoose library
 var mongoose      = require('mongoose');
 // create a default connection string
@@ -28,12 +31,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(express.static(__dirname + '/public'));
+app.use(session({
+    secret: 'this is the secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //require("./public/project/server/app.js")(app, db, mongoose);
 //require("./public/project/server/services/user.service.server.js")(app);
 //require("./public/project/server/services/book.service.server.js")(app);
 
-//require("./public/assignment/server/app.js")(app, db, mongoose);
-require("./public/project/server/app.js")(app, db, mongoose);
+require("./public/assignment/server/app.js")(app, db, mongoose);
+//require("./public/project/server/app.js")(app, db, mongoose);
 
 app.listen(port, ipaddress);

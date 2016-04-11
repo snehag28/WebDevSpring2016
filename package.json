@@ -24,12 +24,16 @@
   },
   "dependencies": {
     "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
     "express": "^3.4.8",
+    "express-session": "^1.13.0",
     "jquery": "^2.2.2",
     "jquery-ui": "^1.10.5",
     "mongoose": "^4.4.10",
     "multer": "^1.1.0",
     "node-uuid": "^1.4.7",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "q": "^1.4.1"
   },
   "devDependencies": {},

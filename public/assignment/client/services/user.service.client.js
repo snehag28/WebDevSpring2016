@@ -8,7 +8,7 @@
 
         var api = {
             findUserByUsername: findUserByUsername,
-            findUserByCredentials: findUserByCredentials,
+            login: login,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -21,32 +21,11 @@
         return api;
 
         function findUserByUsername(username){
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user?username="+username)
-                .then(
-                    function(response) {
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            return $http.get("/api/assignment/user?username="+username);
         }
 
-        function findUserByCredentials(username, password) {
-            var deferred = $q.defer();
-
-            $http.get("/api/assignment/user?username="+username+"&password="+password)
-                .then(
-                    function(response) {
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+        function login(user) {
+            return $http.post("/api/assignment/login", user);
         }
 
         function findAllUsers() {
@@ -64,8 +43,7 @@
         }
 
         function createUser(user) {
-
-            return $http.post("/api/assignment/user",user);
+            return $http.post("/api/assignment/register",user);
 
         }
 
@@ -95,14 +73,9 @@
         }
 
         function updateUser(userId, newUser) {
-            var deferred = $q.defer();
             console.log("in updateUser");
             console.log(newUser);
-            $http.put("/api/assignment/user/"+userId, newUser)
-                .success(function (response) {
-                    deferred.resolve(response);
-                });
-            return deferred.promise;
+            return $http.put("/api/assignment/user/"+userId, newUser);
         }
 
         function setUser(newUser) {

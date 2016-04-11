@@ -11,15 +11,20 @@
 
         function login(user){
             UserService
-                .findUserByCredentials(user.username,user.password)
+                .login(user)
                 .then(
                     function(doc){
                         if(doc){
                             UserService.setUser(doc);
                             $location.url("/profile");
                         }
+                    },
+                    function (err) {
+                        if(err.data == "Unauthorized") {
+                            vm.error = "username/password does not exist";
+                        }
                     }
                 )
         }
-    };
+    }
 })();
