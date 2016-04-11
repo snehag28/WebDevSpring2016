@@ -1,6 +1,6 @@
 //var bookModel = require("./../models/book.model.server.js")();
 
-module.exports = function(app, bookModel) {
+module.exports = function(app, bookModel, shelfModel) {
     app.get("/api/project/user/:userId/book",getBooksForUser);
     app.get("/api/project/user/:userId/:shelf/book",getBooksForUserByShelf);
     app.get("/api/project/book/:bookId", getBookById);
@@ -9,7 +9,7 @@ module.exports = function(app, bookModel) {
     app.delete("/api/project/book/:bookId",deleteBook);
 
     function getBooksForUser (req, res) {
-        bookModel.findAllBooksForUser(req.params.userId)
+        shelfModel.findAllBooksForUser(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -24,7 +24,7 @@ module.exports = function(app, bookModel) {
     function getBooksForUserByShelf (req, res) {
         var userId = req.params.userId;
         var shelf = req.params.shelf;
-        bookModel.findAllBooksForUserByShelf(userId,shelf)
+        shelfModel.findAllBooksForUserByShelf(userId,shelf)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -40,7 +40,7 @@ module.exports = function(app, bookModel) {
         var newBook = req.body;
         var userId = req.params.userId;
         var shelf = req.params.shelf;
-        bookModel.createBookForUser(userId,newBook,shelf)
+        shelfModel.createShelf(userId,newBook,shelf)
             .then(
                 function ( doc ) {
                     res.json(doc);

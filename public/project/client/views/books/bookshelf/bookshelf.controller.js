@@ -123,6 +123,7 @@
 
         function selectBook(index){
             $scope.selectedBookIndex = index;
+            // use angular.copy
 
             $scope.newBook = {
                 "title" : $scope.books[index].title,
@@ -140,5 +141,9 @@
             return -1;
         }
 
+        function cancel () {
+            $scope.selectedBookIndex = null;
+            $scope.newBook = {};
+        }
     }
 })();
