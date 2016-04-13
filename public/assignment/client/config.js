@@ -4,6 +4,7 @@
         .module("FormBuilderApp")
         .config(Configure);
 
+
     function Configure($routeProvider, $httpProvider) {
         $routeProvider
             .when("/home",{
@@ -23,7 +24,7 @@
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
-                    //loggedin: checkLoggedin
+                    loggedin: checkLoggedin
                 }
             })
             .when("/login", {
@@ -33,7 +34,11 @@
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
-                controller: "AdminController"
+                controller: "AdminController",
+                controllerAs: "model",
+                resolve: {
+                    loggedin: checkAdmin
+                }
             })
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
@@ -58,9 +63,11 @@
                 redirectTo: "/home"
             });
 
-        var checkCurrentUser = function($q, $timeout, $http, $location, $rootScope)
-        {
-            console.log("in checkCurrentUser");
+        function checkCurrentUser ($q, $route, $http, $rootScope) {
+
+            //console.log("Home Params: " + $route.current.params);
+            //console.log("in checkCurrentUser");
+            //return "String";
             var deferred = $q.defer();
 
             $http.get('/api/assignment/loggedin').success(function(user)
@@ -75,11 +82,11 @@
             });
 
             return deferred.promise;
-        };
+        }
 
-        var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
+        function checkLoggedin ($q, $timeout, $http, $location, $rootScope)
         {
-            console.log("in checkLoggedin");
+            //console.log("in checkLoggedin");
             var deferred = $q.defer();
 
             $http.get('/api/assignment/loggedin').success(function(user)
@@ -101,6 +108,30 @@
             });
 
             return deferred.promise;
-        };
+        }
+
+        function checkAdmin ($q, $timeout, $http, $location, $rootScope)
+        {
+            var deferred = $q.defer();
+
+            $http.get('/api/assignment/loggedin').success(function(user)
+            {
+                $rootScope.errorMessage = null;
+                // User is Authenticated
+                if (user !== '0' && user.roles.indexOf('admin') != -1)
+                {
+                    $rootScope.currentUser = user;
+                    deferred.resolve();
+                }
+                // User is Not Authenticated
+                else
+                {
+                    deferred.reject();
+                    $location.url('/login');
+                }
+            });
+
+            return deferred.promise;
+        }
     }
 })();

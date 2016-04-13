@@ -49,6 +49,7 @@ module.exports = function(db, mongoose) {
     }
 
     function findAllUsers() {
+        console.log("in model findallusers");
         var deferred = q.defer();
 
         // find users with mongoose user model's find()

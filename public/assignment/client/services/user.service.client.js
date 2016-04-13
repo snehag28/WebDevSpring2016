@@ -29,17 +29,8 @@
         }
 
         function findAllUsers() {
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user")
-                .then(
-                    function(response){
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            console.log("in client findallusers");
+            return $http.get("/api/assignment/user",$rootScope.user);
         }
 
         function createUser(user) {
