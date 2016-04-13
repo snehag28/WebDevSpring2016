@@ -6,8 +6,9 @@
         .controller("AdminController",AdminController);
 
     function AdminController(UserService){
-        console.log("in admincontroller");
         var vm = this;
+        vm.sortType = 'username';
+        vm.sortReverse = false;
 
         function init() {
             console.log("in init");
@@ -15,11 +16,8 @@
                 .then(
                     function(doc) {
                         vm.users = doc.data;
-                        console.log("users");
-                        console.log(vm.users);
                     },
                     function(err) {
-                        console.log("in err"+err.data);
                         vm.error = err;
                     }
                 )

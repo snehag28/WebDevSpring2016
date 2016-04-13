@@ -1,4 +1,4 @@
-<div class="container-fluid">
+
     <div class="row">
         <div class="main">
             <h1>Admin</h1>
@@ -9,30 +9,43 @@
                 <thead>
                 <tr>
                     <th class="cell-center">
-                        <a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                        <label>Username</label>
+                        <a ng-click="model.sortType = 'username'; model.sortReverse = !model.sortReverse">
+                            <label>Username</label>
+                            <span ng-show="model.sortType == 'username' && !model.sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="model.sortType == 'username' && model.sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+                        </a>
                     </th>
                     <th class="cell-center">
-                        <a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
                         <label>Password</label>
                     </th>
                     <th class="cell-center">
-                        <a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                        <label nowrap>
-                            First Name
-                        </label>
+                        <a ng-click="model.sortType = 'firstName'; model.sortReverse = !model.sortReverse">
+                            <label nowrap>
+                                First Name
+                            </label>
+                            <span ng-show="model.sortType == 'firstName' && !model.sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="model.sortType == 'firstName' && model.sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+                        </a>
                     </th>
                     <th class="cell-center">
-                        <a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                        <label nowrap>
-                        Last Name
-                        </label>
+                        <a ng-click="model.sortType = 'lastName'; model.sortReverse = !model.sortReverse">
+                            <label nowrap>
+                                Last Name
+                            </label>
+                            <span ng-show="model.sortType == 'lastName' && !model.sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="model.sortType == 'lastName' && model.sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+                        </a>
                     </th>
-                    <th class="cell-center fit">
-                        <a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+                    <th class="cell-center">
                         <label>Role</label>
                     </th>
-                    <th class="cell-center fit">
+                    <th class="cell-center">
                         <label>Actions</label>
                     </th>
                 </tr>
@@ -48,7 +61,8 @@
                     </td>
                 </tr>
                 </thead>
-                <tr ng-repeat="user in model.users" ng-class="{'success' : $index == selectedUserIndex}">
+                <tr ng-repeat="user in model.users | orderBy:model.sortType:model.sortReverse"
+                    ng-class="{'success' : $index == selectedUserIndex}">
                     <td>{{user.username}}</td>
                     <td>&nbsp;</td>
                     <td>{{user.firstName}}</td>
@@ -65,5 +79,5 @@
             </div>
         </div>
     </div>
-</div>
+
 
