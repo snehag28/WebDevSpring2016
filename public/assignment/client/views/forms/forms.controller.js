@@ -28,7 +28,7 @@
                     function (doc) {
                         vm.forms = doc;
                     }
-                )
+                );
         }
 
         function setFormTitle(title) {
@@ -44,8 +44,8 @@
                         vm.selectedFormIndex = null;
                         vm.newForm = {};
                     }
-                )
-        };
+                );
+        }
 
         function updateForm (form){
             var newForm = {};
@@ -62,16 +62,17 @@
                         vm.newForm = {};
 
                     }
-                )
-        };
+                );
+        }
+
         function deleteForm(index){
             FormService.deleteFormById(vm.forms[index]._id)
                 .then(
                     function(doc) {
                         vm.forms.splice(index,1);
                     }
-                )
-        };
+                );
+        }
 
         function selectForm(index){
             vm.selectedFormIndex = index;

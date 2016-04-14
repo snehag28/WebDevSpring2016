@@ -32,7 +32,7 @@
                             UserService.setUser(user);
                         }
                     }
-                )
+                );
         }
     }
 })();

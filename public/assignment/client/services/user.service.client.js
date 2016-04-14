@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($http, $rootScope, $q) {
+    function UserService($http, $rootScope) {
 
         var api = {
             findUserByUsername: findUserByUsername,
@@ -39,33 +39,14 @@
         }
 
         function deleteUserById(userId) {
-            var deferred = $q.defer();
-            $http.delete("/api/assignment/user/"+userId)
-                .success(
-                    function(response){
-                        deferred.resolve(response);
-                    }
-                );
-            return deferred.promise;
+            return $http.delete("/api/assignment/user/"+userId);
         }
 
         function findUserById(userId){
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user/"+userId)
-                .then(
-                    function(response){
-                        deferred.resolve(response);
-                    },
-                    function(error){
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            $http.get("/api/assignment/user/"+userId);
         }
 
         function updateUser(userId, newUser) {
-            console.log("in updateUser");
-            console.log(newUser);
             return $http.put("/api/assignment/user/"+userId, newUser);
         }
 
@@ -78,7 +59,7 @@
         }
 
         function logout() {
-            $rootScope.user = null;
+            return $http.post("/api/assigment/logout");
         }
     }
 })();

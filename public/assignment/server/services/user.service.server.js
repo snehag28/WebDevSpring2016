@@ -63,6 +63,7 @@ module.exports = function(app, formUserModel){
     }
 
     function logout(req, res) {
+        console.log("in logout");
         req.logOut();
         res.send(200);
     }
