@@ -88,4 +88,4 @@ module.exports = function(app, fieldModel, formModel){
                     res.status(400).send(err);
                 });
     }
-}
+};

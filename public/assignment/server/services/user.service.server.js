@@ -63,8 +63,7 @@ module.exports = function(app, formUserModel){
     }
 
     function logout(req, res) {
-        console.log("in logout");
-        req.logOut();
+        req.session.destroy();
         res.send(200);
     }
 
@@ -110,10 +109,8 @@ module.exports = function(app, formUserModel){
     }
 
     function findAllUsers(req, res) {
-        console.log("in service before findallusers");
         console.log(req.user);
         if(isAdmin(req.user)) {
-            console.log("in service findallusers");
             formUserModel
                 .findAllUsers()
                 .then(
@@ -214,7 +211,6 @@ module.exports = function(app, formUserModel){
     }
 
     function isAdmin(user) {
-        console.log("in isadmin");
         console.log(user.roles);
         if(user.roles.indexOf("admin") > -1) {
             return true

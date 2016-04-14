@@ -59,7 +59,7 @@
         }
 
         function logout() {
-            return $http.post("/api/assigment/logout");
+            return $http.post("/api/assignment/logout");
         }
     }
 })();
