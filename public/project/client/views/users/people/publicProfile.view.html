@@ -13,7 +13,8 @@
                                 class="btn btn-danger">
                             Unfollow
                         </button>
-                        <button ng-show="user.following.indexOf(userDetails.username) == -1"
+                        <button ng-show="user.following.indexOf(userDetails.username) == -1
+                        && user.username != userDetails.username"
                                 ng-click="addToFollowList(userDetails.username)"
                                 class="btn btn-primary">
                             Follow
@@ -37,6 +38,7 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Shelf</th>
+                                    <th>Rating</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -45,7 +47,10 @@
                                         {{book.title}}
                                     </td>
                                     <td>
-                                        {{book.shelf}}
+                                        {{book.currentUserShelf.shelf}}
+                                    </td>
+                                    <td>
+                                        {{book.currentUserShelf.rating}}
                                     </td>
                                 </tr>
                                 </tbody>
