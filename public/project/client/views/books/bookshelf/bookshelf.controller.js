@@ -40,21 +40,20 @@
         init();
 
         function getBooksForUser(userId){
-            $scope.bookDetails = [];
             BookService.findAllBooksForUser(userId)
                 .then(
                     function(doc) {
                         $scope.books = doc;
-                        for(var i= 0; i < $scope.books.length ; i++ ){
-                            console.log($scope.books[i]);
-                            BookService.findBookById($scope.books[i].googleBooksId)
-                                .then(
-                                    function (book) {
-                                        $scope.bookDetails.push(book);
-                                    });
+                        for(var i = 0, len = $scope.books.length; i < len; i++ ) {
+                            var userIndex = arrayObjectIndexOf($scope.books[i].userShelf, userId, "userId");
+                            var userShelf = {};
+                            if(userIndex != -1){
+                                userShelf = $scope.books[i].userShelf[userIndex];
+                            }
+                            $scope.books[i].currentUserShelf = userShelf;
                         }
-                    });
-
+                    }
+                );
         }
 
         function getBooksForUserByShelf(userId,shelf){
@@ -124,7 +123,6 @@
 
         function selectBook(index){
             $scope.selectedBookIndex = index;
-            // use angular.copy
 
             $scope.newBook = {
                 "title" : $scope.books[index].title,
@@ -142,9 +140,5 @@
             return -1;
         }
 
-        function cancel () {
-            $scope.selectedBookIndex = null;
-            $scope.newBook = {};
-        }
     }
 })();

@@ -1,6 +1,6 @@
 //var bookModel = require("./../models/book.model.server.js")();
 
-module.exports = function(app, bookModel, shelfModel) {
+module.exports = function(app, bookModel) {
     app.get("/api/project/user/:userId/book",getBooksForUser);
     app.get("/api/project/user/:userId/:shelf/book",getBooksForUserByShelf);
     app.get("/api/project/book/:bookId", getBookById);
@@ -9,8 +9,7 @@ module.exports = function(app, bookModel, shelfModel) {
     app.delete("/api/project/book/:bookId",deleteBook);
 
     function getBooksForUser (req, res) {
-        console.log("in getBooksForUser");
-        shelfModel.findAllBooksForUser(req.params.userId)
+        bookModel.findAllBooksForUser(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -25,7 +24,7 @@ module.exports = function(app, bookModel, shelfModel) {
     function getBooksForUserByShelf (req, res) {
         var userId = req.params.userId;
         var shelf = req.params.shelf;
-        shelfModel.findAllBooksForUserByShelf(userId,shelf)
+        bookModel.findAllBooksForUserByShelf(userId,shelf)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -37,37 +36,23 @@ module.exports = function(app, bookModel, shelfModel) {
             );
     }
 
-    function createBookForUser(req, res) {
-        //console.log("in createBookForUser");
-        var book = req.body;
+    function createBookForUser(req, res){
+        var newBook = req.body;
         var userId = req.params.userId;
         var shelf = req.params.shelf;
-        //console.log(book.id);
-        bookModel.createBook(book)
+        bookModel.createBookForUser(userId,newBook,shelf)
             .then(
-                function (doc) {
-                    //console.log("result of finBookById");
-                    //console.log(doc);
-                    // add to user shelf
-                    shelfModel.createShelf(userId,doc,shelf)
-                        .then(
-                            function (newShelf) {
-                                res.json(newShelf);
-                            },
-                            // send error if promise rejected
-                            function ( err ) {
-                                res.status(400).send(err);
-                            }
-                        );
+                function ( doc ) {
+                    res.json(doc);
                 },
-                function (err) {
+                // send error if promise rejected
+                function ( err ) {
                     res.status(400).send(err);
                 }
             );
     }
 
     function getBookById (req, res) {
-        console.log("getBookById");
         bookModel.findBookById(req.params.bookId)
             .then(
                 function ( book ) {
@@ -75,7 +60,6 @@ module.exports = function(app, bookModel, shelfModel) {
                 },
                 // send error if promise rejected
                 function ( err ) {
-                    console.log(err);
                     res.status(400).send(err);
                 }
             );
@@ -108,4 +92,4 @@ module.exports = function(app, bookModel, shelfModel) {
                 }
             );
     }
-};
+}

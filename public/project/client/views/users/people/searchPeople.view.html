@@ -1,0 +1,51 @@
+<div class="container" ng-controller="SearchPeopleController">
+    <div class="row">
+        <div class="main">
+            <div>
+                <h3>Search Users by First Name</h3>
+            </div>
+
+            <div>
+                <input ng-model="name" id="name" class="form-control"/>
+                <br>
+                <!--
+                <button id="searchAuthorBtn" ng-click="searchBook(author)"
+                        class="btn btn-primary btn-block">Search Books</button>
+                        -->
+                <a href="#/member/{{name}}" class="btn btn-primary btn-block">
+                    Search People
+                </a>
+            </div>
+            <div>
+                <br>
+                <table id="contentTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>
+                            {{user.firstName}}
+                        </td>
+                        <td>
+                            {{user.lastName}}
+                        </td>
+                        <td>
+                            {{user.username}}
+                        </td>
+                        <td nowrap>
+                            <a href="#/userDetails/{{user.username}}" class="btn btn-primary">Details</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,9 +18,30 @@ module.exports = function(db, mongoose) {
         deleteUserById: deleteUserById,
         updateUserById: updateUserById,
         findUserByUsername: findUserByUsername,
-        findUserById: findUserById
+        findUserById: findUserById,
+        findUserByFirstName: findUserByFirstName
     };
     return api;
+
+    function findUserByFirstName(firstName) {
+        var deferred = q.defer();
+        ProjectUserModel.find(
+            {firstName: new RegExp('^'+firstName+'$', "i")},
+            function(err, doc) {
+
+                if (err) {
+                    console.log("err: "+err);
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+
+            }
+        );
+        return deferred.promise;
+    }
 
     function findUserByCredentials(username, password) {
 

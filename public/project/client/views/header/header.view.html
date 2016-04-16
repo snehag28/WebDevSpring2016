@@ -38,7 +38,7 @@
                     <a ng-show="user && user.roles.indexOf('editor') >=0" href="#/editor">Editor</a>
                 </li>-->
                 <li ng-class="{'active' : $location.url().indexOf('admin') != -1}">
-                    <a ng-show="user && user.roles.indexOf('admin') >=0" href="#/admin">Admin</a>
+                    <a ng-show="user && user.role == 'admin'" href="#/admin">Admin</a>
                 </li>
 
             </ul>
@@ -57,6 +57,9 @@
                 </li>
                 <li ng-class="{'active' : $location.url().indexOf('opinion') != -1}">
                     <a href="#/opinion">Opinion</a>
+                </li>
+                <li ng-class="{'active' : $location.url().indexOf('member') != -1}">
+                    <a ng-show="user" href="#/member">Members</a>
                 </li>
             </ul>
         </div>

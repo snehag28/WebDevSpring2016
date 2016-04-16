@@ -4,6 +4,7 @@ module.exports = function(app, projectUserModel){
     app.get("/api/assignment/user?username=username",getUsers);
     app.get("/api/assignment/user?username=username&password=password",getUsers);
     app.get("/api/assignment/user", getUsers);
+    app.get("/api/assignment/user?firstName=fname", getUsers);
     app.get("/api/assignment/user/:id", profile);
     app.post("/api/assignment/user",register);
     app.put("/api/assignment/user/:id", updateUser);
@@ -16,7 +17,11 @@ module.exports = function(app, projectUserModel){
             }else{
                 getUserByName(req, res);
             }
-        }else{
+        }
+        else if(req.query.firstName) {
+            getUserByFirstName(req, res);
+        }
+        else{
             allUsers(req, res);
         }
     }
@@ -26,6 +31,19 @@ module.exports = function(app, projectUserModel){
         projectUserModel.findUserByCredentials(req.query.username,req.query.password)
             .then(
                 // return user if promise resolved
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function getUserByFirstName(req, res) {
+        projectUserModel.findUserByFirstName(req.query.firstName)
+            .then(
                 function (doc) {
                     res.json(doc);
                 },

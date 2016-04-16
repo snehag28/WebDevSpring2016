@@ -16,9 +16,36 @@
             findUserById: findUserById,
             setUser: setUser,
             getUser: getUser,
-            logout: logout
+            logout: logout,
+            getUsersByName: getUsersByName,
+            addToFollowerList: addToFollowerList
         };
         return api;
+
+        function addToFollowerList (followed, follower) {
+            findUserByUsername(followed)
+                .then(
+                    function(doc) {
+                        console.log(doc);
+                        doc.followers.push(follower);
+                        updateUserById(doc._id, doc);
+                    }
+                )
+        }
+
+        function getUsersByName (fname) {
+            var deferred = $q.defer();
+            $http.get("/api/assignment/user?firstName="+fname)
+                .then(
+                    function(response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(error) {
+                        deferred.reject(error);
+                    }
+                );
+            return deferred.promise;
+        }
 
         function findUserByUsername(username){
             var deferred = $q.defer();

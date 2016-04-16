@@ -47,9 +47,11 @@
                     function(doc){
                         if(doc){
                             UserService.setUser(doc);
+                            UserService
+                                .addToFollowerList(username,currentUser.username);
                         }
                     }
-                )
+                );
             $location.url("/people");
         }
 
