@@ -19,8 +19,14 @@ module.exports = function(db, mongoose) {
     };
     return api;
 
-    function createShelf(shelf) {
+    function createShelf(userId, book, shelfname) {
         var deferred = q.defer();
+        var shelf = {
+            googleBooksId: book.googleBooksId,
+            userId: userId,
+            rating: book.rating,
+            shelf: shelfname
+        };
 
         ShelfModel.create(shelf, function (err, doc) {
             if (err) {

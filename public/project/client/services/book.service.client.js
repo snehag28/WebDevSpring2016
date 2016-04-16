@@ -10,7 +10,8 @@
             findAllBooksForUser: findAllBooksForUser,
             deleteBookById: deleteBookById,
             updateBookById: updateBookById,
-            findAllBooksForUserByShelf: findAllBooksForUserByShelf
+            findAllBooksForUserByShelf: findAllBooksForUserByShelf,
+            findBookById: findBookById
         };
 
         return service;
@@ -54,13 +55,8 @@
         }
 
         function findBookById(bookId) {
-            for (var index in books) {
-                var book = books[index];
-                if (bookId == book.id) {
-                    return book;
-                }
-            }
-            return null;
+            console.log("in findBookById");
+            return $http.get("/api/project/book/"+bookId);
         }
 
         function deleteBookById(bookId) {

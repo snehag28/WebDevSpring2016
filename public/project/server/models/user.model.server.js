@@ -82,7 +82,8 @@ module.exports = function(db, mongoose) {
             "aboutMe": user.aboutMe,
             "favoriteBooks": user.favoriteBooks,
             "following": user.following,
-            "followers": user.followers
+            "followers": user.followers,
+            "role" : "member"
         };
         var deferred = q.defer();
 

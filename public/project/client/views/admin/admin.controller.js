@@ -29,7 +29,8 @@
         }
 
         function updateUser(user){
-            console.log("in updateUser:" + user);
+            console.log("in updateUser:");
+            console.log(user);
             UserService.updateUserById($scope.users[$scope.selectedUserIndex]._id, user)
                 .then(
                     function(response){
@@ -55,7 +56,7 @@
                 //"_id" : $scope.users[index]._id,
                 "username" : $scope.users[index].username,
                 "email" : $scope.users[index].email,
-                "roles" : $scope.users[index].roles
+                "role" : $scope.users[index].role
             };
         };
     }

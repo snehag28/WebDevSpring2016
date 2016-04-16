@@ -35,6 +35,7 @@ module.exports = function(db, mongoose) {
                     }
                     // book doesn't exist
                     else {
+                        var newBook = {};
                         newBook.googleBooksId = book.id;
                         newBook.title = book.volumeInfo.title;
                         newBook.authors = book.volumeInfo.authors;

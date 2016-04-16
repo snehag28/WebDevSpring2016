@@ -26,22 +26,22 @@
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
                                                     data-placeholder="false">
-                                                {{newUser.roles}}
+                                                {{newUser.role}}
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <input type="radio" id="{{user.id}}_1" name="member"
-                                                           ng-model="newUser.roles" value="member">
+                                                           ng-model="newUser.role" value="member">
                                                     <label for="{{user.id}}_1">member</label>
                                                 </li>
                                                 <li>
                                                     <input type="radio" id="{{user.id}}_2" name="admin"
-                                                           ng-model="newUser.roles" value="admin">
+                                                           ng-model="newUser.role" value="admin">
                                                     <label for="{{user.id}}_2">admin</label>
                                                 </li>
                                                 <li>
                                                     <input type="radio" id="{{user.id}}_3" name="editor"
-                                                           ng-model="newUser.roles" value="editor">
+                                                           ng-model="newUser.role" value="editor">
                                                     <label for="{{user.id}}_3">editor</label>
                                                 </li>
                                             </ul>
@@ -63,7 +63,7 @@
                                         {{user.username}}
                                     </td>
                                     <td>
-                                        {{user.roles}}
+                                        {{user.role}}
                                     </td>
                                     <td>
                                         {{user.email}}

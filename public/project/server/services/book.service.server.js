@@ -9,6 +9,7 @@ module.exports = function(app, bookModel, shelfModel) {
     app.delete("/api/project/book/:bookId",deleteBook);
 
     function getBooksForUser (req, res) {
+        console.log("in getBooksForUser");
         shelfModel.findAllBooksForUser(req.params.userId)
             .then(
                 function (doc) {
@@ -36,23 +37,37 @@ module.exports = function(app, bookModel, shelfModel) {
             );
     }
 
-    function createBookForUser(req, res){
-        var newBook = req.body;
+    function createBookForUser(req, res) {
+        //console.log("in createBookForUser");
+        var book = req.body;
         var userId = req.params.userId;
         var shelf = req.params.shelf;
-        shelfModel.createShelf(userId,newBook,shelf)
+        //console.log(book.id);
+        bookModel.createBook(book)
             .then(
-                function ( doc ) {
-                    res.json(doc);
+                function (doc) {
+                    //console.log("result of finBookById");
+                    //console.log(doc);
+                    // add to user shelf
+                    shelfModel.createShelf(userId,doc,shelf)
+                        .then(
+                            function (newShelf) {
+                                res.json(newShelf);
+                            },
+                            // send error if promise rejected
+                            function ( err ) {
+                                res.status(400).send(err);
+                            }
+                        );
                 },
-                // send error if promise rejected
-                function ( err ) {
+                function (err) {
                     res.status(400).send(err);
                 }
             );
     }
 
     function getBookById (req, res) {
+        console.log("getBookById");
         bookModel.findBookById(req.params.bookId)
             .then(
                 function ( book ) {
@@ -60,6 +75,7 @@ module.exports = function(app, bookModel, shelfModel) {
                 },
                 // send error if promise rejected
                 function ( err ) {
+                    console.log(err);
                     res.status(400).send(err);
                 }
             );
@@ -92,4 +108,4 @@ module.exports = function(app, bookModel, shelfModel) {
                 }
             );
     }
-}
+};
