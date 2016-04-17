@@ -10,10 +10,15 @@
             findAllBooksForUser: findAllBooksForUser,
             deleteBookById: deleteBookById,
             updateBookById: updateBookById,
-            findAllBooksForUserByShelf: findAllBooksForUserByShelf
+            findAllBooksForUserByShelf: findAllBooksForUserByShelf,
+            getBookById: getBookById
         };
 
         return service;
+
+        function getBookById(bookId) {
+            return $http.get("/api/project/book/"+bookId);
+        }
 
         function createBookForUser(userId, book, shelf) {
             var deferred = $q.defer();
@@ -51,16 +56,6 @@
                     }
                 );
             return deferred.promise;
-        }
-
-        function findBookById(bookId) {
-            for (var index in books) {
-                var book = books[index];
-                if (bookId == book.id) {
-                    return book;
-                }
-            }
-            return null;
         }
 
         function deleteBookById(bookId) {

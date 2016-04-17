@@ -13,7 +13,8 @@
                     <tr>
                         <div ng-show="user" class="btn-group">
                             <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
-                                <span>Add to:</span>
+                                <span ng-show="!usershelf">Add to:</span>
+                                <span ng-show="usershelf">{{usershelf}}</span>
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li>

@@ -8,7 +8,6 @@
 
         $scope.searchBook = searchBook;
         $scope.renderBooks = renderBooks;
-        $scope.addToReadingList = addToReadingList;
 
         function init() {
             var author = $routeParams.authorName;
@@ -21,18 +20,6 @@
         function searchBook(author){
             GoogleBookService.searchBookByAuthor(author)
                 .success(renderBooks)
-        }
-
-        function addToReadingList(book,shelf){
-            BookService.createBookForUser($rootScope.user._id,book,shelf)
-                .then(
-                    function(response){
-                        var newBook = response;
-                        $scope.books.push(newBook);
-                        $scope.selectedBookIndex = null;
-                        $scope.newBook = {};
-                    }
-                )
         }
 
         function renderBooks(response){
