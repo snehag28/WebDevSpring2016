@@ -30,7 +30,7 @@
                 updateArticle($routeParams.id,newArticle)
                     .then(
                         function(response) {
-                            $location.path("/opinion");
+                            $location.path("/editor");
                         }
                     );
             }
@@ -44,7 +44,7 @@
                     addArticle(newArticle)
                     .then(
                         function(response) {
-                            $location.path("/opinion");
+                            $location.path("/editor");
                         }
                     );
             }

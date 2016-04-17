@@ -10,9 +10,19 @@
             getEditorial: getEditorial,
             getArticleById: getArticleById,
             addArticle: addArticle,
-            updateArticle: updateArticle
+            updateArticle: updateArticle,
+            getAllEditorials: getAllEditorials,
+            deleteArticle: deleteArticle
         };
         return api;
+
+        function deleteArticle(id) {
+            return $http.delete("/api/project/article/"+id);
+        }
+
+        function getAllEditorials() {
+            return $http.get("/api/project/editor");
+        }
 
         function getEditorial () {
             return $http.get("/api/project/editor/article");
@@ -23,7 +33,6 @@
         }
 
         function addArticle(article) {
-            console.log(article);
             return $http.post("/api/project/article",article);
         }
 

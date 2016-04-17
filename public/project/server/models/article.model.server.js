@@ -14,9 +14,28 @@ module.exports = function(db, mongoose) {
         getEditorArticleToPublish: getEditorArticleToPublish,
         getArticleById: getArticleById,
         createArticle: createArticle,
-        updateArticle: updateArticle
+        updateArticle: updateArticle,
+        getAllEditorials: getAllEditorials,
+        deleteArticleById: deleteArticleById
     };
     return api;
+
+    function getAllEditorials() {
+        var deferred = q.defer();
+        ArticleModel.find(
+            function(err,doc) {
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
 
     function getEditorArticleToPublish() {
         var deferred = q.defer();
@@ -102,6 +121,24 @@ module.exports = function(db, mongoose) {
                                 deferred.resolve(user);
                             }
                         });
+                }
+            });
+        return deferred.promise;
+    }
+
+    function deleteArticleById(articleId) {
+        var deferred = q.defer();
+
+        ArticleModel.remove(
+            {_id: articleId},
+            function(err, stats) {
+                if (err) {
+                    // reject promise if error
+                    console.log("err: "+err);
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(stats);
                 }
             });
         return deferred.promise;

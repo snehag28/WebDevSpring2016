@@ -1,11 +1,27 @@
 module.exports = function(app, articleModel) {
     app.get("/api/project/editor/article", getEditorial);
     app.get("/api/project/editor/:id", getArticleById);
+    app.get("/api/project/editor", getAllEditorials);
     app.post("/api/project/article", addArticle);
     app.put("/api/project/article/:id", updateArticle);
+    app.delete("/api/project/article/:id", deleteArticle);
 
     function getEditorial(req, res){
         articleModel.getEditorArticleToPublish()
+            .then(
+                // return user if promise resolved
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function getAllEditorials(req, res){
+        articleModel.getAllEditorials()
             .then(
                 // return user if promise resolved
                 function (doc) {
@@ -59,5 +75,18 @@ module.exports = function(app, articleModel) {
                 }
             );
 
+    }
+
+    function deleteArticle (req, res) {
+        articleModel.deleteArticleById(req.params.id)
+            .then(
+                function ( doc ) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
     }
 };

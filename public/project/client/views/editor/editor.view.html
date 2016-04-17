@@ -1,0 +1,64 @@
+
+<div class="container-fluid" ng-controller="EditorController">
+    <div class="row">
+        <div class="main">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#editor" aria-controls="forms" role="tab" data-toggle="tab">
+                        Editorials
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#/chooseBOM" aria-controls="forms" role="tab">
+                        UserArticles
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <div ng-if="error" class="alert alert-danger">
+                {{error}}
+            </div>
+            <br>
+            <div>
+                <a class="btn btn-sm btn-info" href="#/submitEditorial"
+                   role="button">Add New Editorial</a>
+            </div>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Select</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="editorial in editorials">
+                    <td>
+                        {{editorial.title}}
+                    </td>
+                    <td>
+                        <span ng-show="editorial.publish == true"
+                              class="glyphicon glyphicon glyphicon-ok-sign"
+                        ng-click="unselectArticle(editorial._id, editorial)"></span>
+                        <span ng-show="editorial.publish == false &&
+                                        isOneSelected == true"
+                                  class="glyphicon glyphicon glyphicon-ban-circle"></span>
+                        <span ng-show="editorial.publish == false &&
+                                        isOneSelected == false"
+                              class="glyphicon glyphicon glyphicon glyphicon-ok-circle"
+                        ng-click="selectArticle(editorial._id, editorial)"></span>
+                    </td>
+                    <td nowrap>
+                        <a class="btn btn-sm btn-primary" href="#/submitEditorial/{{editorial._id}}"
+                           role="button">Edit</a>
+                        <a class="btn btn-sm btn-danger" ng-click="deleteArticle(editorial._id)"
+                           role="button">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

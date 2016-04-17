@@ -82,6 +82,9 @@
             })
             .when("/editor", {
                 templateUrl: "client/views/editor/editor.view.html",
+                resolve: {
+                    loggedin: checkEditor
+                }
                 //controller: "AdminController"
             })
             .when("/search", {
@@ -213,6 +216,30 @@
                 $rootScope.errorMessage = null;
                 // User is Authenticated
                 if (user !== '0' && user.role == "admin")
+                {
+                    $rootScope.user = user;
+                    deferred.resolve();
+                }
+                // User is Not Authenticated
+                else
+                {
+                    deferred.reject();
+                    $location.url('/login');
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        function checkEditor ($q, $http, $location, $rootScope)
+        {
+            var deferred = $q.defer();
+
+            $http.get('/api/project/loggedin').success(function(user)
+            {
+                $rootScope.errorMessage = null;
+                // User is Authenticated
+                if (user !== '0' && user.role == "editor")
                 {
                     $rootScope.user = user;
                     deferred.resolve();
