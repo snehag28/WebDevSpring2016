@@ -5,7 +5,6 @@
         .controller("FeaturettesController",FeaturettesController);
 
     function FeaturettesController($scope, $rootScope) {
-        console.log("Hello from FeaturettesController controller!");
     }
 
 })();

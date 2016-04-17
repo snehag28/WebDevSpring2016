@@ -5,7 +5,6 @@
         .controller("CarouselController",CarouselController);
 
     function CarouselController($scope, $rootScope) {
-        console.log("Hello from CarouselController controller!");
 
         $(document).ready(function(){
             $('.carousel').carousel({

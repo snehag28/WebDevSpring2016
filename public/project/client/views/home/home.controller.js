@@ -5,7 +5,7 @@
         .controller("HomeController",HomeController);
 
     function HomeController($scope, $rootScope) {
-        console.log("Hello from HomeController controller!");
+
     }
 
 })();

@@ -60,6 +60,8 @@ module.exports = function(db, mongoose) {
 
         ReviewModel.find(
             {googleBooksId: bookId},
+            null,
+            {sort: {dateAdded: -1}},
             function (err, doc) {
                 if (err) {
                     // reject promise if error
