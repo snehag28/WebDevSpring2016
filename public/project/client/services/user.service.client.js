@@ -24,7 +24,6 @@
         return api;
 
         function login(user) {
-            console.log("in client service login");
             return $http.post("/api/project/login", user);
         }
 
@@ -71,7 +70,6 @@
         }
 
         function updateUserById(userId, newUser) {
-            console.log("in client");
             return $http.put("/api/project/user/"+userId, newUser);
         }
 

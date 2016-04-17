@@ -9,7 +9,6 @@
         $scope.login = login;
 
         function login(user){
-            console.log("in controller login");
             UserService
                 .login(user)
                 .then(

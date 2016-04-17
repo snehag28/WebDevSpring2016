@@ -21,7 +21,7 @@
             UserService.findAllUsers()
                 .then(
                     function(response){
-                        $scope.users = response;
+                        $scope.users = response.data;
                     }
                 )
         }
@@ -51,6 +51,7 @@
             $scope.newUser = {
                 //"_id" : $scope.users[index]._id,
                 "username" : $scope.users[index].username,
+                "password" : $scope.users[index].password,
                 "email" : $scope.users[index].email,
                 "role" : $scope.users[index].role
             };

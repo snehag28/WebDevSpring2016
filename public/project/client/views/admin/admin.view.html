@@ -12,6 +12,7 @@
                                 <thead>
                                 <tr>
                                     <th>Username</th>
+                                    <th>Password</th>
                                     <th>Roles</th>
                                     <th>Email</th>
                                     <th>Action</th>
@@ -21,6 +22,10 @@
                                     <td>
                                         <input ng-model="newUser.username" type="text"
                                                class="form-control" id="username" readonly>
+                                    </td>
+                                    <td>
+                                        <input ng-model="newUser.password" type="password"
+                                               class="form-control" id="inputPassword" placeholder="password">
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -61,6 +66,9 @@
                                 <tr ng-repeat="user in users">
                                     <td>
                                         {{user.username}}
+                                    </td>
+                                    <td>
+                                        &nbsp;
                                     </td>
                                     <td>
                                         {{user.role}}
