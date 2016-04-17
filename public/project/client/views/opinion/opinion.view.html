@@ -24,36 +24,29 @@
         </div>
     </div>
 
-    <div class="container marketing"  id="editorial">
+    <div class="container marketing"  id="editorial" ng-model="editorial">
         <hr class="featurette-divider">
-        <div class="row featurette">
+        <div class="row featurette" >
             <div class="col-md-8">
                 <h2>Editor's Article</h2>
-                <p>
-                    Pride and Prejudice has one of the most famous opening lines in English Literature -
-                    "It is a truth universally acknowledged that a single man in possession of a good fortune must be in want of a wife. And, of course, a single woman in search of a good fortune must equally be in want of a husband who has one!”
-                    </p>
-                <p>
-                    With this introduction, the line sets the base for the plot of the book. The story is set in the early 1800s, the story talks about the pride of a man - Mr. Darcy and the prejudice of a woman - Ms. Elizabeth Bennet.
-                    </p>
-                <p>
-                    Jane Austen's stories were said to have a sarcastic and dark humorous view on the life and society of the 1800s. She had a shrewd eye for the characters she developed and the characters in Pride and Prejudice are no different. From the fiery and independent Elizabeth to the handsome and proud Darcy, the pompous Mr. Collins and the shy and elegant Jane and even the witty and clever Mr. Bennet all characters are sketched so finely that you cannot help but associate with them. The language though considered mediocre by many,is believably human. I specically loved the banter betweeen the main protaginists, Elizabeth and Mr. Darcy which highlighted the progression in their relationship from hatred to respect to love.
-                    </p>
-                <p>
-                    This is a story that can be re-read many many times (like I do) and can be recommended to youngsters wanting to venture into classic English Literature.
+                <p ng-bind-html="title">
+                    {{title}}
+                </p>
+                <p ng-bind-html="content">
+                    {{content}}
                 </p>
             </div>
             <div class="col-md-4">
-                <img class="featurette-image img-responsive center-block" src="client/images/pride_and_prejudice.jpg" alt="Generic placeholder image">
+                <img class="featurette-image img-responsive center-block" ng-src="{{editorial.imageURL}}" alt="Generic placeholder image">
             </div>
         </div>
         <br>
-        <div ng-show="user && user.roles.indexOf('editor') >=0">
+        <div ng-show="user && user.role == 'editor'">
                 <p class="text-center">
                     <a class="btn btn-lg btn-primary" href="#/submitEditorial"
                                           role="button">New editorial</a>
 
-                    <a class="btn btn-lg btn-primary" href="#/submitEditorial"
+                    <a class="btn btn-lg btn-primary" href="#/submitEditorial/{{editorial._id}}"
                                           role="button">Edit editorial</a>
                 </p>
         </div>

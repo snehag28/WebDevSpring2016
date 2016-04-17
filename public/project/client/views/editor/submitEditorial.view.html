@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="EditorController">
+<div class="container-fluid" ng-controller="SubmitEditorialController">
     <div class="row">
         <div class="main">
             <div>
@@ -6,7 +6,7 @@
 
             </div>
             <br>
-            <form class="form-horizontal">
+            <form class="form-horizontal" ng-model="article">
                 <div class="form-group">
                     <label for="title" class="col-sm-2 control-label">Title:</label>
                     <div class="col-sm-4">
@@ -20,13 +20,13 @@
                                   class="form-control" id="content"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="editorial_img" class="col-sm-2 control-label">Poster:</label>
                     <div class="col-sm-4">
                         <input ng-model="article.poster" id="editorial_img"
                                type="file" class="file" data-show-preview="false">
                     </div>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">
                         <button

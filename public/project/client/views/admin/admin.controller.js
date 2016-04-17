@@ -30,7 +30,7 @@
             UserService.updateUserById($scope.users[$scope.selectedUserIndex]._id, user)
                 .then(
                     function(response){
-                        var updatedUser = response;
+                        var updatedUser = response.data;
                         $scope.users[$scope.selectedUserIndex] = updatedUser;
                         $scope.selectedUserIndex = null;
                         $scope.newUser = {};

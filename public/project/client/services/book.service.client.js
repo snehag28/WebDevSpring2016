@@ -44,7 +44,6 @@
         }
 
         function findAllBooksForUserByShelf(userId, shelf) {
-            console.log("in bookservice: "+shelf);
             var deferred = $q.defer();
             $http.get("/api/project/user/"+userId+"/"+shelf+"/book")
                 .then(

@@ -144,6 +144,10 @@
                 templateUrl: "client/views/editor/submitEditorial.view.html",
                 //controller: "AdminController"
             })
+            .when("/submitEditorial/:id", {
+                templateUrl: "client/views/editor/submitEditorial.view.html",
+                //controller: "AdminController"
+            })
             .when("/logout", {
                 templateUrl: "client/views/home/home.view.html",
                 //controller: "HomeController"

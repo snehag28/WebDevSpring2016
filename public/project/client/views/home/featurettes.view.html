@@ -100,17 +100,16 @@
     <div class="container marketing">
         <!-- START THE FEATURETTES -->
         <hr class="featurette-divider">
-        <div class="row featurette">
+        <div class="row featurette" ng-model="editorial">
             <div class="col-md-7">
                 <h2 class="featurette-heading">Editor's Article</h2>
-                <p class="lead">
-                    Pride and Prejudice has one of the most famous opening lines in English Literature -
-                    "It is a truth universally acknowledged that a single man in possession of a good fortune must be in want of a wife. And, of course, a single woman in search of a good fortune must equally be in want of a husband who has one!”
+                <p class="lead" ng-bind-html="title">
+                    {{title}}
                 </p>
                 <p class="text-center"><a class="btn btn-lg btn-primary" href="#/opinion#editorial" role="button">Read More</a></p>
             </div>
             <div class="col-md-5">
-                <img class="featurette-image img-responsive center-block" src="client/images/pride_and_prejudice.jpg" alt="Generic placeholder image">
+                <img class="featurette-image img-responsive center-block" ng-src="{{editorial.imageURL}}">
             </div>
         </div>
         <hr class="featurette-divider">

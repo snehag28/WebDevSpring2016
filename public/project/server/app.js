@@ -10,4 +10,7 @@ module.exports = function(app, db, mongoose) {
 
     var reviewModel = require("./models/review.model.server.js")(db, mongoose);
     require("./services/review.service.server.js")(app, reviewModel);
+
+    var articleModel = require("./models/article.model.server.js")(db, mongoose);
+    require("./services/article.service.server.js")(app, articleModel);
 };
