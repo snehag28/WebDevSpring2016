@@ -18,8 +18,8 @@
                 .findUserByUsername(username)
                 .then(
                     function(doc){
-                        if(doc){
-                            $scope.userDetails = doc;
+                        if(doc.data){
+                            $scope.userDetails = doc.data;
                             getBooksForUser($scope.userDetails._id);
                         }
                     }
@@ -51,13 +51,29 @@
                 .then(
                     function(doc){
                         if(doc){
-                            UserService.setUser(doc);
-                            UserService
-                                .addToFollowerList(username,currentUser.username);
+                            UserService.setUser(doc.data);
+                            addToFollowedList(username,currentUser.username);
                         }
                     }
                 );
             $location.url("/people");
+        }
+
+        function addToFollowedList (followed, follower) {
+            UserService.
+            findUserByUsername(followed)
+                .then(
+                    function(doc) {
+                        doc.data.followers.push(follower);
+                        UserService.
+                            updateUserById(doc.data._id, doc.data)
+                            .then(
+                                function(doc) {
+                                    //do nothing
+                                }
+                            );
+                    }
+                );
         }
 
         function removeFromFollowList(username){
@@ -74,11 +90,34 @@
                 .then(
                     function(doc){
                         if(doc){
-                            UserService.setUser(doc);
+                            UserService.setUser(doc.data);
+                            removeFromFollowedList(username,doc.data.username)
                         }
                     }
-                )
+                );
             $location.url("/people");
+        }
+
+        function removeFromFollowedList (followed, follower) {
+            UserService.
+                findUserByUsername(followed)
+                .then(
+                    function(doc) {
+                        var followerArray = doc.data.followers;
+                        var index = followerArray.indexOf(follower);
+                        if(index > -1){
+                            followerArray.splice(index,1);
+                        }
+                        doc.data.followers = followerArray;
+                        UserService.
+                            updateUserById(doc.data._id, doc.data)
+                            .then(
+                                function(doc) {
+                                    //do nothing
+                                }
+                            );
+                    }
+                );
         }
 
         function arrayObjectIndexOf(myArray, searchTerm, property) {

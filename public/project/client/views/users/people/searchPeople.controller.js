@@ -18,7 +18,7 @@
             UserService.getUsersByName(fname).
                 then(
                 function(doc) {
-                    $scope.users = doc;
+                    $scope.users = doc.data;
                 }
             );
         }

@@ -26,6 +26,9 @@
             })
             .when("/bookshelf", {
                 templateUrl: "client/views/books/bookshelf/bookshelf.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "BookshelfController"
             })
             .when("/read", {
@@ -46,10 +49,13 @@
             })
             .when("/member", {
                 templateUrl: "client/views/users/people/searchPeople.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "PeopleController"
             })
             .when("/member/:name", {
-                templateUrl: "client/views/users/people/searchPeople.view.html",
+                templateUrl: "client/views/users/people/searchPeople.view.html"
                 //controller: "PeopleController"
             })
             .when("/userDetails/:username", {
@@ -58,6 +64,9 @@
             })
             .when("/followers", {
                 templateUrl: "client/views/users/people/followers.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "FollowerController"
             })
             .when("/login", {

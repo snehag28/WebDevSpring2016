@@ -18,8 +18,7 @@
             findUserById: findUserById,
             setUser: setUser,
             getUser: getUser,
-            getUsersByName: getUsersByName,
-            addToFollowerList: addToFollowerList
+            getUsersByName: getUsersByName
         };
         return api;
 
@@ -29,16 +28,6 @@
 
         function logout() {
             return $http.post("/api/project/logout");
-        }
-
-        function addToFollowerList (followed, follower) {
-            findUserByUsername(followed)
-                .then(
-                    function(doc) {
-                        doc.followers.push(follower);
-                        updateUserById(doc._id, doc);
-                    }
-                )
         }
 
         function getUsersByName (fname) {

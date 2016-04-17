@@ -28,18 +28,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="user in users">
+                    <tr ng-repeat="searchUser in users">
                         <td>
-                            {{user.firstName}}
+                            {{searchUser.firstName}}
                         </td>
                         <td>
-                            {{user.lastName}}
+                            {{searchUser.lastName}}
                         </td>
                         <td>
-                            {{user.username}}
+                            {{searchUser.username}}
                         </td>
                         <td nowrap>
-                            <a href="#/userDetails/{{user.username}}" class="btn btn-primary">Details</a>
+                            <a href="#/userDetails/{{searchUser.username}}" class="btn btn-primary">Details</a>
                         </td>
                     </tr>
 
