@@ -4,17 +4,10 @@
         .module("BookApp")
         .controller("GenreController",GenreController);
 
-    function GenreController($scope, $rootScope, $http, BookService, $routeParams) {
-        console.log("Hello from search controller!");
-
+    function GenreController($scope, $rootScope, BookService, $routeParams) {
         $scope.searchBook = searchBook;
         $scope.renderBooks = renderBooks;
         $scope.addToReadingList = addToReadingList;
-
-        var $bookTitleTxt;
-        var $searchBookBtn;
-        var searchURL = "https://www.googleapis.com/books/v1/volumes?q=subject:CATEGORY";
-        var DETAILS_URL = "https://www.googleapis.com/books/v1/volumes/BOOKID";
 
         function init() {
             var genre = $routeParams.genreName;
@@ -25,9 +18,7 @@
         init();
 
         function searchBook(genre){
-            console.log("in searchBook");
-            var url = searchURL.replace("CATEGORY", genre);
-            $http.get(url)
+            GoogleBookService.searchBookByGenre(genre)
                 .success(renderBooks)
         }
 

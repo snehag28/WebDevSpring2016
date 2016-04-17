@@ -4,9 +4,7 @@
         .module("BookApp")
         .controller("BookDetailsController", BookDetailsController);
 
-    var DETAILS_URL = "https://www.googleapis.com/books/v1/volumes/BOOKID";
-
-    function BookDetailsController($scope, $http, $routeParams,$sce,BookService, $rootScope, ReviewService) {
+    function BookDetailsController($scope, $routeParams, $sce, BookService, $rootScope, ReviewService, GoogleBookService) {
         $scope.addToReadingList = addToReadingList;
         $scope.addReview = addReview;
         $scope.cancelReview = cancelReview;
@@ -26,8 +24,7 @@
         init();
 
         function selectBook(bookId){
-            var url = DETAILS_URL.replace("BOOKID", bookId);
-            $http.get(url)
+            GoogleBookService.getBookDetails(bookId)
                 .success(renderDetails);
         }
 

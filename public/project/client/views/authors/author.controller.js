@@ -4,17 +4,11 @@
         .module("BookApp")
         .controller("AuthorController",AuthorController);
 
-    function AuthorController($scope, $rootScope, $http, BookService,$routeParams) {
+    function AuthorController($scope, $rootScope, BookService,$routeParams, GoogleBookService) {
 
         $scope.searchBook = searchBook;
         $scope.renderBooks = renderBooks;
         $scope.addToReadingList = addToReadingList;
-
-        var $bookTitleTxt;
-        var $searchBookBtn;
-        var searchURL = "https://www.googleapis.com/books/v1/volumes?q=inauthor:AUTHOR";
-        var DETAILS_URL = "https://www.googleapis.com/books/v1/volumes/BOOKID";
-
 
         function init() {
             var author = $routeParams.authorName;
@@ -25,9 +19,7 @@
         init();
 
         function searchBook(author){
-            console.log("in searchBook");
-            var url = searchURL.replace("AUTHOR", author);
-            $http.get(url)
+            GoogleBookService.searchBookByAuthor(author)
                 .success(renderBooks)
         }
 
