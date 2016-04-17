@@ -5,7 +5,6 @@
         .controller("UserArticlerFormController",UserArticlerFormController);
 
     function UserArticlerFormController($scope, $location, $rootScope) {
-        console.log("Hello from UserArticlerFormController!");
         $scope.submitArticle = submitArticle;
 
         function submitArticle(article,userID){

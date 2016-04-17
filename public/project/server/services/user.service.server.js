@@ -1,14 +1,64 @@
-//var userModel = require("./../models/user.model.server.js")();
+var passport         = require('passport');
+var LocalStrategy    = require('passport-local').Strategy;
+var bcrypt           = require("bcrypt-nodejs");
 
 module.exports = function(app, projectUserModel){
-    app.get("/api/assignment/user?username=username",getUsers);
-    app.get("/api/assignment/user?username=username&password=password",getUsers);
-    app.get("/api/assignment/user", getUsers);
-    app.get("/api/assignment/user?firstName=fname", getUsers);
-    app.get("/api/assignment/user/:id", profile);
-    app.post("/api/assignment/user",register);
-    app.put("/api/assignment/user/:id", updateUser);
-    app.delete("/api/assignment/user/:id",deleteUser);
+
+    passport.use('project',   new LocalStrategy(projectLocalStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    app.post  ('/api/project/login',    passport.authenticate('project'), projectLogin);
+    app.post  ('/api/project/logout',   projectLogout);
+    app.get   ('/api/project/loggedin', projectLoggedin);
+    app.post  ('/api/project/register', projectRegister);
+
+    app.get("/api/project/user?username=username",getUsers);
+    app.get("/api/project/user?username=username&password=password",getUsers);
+    app.get("/api/project/user", getUsers);
+    app.get("/api/project/user?firstName=fname", getUsers);
+    app.get("/api/project/user/:id", profile);
+    //app.post("/api/project/user",register);
+    app.put("/api/project/user/:id", updateUser);
+    app.delete("/api/project/user/:id",deleteUser);
+
+    function projectLocalStrategy(username, password, done) {
+        projectUserModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(user) {
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                },
+                function(err) {
+                    if (err) {
+                        console.log(err);
+                        return done(err);
+                    }
+                }
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        if(user.type == 'project') {
+            projectUserModel
+                .findUserById(user._id)
+                .then(
+                    function(user){
+                        done(null, user);
+                    },
+                    function(err){
+                        done(err, null);
+                    }
+                );
+        }
+    }
 
     function getUsers(req, res){
         if(req.query.username){
@@ -26,19 +76,18 @@ module.exports = function(app, projectUserModel){
         }
     }
 
-    function login(req, res){
-        // use model to find user by credentials
-        projectUserModel.findUserByCredentials(req.query.username,req.query.password)
-            .then(
-                // return user if promise resolved
-                function (doc) {
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function (err) {
-                    res.status(400).send(err);
-                }
-            );
+    function projectLogin(req, res){
+        var user = req.user;
+        res.json(user);
+    }
+
+    function projectLogout(req, res) {
+        req.session.destroy();
+        res.send(200);
+    }
+
+    function projectLoggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
     }
 
     function getUserByFirstName(req, res) {
@@ -69,17 +118,27 @@ module.exports = function(app, projectUserModel){
     }
 
     function allUsers(req, res){
-        projectUserModel.findAllUsers()
-            .then(
-                // return user if promise resolved
-                function (doc) {
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function (err) {
-                    res.status(400).send(err);
-                }
-            );
+        if(isAdmin(req.user)) {
+            projectUserModel
+                .findAllUsers()
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function () {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
+    }
+
+    function isAdmin(user) {
+        if(user.role == "admin") {
+            return true
+        }
+        return false;
     }
 
     function profile(req, res){
@@ -99,18 +158,37 @@ module.exports = function(app, projectUserModel){
             );
     }
 
-    function register(req, res){
-        var user = req.body;
-        projectUserModel.createUser(user)
-            // handle model promise
+    function projectRegister(req, res) {
+        var newUser = req.body;
+        newUser.role = 'member';
+
+        projectUserModel
+            .findUserByUsername(newUser.username)
             .then(
-                // login user if promise resolved
-                function ( doc ) {
-                    //req.session.currentUser = doc;
-                    res.json(doc);
+                function(user){
+                    if(user) {
+                        res.json(null);
+                    } else {
+                        return projectUserModel.createUser(newUser);
+                    }
                 },
-                // send error if promise rejected
-                function ( err ) {
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function(err){
                     res.status(400).send(err);
                 }
             );
@@ -139,6 +217,14 @@ module.exports = function(app, projectUserModel){
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
     }
 
 };

@@ -5,7 +5,6 @@
         .controller("EditorController",EditorController);
 
     function EditorController($scope, $location, $rootScope) {
-        console.log("Hello from EditorController!");
         $scope.submitArticle = submitArticle;
 
         function submitArticle(article){

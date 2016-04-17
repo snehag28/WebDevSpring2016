@@ -14,7 +14,7 @@
                 .login(user)
                 .then(
                     function(doc){
-                        if(doc){
+                        if(doc.data){
                             UserService.setUser(doc.data);
                             $location.url("/profile");
                         }

@@ -17,7 +17,7 @@ module.exports = function(app, formUserModel){
     app.put   ('/api/assignment/user/:id', auth, updateUser);
     app.delete('/api/assignment/user/:id', auth, deleteUser);
 
-    passport.use(new LocalStrategy(localStrategy));
+    passport.use('assignment', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 

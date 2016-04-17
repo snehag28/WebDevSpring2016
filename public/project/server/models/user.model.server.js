@@ -104,7 +104,8 @@ module.exports = function(db, mongoose) {
             "favoriteBooks": user.favoriteBooks,
             "following": user.following,
             "followers": user.followers,
-            "role" : "member"
+            "role" : "member",
+            "type" : "project"
         };
         var deferred = q.defer();
 

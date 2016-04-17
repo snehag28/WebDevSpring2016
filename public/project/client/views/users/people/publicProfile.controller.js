@@ -20,7 +20,6 @@
                     function(doc){
                         if(doc){
                             $scope.userDetails = doc;
-                            console.log("User ID"+$scope.userDetails._id)
                             getBooksForUser($scope.userDetails._id);
                         }
                     }
@@ -28,12 +27,10 @@
         }
 
         function getBooksForUser(userId){
-            console.log("in getBooksForUser:");
                 BookService.findAllBooksForUser(userId)
                     .then(
                         function(doc) {
                             $scope.books = doc;
-                            console.log($scope.books);
                             for(var i = 0, len = $scope.books.length; i < len; i++ ) {
                                 var userIndex = arrayObjectIndexOf($scope.books[i].userShelf, userId, "userId");
                                 var currUserShelf = {};

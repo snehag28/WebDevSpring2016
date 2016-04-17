@@ -17,22 +17,18 @@
 
         function init() {
             if($location.url().indexOf('bookshelf') != -1){
-                console.log("in all");
                 shelf = "all";
                 getBooksForUser($rootScope.user._id);
             }
             else if($location.url().indexOf('current') != -1){
-                console.log("in current");
                 shelf = "currently-reading";
                 getBooksForUserByShelf(userId,shelf);
             }
             else if($location.url().indexOf('read') != -1){
-                console.log("in read");
                 shelf = "read";
                 getBooksForUserByShelf(userId,shelf);
             }
             else if($location.url().indexOf('future') != -1){
-                console.log("in future");
                 shelf = "to-read";
                 getBooksForUserByShelf(userId,shelf);
             }
@@ -74,8 +70,6 @@
         }
 
         function updateBook (book) {
-            console.log("in update");
-            console.log(book.userShelf);
             var userIndex = arrayObjectIndexOf(book.userShelf, userId, "userId");
             var newBook = {};
             newBook.userShelf = book.userShelf;

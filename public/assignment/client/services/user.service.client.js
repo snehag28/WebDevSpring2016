@@ -29,7 +29,6 @@
         }
 
         function findAllUsers() {
-            console.log("in client findallusers");
             return $http.get("/api/assignment/user",$rootScope.user);
         }
 

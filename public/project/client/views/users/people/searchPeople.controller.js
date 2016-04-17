@@ -5,7 +5,6 @@
         .controller("SearchPeopleController",SearchPeopleController);
 
     function SearchPeopleController($routeParams, UserService, $scope) {
-        console.log("Hello from SearchPeopleController controller!");
 
         function init() {
             var fname = $routeParams.name;
@@ -20,7 +19,6 @@
                 then(
                 function(doc) {
                     $scope.users = doc;
-                    console.log($scope.users);
                 }
             );
         }

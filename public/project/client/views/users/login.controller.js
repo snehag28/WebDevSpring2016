@@ -9,17 +9,22 @@
         $scope.login = login;
 
         function login(user){
+            console.log("in controller login");
             UserService
-                .findUserByCredentials(user.username,user.password)
+                .login(user)
                 .then(
                     function(doc){
-                        var user = doc;
-                        if(user){
-                            UserService.setUser(user);
+                        if(doc.data){
+                            UserService.setUser(doc.data);
                             $location.url("/profile");
                         }
+                    },
+                    function (err) {
+                        if(err.data == "Unauthorized") {
+                            vm.error = "username/password does not exist";
+                        }
                     }
-                )
+                );
         }
-    };
+    }
 })();

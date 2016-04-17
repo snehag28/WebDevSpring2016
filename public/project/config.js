@@ -8,6 +8,9 @@
         $routeProvider
             .when("/home",{
                 templateUrl: "client/views/home/home.view.html",
+                resolve: {
+                    loggedin: checkCurrentUser
+                }
                 //controller: "HomeController"
             })
             .when("/register", {
@@ -16,7 +19,10 @@
             })
             .when("/profile", {
                 templateUrl: "client/views/users/profile.view.html",
-                controller: "ProfileController"
+                controller: "ProfileController",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             })
             .when("/bookshelf", {
                 templateUrl: "client/views/books/bookshelf/bookshelf.view.html",
@@ -60,6 +66,9 @@
             })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
+                resolve: {
+                    loggedin: checkAdmin
+                }
                 //controller: "AdminController"
             })
             .when("/editor", {
@@ -137,5 +146,73 @@
             .otherwise({
                 redirectTo: "/home"
             });
+
+        function checkCurrentUser ($q, $http, $rootScope) {
+
+            var deferred = $q.defer();
+
+            $http.get('/api/project/loggedin').success(function(user)
+            {
+                $rootScope.errorMessage = null;
+                // User is Authenticated
+                if (user !== '0')
+                {
+                    $rootScope.user = user;
+                }
+                deferred.resolve();
+            });
+
+            return deferred.promise;
+        }
+
+        function checkLoggedin ($q, $http, $location, $rootScope)
+        {
+            //console.log("in checkLoggedin");
+            var deferred = $q.defer();
+
+            $http.get('/api/project/loggedin').success(function(user)
+            {
+                $rootScope.errorMessage = null;
+                // User is Authenticated
+                if (user !== '0')
+                {
+                    $rootScope.user = user;
+                    deferred.resolve();
+                }
+                // User is Not Authenticated
+                else
+                {
+                    $rootScope.errorMessage = 'You need to log in.';
+                    deferred.reject();
+                    $location.url('/login');
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        function checkAdmin ($q, $http, $location, $rootScope)
+        {
+            var deferred = $q.defer();
+
+            $http.get('/api/project/loggedin').success(function(user)
+            {
+                $rootScope.errorMessage = null;
+                // User is Authenticated
+                if (user !== '0' && user.role == "admin")
+                {
+                    $rootScope.user = user;
+                    deferred.resolve();
+                }
+                // User is Not Authenticated
+                else
+                {
+                    deferred.reject();
+                    $location.url('/login');
+                }
+            });
+
+            return deferred.promise;
+        }
     }
 })();

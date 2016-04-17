@@ -4,9 +4,11 @@
         .module("BookApp")
         .factory("UserService", UserService);
 
-    function UserService($http, $rootScope, $q) {
+    function UserService($http, $rootScope) {
 
         var api = {
+            login: login,
+            logout: logout,
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
@@ -16,17 +18,24 @@
             findUserById: findUserById,
             setUser: setUser,
             getUser: getUser,
-            logout: logout,
             getUsersByName: getUsersByName,
             addToFollowerList: addToFollowerList
         };
         return api;
 
+        function login(user) {
+            console.log("in client service login");
+            return $http.post("/api/project/login", user);
+        }
+
+        function logout() {
+            return $http.post("/api/project/logout");
+        }
+
         function addToFollowerList (followed, follower) {
             findUserByUsername(followed)
                 .then(
                     function(doc) {
-                        console.log(doc);
                         doc.followers.push(follower);
                         updateUserById(doc._id, doc);
                     }
@@ -34,119 +43,44 @@
         }
 
         function getUsersByName (fname) {
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user?firstName="+fname)
-                .then(
-                    function(response) {
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            return $http.get("/api/project/user?firstName="+fname);
         }
 
         function findUserByUsername(username){
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user?username="+username)
-                .then(
-                    function(response) {
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            return $http.get("/api/project/user?username="+username);
         }
 
         function findUserByCredentials(username, password) {
-            console.log("in userservice findUserByCredentials");
-            var deferred = $q.defer();
-
-            $http.get("/api/assignment/user?username="+username+"&password="+password)
-                .then(
-                    function(response) {
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            return $http.get("/api/project/user?username="+username+"&password="+password);
         }
 
         function findAllUsers() {
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user")
-                .then(
-                    function(response){
-                        deferred.resolve(response.data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            return $http.get("/api/project/user", $rootScope.user);
         }
 
         function createUser(user) {
-            var deferred = $q.defer();
-            $http.post("/api/assignment/user",user)
-                .success(function (response){
-                    deferred.resolve(response);
-                });
-            return deferred.promise;
+            return $http.post("/api/project/register",user);
         }
 
         function deleteUserById(userId) {
-            var deferred = $q.defer();
-            $http.delete("/api/assignment/user/"+userId)
-                .success(
-                    function(response){
-                        deferred.resolve(response);
-                    }
-                );
-            return deferred.promise;
+            return $http.delete("/api/project/user/"+userId);
         }
 
         function findUserById(userId){
-            var deferred = $q.defer();
-            $http.get("/api/assignment/user/"+userId)
-                .then(
-                    function(response){
-                        deferred.resolve(response);
-                    },
-                    function(error){
-                        deferred.reject(error);
-                    }
-                );
-            return deferred.promise;
+            return $http.get("/api/project/user/"+userId);
         }
 
         function updateUserById(userId, newUser) {
-
-                var deferred = $q.defer();
-                $http.put("/api/assignment/user/"+userId, newUser)
-                    .success(function (response) {
-                        deferred.resolve(response);
-                    });
-                return deferred.promise;
+            console.log("in client");
+            return $http.put("/api/project/user/"+userId, newUser);
         }
+
         function setUser(newUser) {
-            console.log("in user service client setUser:"+newUser);
             $rootScope.user = newUser;
         }
 
         function getUser() {
             return $rootScope.user;
-        }
-
-        function logout() {
-            $rootScope.user = null;
-            console.log("in logout");
-            console.log($rootScope.user);
         }
     }
 })();

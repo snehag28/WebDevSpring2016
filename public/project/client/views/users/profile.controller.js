@@ -5,10 +5,9 @@
         .module("BookApp")
         .controller("ProfileController",ProfileController);
 
-    function ProfileController($scope,UserService) {
-        //console.log("Hello from profile controller!");
+    function ProfileController($rootScope, $scope ,UserService) {
         function init() {
-            $scope.user.dateOfBirth = new Date($scope.user.dateOfBirth);
+            $rootScope.user.dateOfBirth = new Date($rootScope.user.dateOfBirth);
         }
         init();
         $scope.update = update;
@@ -18,13 +17,13 @@
                 .updateUserById(newUser._id, newUser)
                 .then(
                     function(doc){
-                        var user = doc;
+                        var user = doc.data;
                         if(user){
                             user.dateOfBirth = new Date(user.dateOfBirth);
                             UserService.setUser(user);
                         }
                     }
-                )
+                );
         }
     }
 })();
