@@ -16,7 +16,8 @@
             findUserById: findUserById,
             setUser: setUser,
             getUser: getUser,
-            logout: logout
+            logout: logout,
+            createUserByAdmin: createUserByAdmin
         };
         return api;
 
@@ -35,6 +36,10 @@
         function createUser(user) {
             return $http.post("/api/assignment/register",user);
 
+        }
+
+        function createUserByAdmin (user) {
+            return $http.post("/api/assignment/admin/user",user);
         }
 
         function deleteUserById(userId) {

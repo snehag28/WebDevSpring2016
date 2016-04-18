@@ -31,10 +31,10 @@
 
         function addUser(newUser) {
             UserService
-                .createUser(newUser)
+                .createUserByAdmin(newUser)
                 .then(
                     function (doc) {
-                        vm.users.push(doc.data);
+                        vm.users = doc.data;
                         vm.selectedUserIndex = null;
                         vm.newUser = {};
                         console.log(vm.users);

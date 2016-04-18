@@ -1,27 +1,29 @@
 "use strict";
 
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var passport         = require('passport');
+var LocalStrategy    = require('passport-local').Strategy;
+var bcrypt           = require("bcrypt-nodejs");
 
 module.exports = function(app, formUserModel){
+
     var auth = authorized;
 
-    app.post  ('/api/assignment/login', passport.authenticate('local'), login);
-    app.post  ('/api/assignment/logout',         logout);
-    app.post  ('/api/assignment/register',       register);
-    app.post  ('/api/assignment/user',     auth, createUser);
+    passport.use('assignment',   new LocalStrategy(assignmentLocalStrategy));
+    passport.serializeUser(serializeUserAssignment);
+    passport.deserializeUser(deserializeUserAssignment);
 
-    app.get   ('/api/assignment/loggedin',       loggedin);
+    app.post  ('/api/assignment/login', passport.authenticate('assignment'), assignmentLogin);
+    app.post  ('/api/assignment/logout',         assignmentLogout);
+    app.post  ('/api/assignment/register',       assignmentRegister);
+    app.post  ('/api/assignment/admin/user',     createUser);
+
+    app.get   ('/api/assignment/loggedin',       assignmentLoggedin);
     app.get   ('/api/assignment/user',     auth, findAllUsers);
 
     app.put   ('/api/assignment/user/:id', auth, updateUser);
     app.delete('/api/assignment/user/:id', auth, deleteUser);
 
-    passport.use('assignment', new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
-
-    function localStrategy(username, password, done) {
+    function assignmentLocalStrategy(username, password, done) {
         formUserModel
             .findUserByCredentials({username: username, password: password})
             .then(
@@ -40,39 +42,41 @@ module.exports = function(app, formUserModel){
             );
     }
 
-    function serializeUser(user, done) {
+    function serializeUserAssignment(user, done) {
         done(null, user);
     }
 
-    function deserializeUser(user, done) {
-        formUserModel
-            .findUserById(user._id)
-            .then(
-                function(user){
-                    done(null, user);
-                },
-                function(err){
-                    done(err, null);
-                }
-            );
+    function deserializeUserAssignment(user, done) {
+        if (user.type == 'assignment') {
+            formUserModel
+                .findUserById(user._id)
+                .then(
+                    function (user) {
+                        done(null, user);
+                    },
+                    function (err) {
+                        done(err, null);
+                    }
+                );
+        }
     }
 
-    function login(req, res) {
+    function assignmentLogin(req, res) {
         var user = req.user;
         res.json(user);
     }
 
-    function logout(req, res) {
+    function assignmentLogout(req, res) {
         req.session.destroy();
         res.send(200);
     }
 
-    function loggedin(req, res) {
-        //console.log("in loggedin");
+    function assignmentLoggedin(req, res) {
+        console.log(req);
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
-    function register(req, res) {
+    function assignmentRegister(req, res) {
         var newUser = req.body;
         newUser.roles = ['student'];
 
@@ -211,11 +215,7 @@ module.exports = function(app, formUserModel){
     }
 
     function isAdmin(user) {
-        console.log(user.roles);
-        if(user.roles.indexOf("admin") > -1) {
-            return true
-        }
-        return false;
+        return (user.roles.indexOf("admin") > -1);
     }
 
     function authorized (req, res, next) {

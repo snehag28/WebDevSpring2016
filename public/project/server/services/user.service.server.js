@@ -1,8 +1,12 @@
+"use strict";
+
 var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
 var bcrypt           = require("bcrypt-nodejs");
 
 module.exports = function(app, projectUserModel){
+
+    var auth = authorized;
 
     passport.use('project',   new LocalStrategy(projectLocalStrategy));
     passport.serializeUser(serializeUser);
@@ -19,18 +23,19 @@ module.exports = function(app, projectUserModel){
     app.get("/api/project/user?firstName=fname", getUsers);
     app.get("/api/project/user/:id", profile);
     //app.post("/api/project/user",register);
-    app.put("/api/project/user/:id", updateUser);
-    app.delete("/api/project/user/:id",deleteUser);
+    app.put("/api/project/user/:id", auth, updateUser);
+    app.delete("/api/project/user/:id", auth, deleteUser);
 
     function projectLocalStrategy(username, password, done) {
         projectUserModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if (!user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function(err) {
                     if (err) {
@@ -60,6 +65,58 @@ module.exports = function(app, projectUserModel){
         }
     }
 
+    function projectLogin(req, res){
+        var user = req.user;
+        res.json(user);
+    }
+
+    function projectLogout(req, res) {
+        req.session.destroy();
+        res.send(200);
+    }
+
+    function projectLoggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function projectRegister(req, res) {
+        var newUser = req.body;
+        newUser.role = 'member';
+
+        projectUserModel
+            .findUserByUsername(newUser.username)
+            .then(
+                function(user){
+                    if(user) {
+                        res.json(null);
+                    } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
+                        return projectUserModel.createUser(newUser);
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+
     function getUsers(req, res){
         if(req.query.username){
             if(req.query.password){
@@ -74,20 +131,6 @@ module.exports = function(app, projectUserModel){
         else{
             allUsers(req, res);
         }
-    }
-
-    function projectLogin(req, res){
-        var user = req.user;
-        res.json(user);
-    }
-
-    function projectLogout(req, res) {
-        req.session.destroy();
-        res.send(200);
-    }
-
-    function projectLoggedin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : '0');
     }
 
     function getUserByFirstName(req, res) {
@@ -135,10 +178,7 @@ module.exports = function(app, projectUserModel){
     }
 
     function isAdmin(user) {
-        if(user.role == "admin") {
-            return true
-        }
-        return false;
+        return (user.role == "admin");
     }
 
     function profile(req, res){
@@ -153,42 +193,6 @@ module.exports = function(app, projectUserModel){
                 },
                 // send error if promise rejected
                 function (err) {
-                    res.status(400).send(err);
-                }
-            );
-    }
-
-    function projectRegister(req, res) {
-        var newUser = req.body;
-        newUser.role = 'member';
-
-        projectUserModel
-            .findUserByUsername(newUser.username)
-            .then(
-                function(user){
-                    if(user) {
-                        res.json(null);
-                    } else {
-                        return projectUserModel.createUser(newUser);
-                    }
-                },
-                function(err){
-                    res.status(400).send(err);
-                }
-            )
-            .then(
-                function(user){
-                    if(user){
-                        req.login(user, function(err) {
-                            if(err) {
-                                res.status(400).send(err);
-                            } else {
-                                res.json(user);
-                            }
-                        });
-                    }
-                },
-                function(err){
                     res.status(400).send(err);
                 }
             );

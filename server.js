@@ -35,14 +35,11 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
-
-//require("./public/project/server/app.js")(app, db, mongoose);
-//require("./public/project/server/services/user.service.server.js")(app);
-//require("./public/project/server/services/book.service.server.js")(app);
 
 //require("./public/assignment/server/app.js")(app, db, mongoose);
 require("./public/project/server/app.js")(app, db, mongoose);

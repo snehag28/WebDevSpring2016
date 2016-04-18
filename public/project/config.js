@@ -182,13 +182,14 @@
 
         function checkLoggedin ($q, $http, $location, $rootScope)
         {
-            //console.log("in checkLoggedin");
+            console.log("in checkLoggedin");
             var deferred = $q.defer();
 
             $http.get('/api/project/loggedin').success(function(user)
             {
                 $rootScope.errorMessage = null;
                 // User is Authenticated
+                console.log(user);
                 if (user !== '0')
                 {
                     $rootScope.user = user;
@@ -197,6 +198,7 @@
                 // User is Not Authenticated
                 else
                 {
+                    console.log("in checkLoggedin else");
                     $rootScope.errorMessage = 'You need to log in.';
                     deferred.reject();
                     $location.url('/login');
