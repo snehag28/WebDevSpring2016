@@ -4,10 +4,15 @@
         .module("BookApp")
         .controller("BookDetailsController", BookDetailsController);
 
-    function BookDetailsController($scope, $routeParams, $sce, BookService, $rootScope, ReviewService, GoogleBookService) {
+    function BookDetailsController($scope, $routeParams, $sce, $rootScope,
+                                   BookService,
+                                   ReviewService,
+                                   GoogleBookService,
+                                   BooksOfMonthService) {
         $scope.addToReadingList = addToReadingList;
         $scope.addReview = addReview;
         $scope.cancelReview = cancelReview;
+        $scope.addToBooksOfMonth = addToBooksOfMonth;
 
         var vm = this;
 
@@ -18,6 +23,13 @@
             ReviewService.getReviewByBookId(bookId)
                 .then(function(response) {
                     $scope.reviews = response.data;
+                });
+
+            BooksOfMonthService.getBOMById(bookId)
+                .then(function(response) {
+                    if(response.data){
+                        $scope.bom = response.data;
+                    }
                 });
 
             if($rootScope.user) {
@@ -40,6 +52,29 @@
         function selectBook(bookId){
             GoogleBookService.getBookDetails(bookId)
                 .success(renderDetails);
+        }
+
+        function addToBooksOfMonth() {
+            var imageURL = "";
+            if($scope.details.volumeInfo.imageLinks.large){
+                imageURL = $scope.details.volumeInfo.imageLinks.large;
+            }else {
+                imageURL = $scope.details.volumeInfo.imageLinks.thumbnail;
+            }
+            var bom_obj = {
+                googleBooksId: bookId,
+                username: $rootScope.user.username,
+                imageURL: imageURL,
+                title: $scope.details.volumeInfo.title,
+                editorialDescription: $scope.details.volumeInfo.description,
+                authors: $scope.details.volumeInfo.authors,
+                publish: false
+            };
+
+            BooksOfMonthService.addToBOM(bom_obj)
+                .then(function (doc) {
+                    $scope.bom = doc.data;
+                });
         }
 
         function addToReadingList(newBook,shelf){

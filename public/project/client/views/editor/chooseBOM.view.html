@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<div class="container-fluid" ng-controller="ChooseBomController">
+    <div class="row">
+        <div class="main">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="#editor" aria-controls="forms" role="tab" data-toggle="tab">
+                        Editorials
+                    </a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="#/chooseBOM" aria-controls="forms" role="tab">
+                        Books Of Month
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <div ng-if="error" class="alert alert-danger">
+                {{error}}
+            </div>
+            <br>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Select</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="book in boms">
+                    <td>
+                        {{book.title}}
+                    </td>
+                    <td>
+                        <span ng-show="book.publish == true"
+                              class="glyphicon glyphicon glyphicon-ok-sign"
+                              ng-click="unselectBOM(book._id, book)"></span>
+                        <span ng-show="book.publish == false &&
+                                        selectedCount == 3"
+                              class="glyphicon glyphicon glyphicon-ban-circle"></span>
+                        <span ng-show="book.publish == false &&
+                                        selectedCount < 3"
+                              class="glyphicon glyphicon glyphicon glyphicon-ok-circle"
+                              ng-click="selectBOM(book._id, book)"></span>
+                    </td>
+                    <td nowrap>
+                        <a class="btn btn-sm btn-primary" href="#/bookDetails/{{book.googleBooksId}}"
+                           role="button">Details</a>
+                        <a class="btn btn-sm btn-danger" ng-click="deleteBOM(book._id, book.publish)"
+                           role="button">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -8,36 +8,36 @@
 
         var api = {
             getBooksOfMonth: getBooksOfMonth,
+            getAllBOMS: getAllBOMS,
             getBOMById: getBOMById,
-            addArticle: addArticle,
-            updateArticle: updateArticle,
-            getAllEditorials: getAllEditorials,
-            deleteArticle: deleteArticle
+            addToBOM: addToBOM,
+            updateBOM: updateBOM,
+            deleteBOM: deleteBOM
         };
         return api;
 
-        function deleteArticle(id) {
-            return $http.delete("/api/project/article/"+id);
-        }
-
-        function getAllEditorials() {
-            return $http.get("/api/project/editor");
+        function deleteBOM(id) {
+            return $http.delete("/api/project/booksOfMonth/"+id);
         }
 
         function getBooksOfMonth () {
             return $http.get("/api/project/booksOfMonth");
         }
 
+        function getAllBOMS () {
+            return $http.get("/api/project/booksOfMonth/books");
+        }
+
         function getBOMById(id) {
             return $http.get("/api/project/booksOfMonth?bookId="+id);
         }
 
-        function addArticle(article) {
-            return $http.post("/api/project/article",article);
+        function addToBOM(bom) {
+            return $http.post("/api/project/booksOfMonth",bom);
         }
 
-        function updateArticle(id,article) {
-            return $http.put("/api/project/article/"+id, article);
+        function updateBOM(id,book) {
+            return $http.put("/api/project/booksOfMonth/"+id, book);
         }
     }
 })();

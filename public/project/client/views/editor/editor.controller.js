@@ -72,7 +72,10 @@
                 );
         }
 
-        function deleteArticle(id) {
+        function deleteArticle(id, publishBool) {
+            if(publishBool == true) {
+                $scope.isOneSelected = false;
+            }
             ArticleService.deleteArticle(id)
                 .then(
                     function(response) {

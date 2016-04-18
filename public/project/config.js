@@ -87,6 +87,13 @@
                 }
                 //controller: "AdminController"
             })
+            .when("/chooseBOM", {
+                templateUrl: "client/views/editor/chooseBOM.view.html",
+                resolve: {
+                    loggedin: checkEditor
+                }
+                //controller: "AdminController"
+            })
             .when("/search", {
                 templateUrl: "client/views/books/search.view.html",
                 //controller: "AdminController"
