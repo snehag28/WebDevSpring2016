@@ -9,34 +9,41 @@
     <div class="carousel-inner" role="listbox">
         <div class="item active" ng-model="book1">
             <img class="first-slide" ng-src="{{book1.imageURL}}" alt="First slide">
-            <div class="container">
+            <div class="header-container">
+                <a href="#/bom/{{book1.googleBooksId}}">
                 <div class="carousel-caption">
                     <p>
-                    <h1>{{book1.title}}</h1>
+                    <h2>{{book1.title}}</h2>
                     <h3>Books of the month</h3>
-                    <p><a class="btn btn-md btn-primary" href="#/booksOfMonth" role="button">Go to page</a></p>
                     </p>
                 </div>
+                </a>
             </div>
         </div>
         <div class="item" ng-model="book2">
             <img class="second-slide" ng-src="{{book2.imageURL}}" alt="Second slide">
-            <div class="container">
+            <div class="header-container">
+                <a href="#/bom/{{book2.googleBooksId}}">
                 <div class="carousel-caption">
-                    <h1>{{book2.title}}</h1>
+                    <p>
+                    <h2>{{book2.title}}</h2>
                     <h3>Books of the month</h3>
-                    <p><a class="btn btn-md btn-primary" href="#/booksOfMonth" role="button">Go to page</a></p>
+                    </p>
                 </div>
+                </a>
             </div>
         </div>
         <div class="item" ng-model="book3">
             <img class="third-slide" ng-src="{{book3.imageURL}}" alt="Third slide">
-            <div class="container">
+            <div class="header-container">
+                <a href="#/bom/{{book3.googleBooksId}}">
                 <div class="carousel-caption">
-                    <h1>{{book3.title}}</h1>
+                    <p>
+                    <h2>{{book3.title}}</h2>
                     <h3>Books of the month</h3>
-                    <p><a class="btn btn-md btn-primary" href="#/booksOfMonth" role="button">Go to page</a></p>
+                    </p>
                 </div>
+                </a>
             </div>
         </div>
     </div>

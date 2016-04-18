@@ -61,6 +61,10 @@ body {
     z-index: 10;
 }
 
+.header-container:hover {
+    opacity:0.8;
+}
+
 /* Declare heights because of positioning of img element */
 .carousel .item {
     height: 500px;
