@@ -1,4 +1,4 @@
-<div class="container" ng-controller="OpinionController">
+<div class="container" ng-controller="BooksOfMonthController">
     <div class="container">
         <div class="row" >
             <div class="main">
@@ -7,18 +7,18 @@
                 </h3>
                 <br>
                 <div class="text-center">
-                    <img class="media med-book-hori" src="client/images/godfather.png" alt="Generic placeholder image" width="140" height="140">
-                    <h3><a href="#/bom_1">The Godfather</a></h3>
+                    <img class="media med-book-hori" ng-src="{{book1.imageURL}}" alt="Generic placeholder image" width="140" height="140">
+                    <h3><a href="#/bom/{{book1.googleBooksId}}">{{book1.title}}</a></h3>
                 </div>
                 <hr>
                 <div class="text-center">
-                    <img class="media med-book-hori" src="client/images/horse_whisperer.jpg" alt="Generic placeholder image" width="140" height="140">
-                    <h3><a href="#/bom_2">The Horse Whisperer</a></h3>
+                    <img class="media med-book-hori" ng-src="{{book2.imageURL}}" alt="Generic placeholder image" width="140" height="140">
+                    <h3><a href="#/bom/{{book2.googleBooksId}}">{{book2.title}}</a></h3>
                 </div>
                 <hr>
                 <div class="text-center">
-                    <img class="media med-book-hori" src="client/images/the_alchemist.jpg" alt="Generic placeholder image" width="140" height="140">
-                    <h3><a href="#/bom_3">The Alchemist</a></h3>
+                    <img class="media med-book-hori" ng-src="{{book3.imageURL}}" alt="Generic placeholder image" width="140" height="140">
+                    <h3><a href="#/bom/{{book3.googleBooksId}}">{{book3.title}}</a></h3>
                 </div>
             </div>
         </div>

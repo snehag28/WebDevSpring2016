@@ -1,0 +1,74 @@
+<div class="container" ng-controller="BomController">
+    <div class="container">
+        <div class="row" >
+            <div class="main">
+                <h5 class="vertical-title">
+                    <a href="#/booksOfMonth">
+                        Books of the Month
+                    </a>
+                </h5>
+                <br>
+                <div class="text-center">
+                    <h2>{{book.title}}</h2>
+                    <br>
+                    <ul class="list-unstyled">
+                        <li ng-repeat="author in book.authors">
+                            {{author}}
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <div>
+                    <img class="centered"
+                         ng-src="{{book.imageURL}}" alt="Generic placeholder image" width="300" height="400">
+                </div>
+                <br>
+
+                <div ng-bind-html="description">
+                    {{description}}
+                </div>
+                <br><br>
+                <hr>
+                <h4>Comments:</h4>
+                <hr>
+
+                <div ng-show="user" class="list-group-item">
+                    <div>
+                        <input ng-model="newReview.comment" type="text" class="form-control" id="inputComment" placeholder="Comment">
+                        <br>
+                    <span nowrap>
+                        <button ng-click="addReview(newReview)" class="btn btn-primary">
+                            Publish
+                        </button>
+                        <button ng-click="cancelReview()" class="btn btn-primary">
+                            Cancel
+                        </button>
+                    </span>
+
+                    </div>
+                </div>
+                <br><br>
+                <div ng-repeat="review in reviews">
+                    <div class="list-group-item">
+                        <div>
+                            <h6 class="list-group-item-heading">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <a href="#/userDetails/{{review.username}}">
+                                    {{review.username}}
+                                </a>
+                            <span class="pull-right">
+                            <span class="glyphicon glyphicon-hourglass"></span>
+                            {{review.dateAdded | date:'medium'}}</span>
+                            </h6>
+                        </div>
+                        <h5 class="list-group-item-text">{{review.comment}}</h5>
+                    </div>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+
+
+            </div>
+        </div>
+    </div>
+</div>

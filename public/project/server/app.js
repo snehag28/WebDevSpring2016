@@ -13,4 +13,7 @@ module.exports = function(app, db, mongoose) {
 
     var articleModel = require("./models/article.model.server.js")(db, mongoose);
     require("./services/article.service.server.js")(app, articleModel);
+
+    var BomModel = require("./models/booksOfMonth.model.server.js")(db, mongoose);
+    require("./services/booksOfMonth.service.server.js")(app, BomModel);
 };

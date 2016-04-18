@@ -123,16 +123,8 @@
                 templateUrl: "client/views/opinion/BOM/booksOfMonth.view.html",
                 //controller: "AdminController"
             })
-            .when("/bom_1", {
-                templateUrl: "client/views/opinion/BOM/bom_1.view.html",
-                //controller: "AdminController"
-            })
-            .when("/bom_2", {
-                templateUrl: "client/views/opinion/BOM/bom_2.view.html",
-                //controller: "AdminController"
-            })
-            .when("/bom_3", {
-                templateUrl: "client/views/opinion/BOM/bom_3.view.html",
+            .when("/bom/:bookId", {
+                templateUrl: "client/views/opinion/BOM/bom.view.html"
                 //controller: "AdminController"
             })
             .when("/userArticles", {
