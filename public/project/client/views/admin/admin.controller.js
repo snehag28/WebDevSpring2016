@@ -35,16 +35,44 @@
                         $scope.selectedUserIndex = null;
                         $scope.newUser = {};
                     }
-                )
+                );
         }
 
         function deleteUser(index){
+            var username = $scope.users[index].username;
             UserService.deleteUserById($scope.users[index]._id)
                 .then(
                     function(response){
-                        $scope.users = response;
-                    })
+                        console.log($scope.users);
+                        $scope.users = response.data;
+                        for( var i = 0; i < $scope.users.length ; i++ ){
+                            //remove the deleted user from follower and following arrays of all users
+                            removeFromFollowedList($scope.users[i],username);
+                        }
+                    });
 
+        }
+
+        function removeFromFollowedList (followedUser, deletedUsername) {
+            var followerArray = followedUser.followers;
+            var index = followerArray.indexOf(deletedUsername);
+            if(index > -1){
+                followerArray.splice(index,1);
+            }
+            var followingArray = followedUser.following;
+            index = followingArray.indexOf(deletedUsername);
+            if(index > -1){
+                followingArray.splice(index,1);
+            }
+            followedUser.followers = followerArray;
+            followedUser.following = followingArray;
+            UserService.
+                updateUserById(followedUser._id, followedUser)
+                .then(
+                    function(doc) {
+                        //do nothing
+                    }
+                );
         }
 
         function selectUser(index){

@@ -90,7 +90,7 @@ module.exports = function(app, projectUserModel){
                     if(user) {
                         res.json(null);
                     } else {
-                        newUser.password = bcrypt.hashSync(developer.password);
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return projectUserModel.createUser(newUser);
                     }
                 },
