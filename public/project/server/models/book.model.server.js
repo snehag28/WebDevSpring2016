@@ -175,9 +175,15 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function updateBookById(bookId, newBook) {
+    function updateBookById(bookId, book) {
         var deferred = q.defer();
-        //console.log(newBook);
+        var newBook = {
+            googleBooksId: book.googleBooksId,
+            title: book.title,
+            authors: book.authors,
+            imageURL: book.imageURL,
+            userShelf: book.userShelf
+        };
         BookModel.update (
             {_id: bookId},
             {$set: newBook},
@@ -189,15 +195,13 @@ module.exports = function(db, mongoose) {
                 else {
                     BookModel.findOne(
                         {_id: bookId},
-                        function (err, book) {
+                        function (err, changedBook) {
                             if(err) {
                                 console.log("err: "+err);
                                 deferred.reject(err);
                             }
                             else {
-                                //console.log("after update");
-                                //console.log(book);
-                                deferred.resolve(book);
+                                deferred.resolve(changedBook);
                             }
                         });
                 }

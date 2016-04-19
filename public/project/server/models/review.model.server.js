@@ -96,9 +96,14 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function updateReviewById(reviewId, newReview) {
+    function updateReviewById(reviewId, changedReview) {
         var deferred = q.defer();
-
+        var newReview = {
+            googleBooksId: changedReview.googleBooksId,
+            username: changedReview.username,
+            comment: changedReview.comment,
+            dateAdded: changedReview.dateAdded
+        };
         ReviewModel.update (
             {_id: reviewId},
             {$set: newReview},

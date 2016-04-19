@@ -98,10 +98,19 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function updateArticle(articleId, newArticle) {
+    function updateArticle(articleId, article) {
         var deferred = q.defer();
+        var newArticle = {
+            username: article.username,
+            title: article.title,
+            content: article.content,
+            imageURL: article.imageURL,
+            publish: article.publish,
+            read: article.read,
+            type: article.type,
+            dateSubmitted: article.dateSubmitted
+        };
 
-        // update user with mongoose user model's update()
         ArticleModel.update (
             {_id: articleId},
             {$set: newArticle},
@@ -112,13 +121,13 @@ module.exports = function(db, mongoose) {
                 }
                 else {
                     ArticleModel.findById(articleId,
-                        function (err, user) {
+                        function (err, changedArticle) {
                             if(err) {
                                 console.log("err: "+err);
                                 deferred.reject(err);
                             }
                             else {
-                                deferred.resolve(user);
+                                deferred.resolve(changedArticle);
                             }
                         });
                 }

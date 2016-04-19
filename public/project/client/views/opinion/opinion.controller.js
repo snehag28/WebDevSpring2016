@@ -4,7 +4,7 @@
         .module("BookApp")
         .controller("OpinionController",OpinionController);
 
-    function OpinionController($scope, ArticleService, BooksOfMonthService, $sce) {
+    function OpinionController($scope, ArticleService, BooksOfMonthService, $sce, $rootScope) {
         function init() {
             ArticleService
                 .getEditorial()

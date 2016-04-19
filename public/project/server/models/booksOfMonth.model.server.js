@@ -97,9 +97,16 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function updateBOMById(bookId, newBook) {
+    function updateBOMById(bookId, book) {
         var deferred = q.defer();
-
+        var newBook = {
+            googleBooksId: book.googleBooksId,
+            imageURL: book.imageURL,
+            title: book.title,
+            editorialDescription: book.editorialDescription,
+            authors: book.authors,
+            publish: book.publish
+        };
         // update user with mongoose user model's update()
         BomModel.update (
             {_id: bookId},
@@ -111,13 +118,13 @@ module.exports = function(db, mongoose) {
                 }
                 else {
                     BomModel.findById(bookId,
-                        function (err, user) {
+                        function (err, bom) {
                             if(err) {
                                 console.log("err: "+err);
                                 deferred.reject(err);
                             }
                             else {
-                                deferred.resolve(user);
+                                deferred.resolve(bom);
                             }
                         });
                 }

@@ -181,9 +181,24 @@ module.exports = function(db, mongoose) {
         return deferred.promise;
     }
 
-    function updateUserById(userId, newUser) {
+    function updateUserById(userId, changedUser) {
         var deferred = q.defer();
 
+        var newUser = {
+            username: changedUser.username,
+            password: changedUser.password,
+            firstName: changedUser.firstName,
+            lastName: changedUser.lastName,
+            email: changedUser.email,
+            dateOfBirth: changedUser.dateOfBirth,
+            gender: changedUser.gender,
+            following: changedUser.following,
+            followers: changedUser.followers,
+            aboutMe: changedUser.aboutMe,
+            favoriteBooks: changedUser.favoriteBooks,
+            role: changedUser.role,
+            type: changedUser.type
+        };
         // update user with mongoose user model's update()
         ProjectUserModel.update (
             {_id: userId},

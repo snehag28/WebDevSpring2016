@@ -11,7 +11,6 @@
                 .getAllBOMS()
                 .then(
                     function(doc) {
-                        console.log(doc);
                         $scope.boms = doc.data;
                         for( var i = 0; i < $scope.boms.length ; i++) {
                             if($scope.boms[i].publish == true){
