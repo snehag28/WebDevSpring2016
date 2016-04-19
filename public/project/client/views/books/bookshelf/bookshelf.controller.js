@@ -71,12 +71,8 @@
 
         function updateBook (book) {
             var userIndex = arrayObjectIndexOf(book.userShelf, userId, "userId");
-            var newBook = {};
-            newBook.userShelf = book.userShelf;
-            newBook.userShelf[userIndex] = book.currentUserShelf;
-            //$scope.books[$scope.selectedBookIndex].userShelf[userIndex] = book.currentUserShelf;
-            //delete book.currentUserShelf;
-            BookService.updateBookById($scope.books[$scope.selectedBookIndex]._id, newBook)
+            book.userShelf[userIndex] = book.currentUserShelf;
+            BookService.updateBookById($scope.books[$scope.selectedBookIndex]._id, book)
                 .then(
                     function(doc){
                         var updatedBook = doc;
