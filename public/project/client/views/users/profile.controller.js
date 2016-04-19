@@ -20,6 +20,7 @@
                         var user = doc.data;
                         if(user){
                             user.dateOfBirth = new Date(user.dateOfBirth);
+                            $scope.success = "Updated Successfully";
                             UserService.setUser(user);
                         }
                     }

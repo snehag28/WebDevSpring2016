@@ -20,7 +20,7 @@
                     },
                     function (err) {
                         if(err.data == "Unauthorized") {
-                            vm.error = "username/password does not exist";
+                            $scope.error = "username/password does not exist";
                         }
                     }
                 );

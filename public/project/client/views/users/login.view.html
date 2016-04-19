@@ -5,6 +5,9 @@
                 <h3>Login</h3>
             </div>
             <br>
+            <div ng-if="error" class="alert alert-danger">
+                {{error}}
+            </div>
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="username" class="col-sm-2 control-label">Username:</label>
