@@ -9,8 +9,14 @@
         $(document).ready(function(){
             $('.carousel').carousel({
                 interval: 3000
-            })
+            });
+
+            $('.carousel').delay('500').slideDown(1200, function(){
+                //setTimeout("$('#page-information').slideUp('slow');", 500);
+            });
         });
+
+
 
         function init() {
             BooksOfMonthService
