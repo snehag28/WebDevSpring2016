@@ -16,7 +16,11 @@
                     Search Books
                 </a>
             </div>
-            <div>
+            <div ng-show="noBooks == true" class="text-center">
+                <br><br>
+                <label>No books found</label>
+            </div>
+            <div ng-show="noBooks == false">
                 <br>
                 <table id="contentTable" class="table table-striped">
                     <thead>

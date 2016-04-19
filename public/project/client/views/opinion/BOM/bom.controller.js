@@ -14,6 +14,12 @@
             ReviewService.getReviewByBookId(bookId)
                 .then(function(response) {
                     $scope.reviews = response.data;
+                    if($scope.reviews.length < 1) {
+                        $scope.noComments = true;
+                    }
+                    else {
+                        $scope.noComments = false;
+                    }
                 });
 
             BooksOfMonthService

@@ -23,6 +23,12 @@
 
         function renderBooks(response){
             $scope.books = response.items;
+            if($scope.books) {
+                $scope.noBooks = false;
+            }
+            else {
+                $scope.noBooks = true;
+            }
         }
     }
 })();
