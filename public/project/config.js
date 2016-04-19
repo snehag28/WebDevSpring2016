@@ -6,15 +6,19 @@
 
     function Configure($routeProvider) {
         $routeProvider
+            .when("/myHome", {
+                templateUrl: "client/views/home/home.view.html#myHome"
+            })
             .when("/home",{
-                templateUrl: "client/views/home/home.view.html",
+                //templateUrl: "client/views/home/home.view.html#myHome",
+                redirectTo: "/myHome",
                 resolve: {
                     loggedin: checkCurrentUser
                 }
                 //controller: "HomeController"
             })
             .when("/register", {
-                templateUrl: "client/views/users/register.view.html",
+                templateUrl: "client/views/users/register.view.html"
                 //controller: "RegisterController"
             })
             .when("/profile", {
@@ -32,19 +36,19 @@
                 //controller: "BookshelfController"
             })
             .when("/read", {
-                templateUrl: "client/views/books/bookshelf/read.view.html",
+                templateUrl: "client/views/books/bookshelf/read.view.html"
                 //controller: "BookshelfController"
             })
             .when("/current", {
-                templateUrl: "client/views/books/bookshelf/current.view.html",
+                templateUrl: "client/views/books/bookshelf/current.view.html"
                 //controller: "BookshelfController"
             })
             .when("/future", {
-                templateUrl: "client/views/books/bookshelf/future.view.html",
+                templateUrl: "client/views/books/bookshelf/future.view.html"
                 //controller: "BookshelfController"
             })
             .when("/people", {
-                templateUrl: "client/views/users/people/people.view.html",
+                templateUrl: "client/views/users/people/people.view.html"
                 //controller: "PeopleController"
             })
             .when("/member", {
@@ -59,7 +63,7 @@
                 //controller: "PeopleController"
             })
             .when("/userDetails/:username", {
-                templateUrl: "client/views/users/people/publicProfile.view.html",
+                templateUrl: "client/views/users/people/publicProfile.view.html"
                 //controller: "PeopleController"
             })
             .when("/followers", {
@@ -95,7 +99,7 @@
                 //controller: "AdminController"
             })
             .when("/search", {
-                templateUrl: "client/views/books/search.view.html",
+                templateUrl: "client/views/books/search.view.html"
                 //controller: "AdminController"
             })
             .when("/search/:title", {
@@ -103,31 +107,35 @@
                 controller: "SearchController"
             })
             .when("/bookDetails/:id", {
-                templateUrl: "client/views/books/bookDetails.view.html",
+                templateUrl: "client/views/books/bookDetails.view.html"
                 //controller: "AdminController"
             })
             .when("/genre", {
-                templateUrl: "client/views/genre/genre.view.html",
+                templateUrl: "client/views/genre/genre.view.html"
                 //controller: "AdminController"
             })
             .when("/genre/:genreName", {
-                templateUrl: "client/views/genre/genre.view.html",
+                templateUrl: "client/views/genre/genre.view.html"
                 //controller: "AdminController"
             })
             .when("/author", {
-                templateUrl: "client/views/authors/author.view.html",
+                templateUrl: "client/views/authors/author.view.html"
                 //controller: "AdminController"
             })
             .when("/author/:authorName", {
-                templateUrl: "client/views/authors/author.view.html",
+                templateUrl: "client/views/authors/author.view.html"
                 //controller: "AdminController"
             })
             .when("/opinion", {
-                templateUrl: "client/views/opinion/opinion.view.html",
+                templateUrl: "client/views/opinion/opinion.view.html"
+                //controller: "AdminController"
+            })
+            .when("/opinion#editorial", {
+                templateUrl: "client/views/opinion/opinion.view.html#editorial"
                 //controller: "AdminController"
             })
             .when("/booksOfMonth", {
-                templateUrl: "client/views/opinion/BOM/booksOfMonth.view.html",
+                templateUrl: "client/views/opinion/BOM/booksOfMonth.view.html"
                 //controller: "AdminController"
             })
             .when("/bom/:bookId", {
@@ -135,27 +143,27 @@
                 //controller: "AdminController"
             })
             .when("/userArticles", {
-                templateUrl: "client/views/opinion/userArticles/userArticles.view.html",
+                templateUrl: "client/views/opinion/userArticles/userArticles.view.html"
+                //controller: "AdminController"
+            })
+            .when("/userArticles#articles", {
+                templateUrl: "client/views/opinion/userArticles/userArticles.view.html#articles"
                 //controller: "AdminController"
             })
             .when("/submitUserArticle", {
-                templateUrl: "client/views/opinion/userArticles/userArticleForm.view.html",
+                templateUrl: "client/views/opinion/userArticles/userArticleForm.view.html"
                 //controller: "AdminController"
             })
             .when("/submitEditorial", {
-                templateUrl: "client/views/editor/submitEditorial.view.html",
+                templateUrl: "client/views/editor/submitEditorial.view.html"
                 //controller: "AdminController"
             })
             .when("/submitEditorial/:id", {
-                templateUrl: "client/views/editor/submitEditorial.view.html",
+                templateUrl: "client/views/editor/submitEditorial.view.html"
                 //controller: "AdminController"
             })
             .when("/logout", {
-                templateUrl: "client/views/home/home.view.html",
-                //controller: "HomeController"
-            })
-            .when("/myCarousel", {
-                templateUrl: "client/views/home/home.view.html#myCarousel",
+                templateUrl: "client/views/home/home.view.html#myHome"
                 //controller: "HomeController"
             })
             .otherwise({

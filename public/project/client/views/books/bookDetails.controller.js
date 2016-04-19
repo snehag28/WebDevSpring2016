@@ -115,6 +115,12 @@
         function renderDetails(response) {
             $scope.details = response;
             $scope.description = $sce.trustAsHtml($scope.details.volumeInfo.description);
+            if($scope.details.volumeInfo.imageLinks.medium) {
+                $scope.bookcover = $scope.details.volumeInfo.imageLinks.medium;
+            }
+            else {
+                $scope.bookcover = $scope.details.volumeInfo.imageLinks.thumbnail;
+            }
         }
 
         function addReview (newReview) {
