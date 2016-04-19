@@ -44,6 +44,7 @@
                     function(response){
                         $scope.users = response;
                     })
+
         }
 
         function selectUser(index){
