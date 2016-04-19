@@ -36,6 +36,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
+                                    <th>Cover</th>
                                     <th>Title</th>
                                     <th>Shelf</th>
                                     <th>Rating</th>
@@ -44,7 +45,14 @@
                                 <tbody>
                                 <tr ng-repeat="book in books">
                                     <td>
-                                        {{book.title}}
+                                        <a href="#/bookDetails/{{book.googleBooksId}}">
+                                            <img ng-src="{{book.imageURL}}">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#/bookDetails/{{book.googleBooksId}}">
+                                            {{book.title}}
+                                        </a>
                                     </td>
                                     <td>
                                         {{book.currentUserShelf.shelf}}
