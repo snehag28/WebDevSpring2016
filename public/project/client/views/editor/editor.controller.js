@@ -30,7 +30,7 @@
         $scope.selectArticle = selectArticle;
 
         $scope.$on('$locationChangeStart', function( event ) {
-            if($scope.isOneSelected == false){
+            if($scope.isOneSelected == false && $scope.editorials.length > 0){
                 $scope.error = "Editorial not selected";
                 event.preventDefault();
             }

@@ -28,7 +28,7 @@
         $scope.selectBOM = selectBOM;
 
         $scope.$on('$locationChangeStart', function( event ) {
-            if($scope.selectedCount < 3){
+            if($scope.selectedCount < 3 && $scope.boms.length >= 3){
                 $scope.error = "Please select 3 books";
                 event.preventDefault();
             }
