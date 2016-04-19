@@ -140,10 +140,14 @@
                                 <tbody>
                                 <tr ng-repeat="book in books">
                                     <td>
-                                        <img height="100px" ng-src="{{book.imageURL}}"/>
+                                        <a href="#/bookDetails/{{book.googleBooksId}}">
+                                            <img height="100px" ng-src="{{book.imageURL}}"/>
+                                        </a>
                                     </td>
                                     <td>
-                                        {{book.title}}
+                                        <a href="#/bookDetails/{{book.googleBooksId}}">
+                                            {{book.title}}
+                                        </a>
                                     </td>
                                     <td>
                                         <ul class="list-unstyled">
