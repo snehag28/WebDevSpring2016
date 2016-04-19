@@ -8,7 +8,7 @@
 
         $(document).ready(function(){
             $('.carousel').carousel({
-                interval: 4000
+                interval: 3000
             })
         });
 
