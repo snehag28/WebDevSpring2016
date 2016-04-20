@@ -36,19 +36,31 @@
                 //controller: "BookshelfController"
             })
             .when("/read", {
-                templateUrl: "client/views/books/bookshelf/read.view.html"
+                templateUrl: "client/views/books/bookshelf/read.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "BookshelfController"
             })
             .when("/current", {
-                templateUrl: "client/views/books/bookshelf/current.view.html"
+                templateUrl: "client/views/books/bookshelf/current.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "BookshelfController"
             })
             .when("/future", {
-                templateUrl: "client/views/books/bookshelf/future.view.html"
+                templateUrl: "client/views/books/bookshelf/future.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "BookshelfController"
             })
             .when("/people", {
-                templateUrl: "client/views/users/people/people.view.html"
+                templateUrl: "client/views/users/people/people.view.html",
+                resolve: {
+                    loggedin: checkLoggedin
+                }
                 //controller: "PeopleController"
             })
             .when("/member", {
@@ -155,11 +167,17 @@
                 //controller: "AdminController"
             })
             .when("/submitEditorial", {
-                templateUrl: "client/views/editor/submitEditorial.view.html"
+                templateUrl: "client/views/editor/submitEditorial.view.html",
+                resolve: {
+                    loggedin: checkEditor
+                }
                 //controller: "AdminController"
             })
             .when("/submitEditorial/:id", {
-                templateUrl: "client/views/editor/submitEditorial.view.html"
+                templateUrl: "client/views/editor/submitEditorial.view.html",
+                resolve: {
+                    loggedin: checkEditor
+                }
                 //controller: "AdminController"
             })
             .when("/logout", {
