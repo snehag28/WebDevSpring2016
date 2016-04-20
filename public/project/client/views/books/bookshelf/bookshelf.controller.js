@@ -45,6 +45,7 @@
                             var userShelf = {};
                             if(userIndex != -1){
                                 userShelf = $scope.books[i].userShelf[userIndex];
+                                console.log(userShelf);
                             }
                             $scope.books[i].currentUserShelf = userShelf;
                         }
@@ -53,17 +54,22 @@
         }
 
         function getBooksForUserByShelf(userId,shelf){
-            BookService.findAllBooksForUserByShelf(userId,shelf)
+            BookService.findAllBooksForUser(userId)
                 .then(
                     function(doc) {
-                        $scope.books = doc;
-                        for(var i = 0, len = $scope.books.length; i < len; i++ ) {
-                            var userIndex = arrayObjectIndexOf($scope.books[i].userShelf, userId, "userId");
-                            var currUserShelf = {};
+                        $scope.allBooks = doc;
+                        $scope.books = [];
+                        var removeIndices = [];
+                        for(var i = 0, len = $scope.allBooks.length; i < len; i++ ) {
+                            var userIndex = arrayObjectIndexOf($scope.allBooks[i].userShelf, userId, "userId");
+                            var userShelf = {};
                             if(userIndex != -1){
-                                currUserShelf = $scope.books[i].userShelf[userIndex];
+                                if($scope.allBooks[i].userShelf[userIndex].shelf == shelf) {
+                                    userShelf = $scope.allBooks[i].userShelf[userIndex];
+                                    $scope.allBooks[i].currentUserShelf = userShelf;
+                                    $scope.books.push($scope.allBooks[i]);
+                                }
                             }
-                            $scope.books[i].currentUserShelf = currUserShelf;
                         }
                     }
                 );
