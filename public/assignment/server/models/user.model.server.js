@@ -49,7 +49,7 @@ module.exports = function(db, mongoose) {
     }
 
     function findAllUsers() {
-        console.log("in model findallusers");
+        //console.log("in model findallusers");
         var deferred = q.defer();
 
         // find users with mongoose user model's find()
@@ -70,7 +70,7 @@ module.exports = function(db, mongoose) {
     }
 
     function createUser(user) {
-        console.log(user);
+        //console.log(user);
         var newUser = {
             "username": user.username,
             "password": user.password,
@@ -78,9 +78,10 @@ module.exports = function(db, mongoose) {
             "lastName": user.lastName,
             "emails" : [user.emails],
             "phones" : [user.phones],
-            "roles" : user.roles
+            "roles" : user.roles,
+            "type" : user.type
         };
-        console.log(newUser);
+        //console.log(newUser);
         var deferred = q.defer();
 
         UserModel.create(newUser, function (err, doc) {

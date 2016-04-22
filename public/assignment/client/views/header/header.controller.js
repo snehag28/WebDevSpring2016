@@ -6,7 +6,6 @@
 
     function HeaderController($scope, $rootScope, $location, UserService) {
         $scope.logout = logout;
-        console.log($rootScope.user);
 
         function logout() {
             UserService.logout()

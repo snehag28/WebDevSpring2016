@@ -9,7 +9,8 @@ module.exports = function(mongoose) {
         lastName: String,
         emails: [String],
         phones: [String],
-        roles: [String]
+        roles: [String],
+        type: String
         // collection property sets
         // collection name to 'user'
     }, {collection: 'assignment.user'});

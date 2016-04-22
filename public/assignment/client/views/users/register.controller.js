@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .controller("RegisterController",RegisterController);
 
-    function RegisterController($location,UserService){
+    function RegisterController($location,UserService,$rootScope){
         var vm = this;
         vm.register = register;
 
@@ -17,6 +17,7 @@
                         var currentUser = doc.data;
                         if( currentUser != null){
                             UserService.setUser(currentUser);
+                            //console.log($rootScope.user);
                             $location.url('/profile');
                         }
                     }

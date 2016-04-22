@@ -7,8 +7,5 @@
 
     function HomeController(){
 
-        // console.log("Home Params: " + $route.current.params);
-
-        console.log("in homecontroller");
     }
 })();

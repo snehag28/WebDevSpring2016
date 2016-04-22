@@ -13,6 +13,7 @@
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
+            updateUserByAdmin: updateUserByAdmin,
             findUserById: findUserById,
             setUser: setUser,
             getUser: getUser,
@@ -30,7 +31,7 @@
         }
 
         function findAllUsers() {
-            return $http.get("/api/assignment/user",$rootScope.user);
+            return $http.get("/api/assignment/admin/user",$rootScope.user);
         }
 
         function createUser(user) {
@@ -43,7 +44,7 @@
         }
 
         function deleteUserById(userId) {
-            return $http.delete("/api/assignment/user/"+userId);
+            return $http.delete("/api/assignment/admin/user/"+userId);
         }
 
         function findUserById(userId){
@@ -52,6 +53,10 @@
 
         function updateUser(userId, newUser) {
             return $http.put("/api/assignment/user/"+userId, newUser);
+        }
+
+        function updateUserByAdmin(userId, newUser) {
+            return $http.put("/api/assignment/admin/user/"+userId, newUser);
         }
 
         function setUser(newUser) {

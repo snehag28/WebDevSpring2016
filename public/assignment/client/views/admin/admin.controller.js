@@ -37,7 +37,7 @@
                         vm.users = doc.data;
                         vm.selectedUserIndex = null;
                         vm.newUser = {};
-                        console.log(vm.users);
+                        //console.log(vm.users);
                     }
                 );
         }
@@ -50,7 +50,7 @@
             newUser.lastName = changedUser.lastName;
             newUser.roles = changedUser.roles;
             UserService
-                .updateUser(changedUser._id, newUser)
+                .updateUserByAdmin(changedUser._id, newUser)
                 .then(
                     function(doc){
                         init();

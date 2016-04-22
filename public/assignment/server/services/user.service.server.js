@@ -18,20 +18,22 @@ module.exports = function(app, formUserModel){
     app.post  ('/api/assignment/admin/user',     createUser);
 
     app.get   ('/api/assignment/loggedin',       assignmentLoggedin);
-    app.get   ('/api/assignment/user',     auth, findAllUsers);
+    app.get   ('/api/assignment/admin/user',     auth, findAllUsers);
 
     app.put   ('/api/assignment/user/:id', auth, updateUser);
-    app.delete('/api/assignment/user/:id', auth, deleteUser);
+    app.put   ('/api/assignment/admin/user/:id', auth, updateUserByAdmin);
+    app.delete('/api/assignment/admin/user/:id', auth, deleteUser);
 
     function assignmentLocalStrategy(username, password, done) {
         formUserModel
-            .findUserByCredentials({username: username, password: password})
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if (!user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function(err) {
                     if (err) {
@@ -72,13 +74,14 @@ module.exports = function(app, formUserModel){
     }
 
     function assignmentLoggedin(req, res) {
-        console.log(req);
+        //console.log(req.user);
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
     function assignmentRegister(req, res) {
         var newUser = req.body;
         newUser.roles = ['student'];
+        newUser.type = 'assignment';
 
         formUserModel
             .findUserByUsername(newUser.username)
@@ -87,6 +90,7 @@ module.exports = function(app, formUserModel){
                     if(user) {
                         res.json(null);
                     } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return formUserModel.createUser(newUser);
                     }
                 },
@@ -113,8 +117,8 @@ module.exports = function(app, formUserModel){
     }
 
     function findAllUsers(req, res) {
-        console.log(req.user);
-        if(isAdmin(req.user)) {
+        //console.log(req.user);
+        if(isAdmin(req)) {
             formUserModel
                 .findAllUsers()
                 .then(
@@ -131,8 +135,7 @@ module.exports = function(app, formUserModel){
     }
 
     function deleteUser(req, res) {
-        if(isAdmin(req.user)) {
-
+        if(isAdmin(req)) {
             formUserModel
                 .deleteUserById(req.params.id)
                 .then(
@@ -150,7 +153,7 @@ module.exports = function(app, formUserModel){
 
     function updateUser(req, res) {
         var newUser = req.body;
-        if(!isAdmin(req.user)) {
+        if(!isAdmin(req)) {
             delete newUser.roles;
         }
         if(typeof newUser.roles == "string") {
@@ -166,7 +169,32 @@ module.exports = function(app, formUserModel){
                 function(err){
                     res.status(400).send(err);
                 }
-            )
+            );
+    }
+
+    function updateUserByAdmin(req, res) {
+        if(isAdmin(req)) {
+            var newUser = req.body;
+            if(!isAdmin(req)) {
+                delete newUser.roles;
+            }
+            if(typeof newUser.roles == "string") {
+                newUser.roles = newUser.roles.split(",");
+            }
+
+            formUserModel
+                .updateUserById(req.params.id, newUser)
+                .then(
+                    function(user){
+                        res.json(user);
+                    },
+                    function(err){
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
     }
 
     function createUser(req, res) {
@@ -214,8 +242,8 @@ module.exports = function(app, formUserModel){
             )
     }
 
-    function isAdmin(user) {
-        return (user.roles.indexOf("admin") > -1);
+    function isAdmin(req) {
+        return (req.isAuthenticated() && req.user.roles.indexOf("admin") > -1);
     }
 
     function authorized (req, res, next) {
