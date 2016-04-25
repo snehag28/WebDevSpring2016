@@ -73,7 +73,7 @@ module.exports = function(app, projectUserModel){
     function projectLogout(req, res) {
         //console.log("in project logout");
         req.logOut();
-        //req.session.destroy();
+        req.session.destroy();
         res.send(200);
     }
 
