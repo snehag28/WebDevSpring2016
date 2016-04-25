@@ -8,10 +8,10 @@
         $scope.logout = logout;
 
         function logout() {
+            $rootScope.user = null;
             UserService.logout()
                 .then(
                     function (response) {
-                        $rootScope.user = null;
                         $location.url("/home");
                     },
                     function (err) {
